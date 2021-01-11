@@ -2,9 +2,9 @@
 
 # CIH_Toolkit
 
-Classes and methods used for the Construction Innovation Hub (CIH) projects.
+This repo is a Toolkit for the Building and Habitat Object Model (BHoM, https://github.com/BHoM).
 
-This repo will mainly be used as a container for classes and experiment linked to the Configurator project.
+It will mainly be used as a container for classes and experiment linked to the Configurator project (a project of the Construction Innovation Hub, **_CIH_**).
 
 
 
