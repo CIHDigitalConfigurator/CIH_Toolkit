@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CC3149B9-36DA-4298-AB1D-DFB589023BD7}</ProjectGuid>
+    <ProjectGuid>{8F9CB616-A870-4D8E-BCC5-070CFB4413FF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BH.oM.CIH</RootNamespace>
-    <AssemblyName>CIH_oM</AssemblyName>
+    <RootNamespace>CIH_Engine</RootNamespace>
+    <AssemblyName>CIH_Engine</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Build\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,17 +25,14 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Build\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BHoM">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM.dll</HintPath>
-    </Reference>
-    <Reference Include="Data_oM">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\BHoM.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,25 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Checks\CheckResult.cs" />
-    <Compile Include="Checks\ICheck.cs" />
-    <Compile Include="Enums\BooleanOperator.cs" />
-    <Compile Include="Filters\IdFilter.cs" />
-    <Compile Include="Filters\TypeFilter.cs" />
-    <Compile Include="Filters\ILogicalFilter.cs" />
-    <Compile Include="Filters\IFilter.cs" />
+    <Compile Include="Compute\ApplyFilter.cs" />
+    <Compile Include="Compute\ApplyCheck.cs" />
+    <Compile Include="Compute\ApplySpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Specifications\ISpecification.cs" />
-    <Compile Include="Specifications\Specification.cs" />
-    <Compile Include="Specifications\SpecificationResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Objects\" />
+    <ProjectReference Include="..\CIH_oM\CIH_oM.csproj">
+      <Project>{CC3149B9-36DA-4298-AB1D-DFB589023BD7}</Project>
+      <Name>CIH_oM</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
 xcopy "$(TargetDir)$(TargetFileName)"  "C:\ProgramData\BHoM\Assemblies" /Y
-    </PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
 </Project>
