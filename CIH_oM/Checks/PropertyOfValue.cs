@@ -21,17 +21,21 @@
  */
 
 using BH.oM.Base;
+using BH.oM.Data.Collections;
+using BH.oM.Data.Filters;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 
 namespace BH.oM.Data.Checks
 {
-    public interface ICheck : IObject
+    public class PropertyOfValue : IPropertyCheck, INumericalCheck
     {
-        string Reason { get; set; }
-        Source Source { get; set; }
-        IFilter Filter { get; set; }
+        public string PropertyName { get; set; }
+        object Value { get; set; }
+        public double Tolerance { get; set; }
+        public Source Source { get; set; }
+        public string Reason { get; set; }
     }
 }
 

@@ -48,14 +48,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Checks\CheckResult.cs" />
-    <Compile Include="Checks\ICheck.cs" />
+    <Compile Include="Checks\Interfaces\INumericalCheck.cs" />
+    <Compile Include="Checks\PropertyInSet.cs" />
+    <Compile Include="Checks\PropertyOfValue.cs" />
+    <Compile Include="Checks\PropertyInRange.cs" />
+    <Compile Include="Checks\PropertyCheck.cs" />
+    <Compile Include="Checks\Interfaces\ICheck.cs" />
     <Compile Include="Enums\BooleanOperator.cs" />
     <Compile Include="Filters\IdFilter.cs" />
+    <Compile Include="Checks\Interfaces\ILogicalCheck.cs" />
     <Compile Include="Filters\TypeFilter.cs" />
-    <Compile Include="Filters\ILogicalFilter.cs" />
-    <Compile Include="Filters\IFilter.cs" />
+    <Compile Include="Filters\Interfaces\ILogicalFilter.cs" />
+    <Compile Include="Filters\Interfaces\IFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Specifications\ISpecification.cs" />
     <Compile Include="Specifications\Specification.cs" />
     <Compile Include="Specifications\SpecificationResult.cs" />
   </ItemGroup>
