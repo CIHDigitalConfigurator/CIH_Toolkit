@@ -1,4 +1,5 @@
-﻿using BH.oM.Data.Filters;
+﻿using BH.oM.Data.Checks;
+using BH.oM.Data.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        public static List<object> ApplyCheck(List<object> objects, ISpecification specification)
+        public static List<object> ApplyCheck(List<object> objects, ICheck check)
         {
             return null;
         }

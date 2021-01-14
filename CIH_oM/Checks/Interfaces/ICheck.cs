@@ -21,19 +21,17 @@
  */
 
 using BH.oM.Base;
-using BH.oM.Data.Checks;
 using BH.oM.Data.Filters;
+using BH.oM.Data.Library;
+using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data.Specifications
+namespace BH.oM.Data.Checks
 {
-    public class Specification : ISpecification
+    public interface ICheck : IObject
     {
-        public virtual string Name { get; set; }
-        public virtual string Description { get; set; }
-
-        public virtual IFilter Filter { get; set; } 
-        public virtual List<ICheck> Checks { get; set; }
+        Source Source { get; set; }
+        string Reason { get; set; }
     }
 }
 
