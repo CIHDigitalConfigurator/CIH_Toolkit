@@ -29,13 +29,23 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Checks
 {
-    public class PropertyOfValue : IPropertyCheck, INumericalCheck
+    public class PropertyValueCheck : IPropertyCheck
     {
-        public string PropertyName { get; set; }
-        object Value { get; set; }
-        public double Tolerance { get; set; }
-        public Source Source { get; set; }
-        public string Reason { get; set; }
+        public virtual string PropertyName { get; set; }
+        public virtual object Value { get; set; }
+        public virtual ValueComparison ValueComparison { get; set; } = ValueComparison.Equal;
+        public virtual object Tolerance { get; set; } = null; // could be a number, or a DateTime (e.g. ± 1 day), or anything measurable
+        public virtual Source Source { get; set; }
+        public virtual string Reason { get; set; }
+    }
+
+    public enum ValueComparison
+    {
+        SmallerThan,
+        SmallerThanOrEqual,
+        Equal,
+        LargerThanOrEqual,
+        LargerThan
     }
 }
 

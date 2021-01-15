@@ -29,13 +29,13 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Checks
 {
-    public class PropertyInDomain : IPropertyCheck, INumericalCheck
+    public class PropertyInDomain : IPropertyCheck
     {
-        public string PropertyName { get; set; }
-        Domain Domain { get; set; }
-        public double Tolerance { get; set; }
-        public Source Source { get; set; }
-        public string Reason { get; set; }
+        public virtual string PropertyName { get; set; }
+        public virtual Domain Domain { get; set; }
+        public virtual double Tolerance { get; set; }
+        public virtual Source Source { get; set; }
+        public virtual string Reason { get; set; }
     }
 }
 
