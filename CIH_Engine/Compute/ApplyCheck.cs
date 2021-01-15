@@ -10,7 +10,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        public static List<object> ApplyCheck(List<object> objects, ICheck check)
+        public static List<object> ApplyChecks(List<object> objects, List<ICheck> check)
         {
             return null;
         }

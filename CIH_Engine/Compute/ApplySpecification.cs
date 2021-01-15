@@ -11,12 +11,13 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        public static List<object> ApplySpecification(List<object> objects, Specification specification)
+        public static SpecificationResult ApplySpecification(List<object> objects, Specification specification)
         {
             // First apply filter to get relevant objects
-            List<object> filteredObjects = ApplyFilter(objects, specification.Filter);
+            List<object> filteredObjects = ApplyFilters(objects, specification.Filters);
 
             // Then apply the check to the filteredObject
+            List<object> checkedObjects = ApplyChecks(filteredObjects, specification.Checks);
 
             return null;
         }
