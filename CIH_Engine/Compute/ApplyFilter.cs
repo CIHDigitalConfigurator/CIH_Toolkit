@@ -9,7 +9,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        public static List<object> ApplyFilter(List<object> objects, IFilter filter)
+        public static List<object> ApplyFilters(List<object> objects, List<IFilter> filter)
         {
             return null;
         }

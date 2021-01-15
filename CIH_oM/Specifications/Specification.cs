@@ -32,7 +32,7 @@ namespace BH.oM.Data.Specifications
         public virtual string Name { get; set; }
         public virtual string Description { get; set; }
 
-        public virtual IFilter Filter { get; set; } 
+        public virtual List<IFilter> Filters { get; set; } 
         public virtual List<ICheck> Checks { get; set; }
     }
 }
