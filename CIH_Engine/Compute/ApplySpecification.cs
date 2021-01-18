@@ -14,7 +14,7 @@ namespace BH.Engine.CIH
         public static SpecificationResult ApplySpecification(List<object> objects, Specification specification)
         {
             // First apply filter to get relevant objects
-            List<object> filteredObjects = ApplyFilters(objects, specification.Filters);
+            List<object> filteredObjects = ApplyFilters(objects, specification.Filters).PassedObject;
 
             // Then apply the check to the filteredObject
             List<object> checkedObjects = ApplyChecks(filteredObjects, specification.Checks);

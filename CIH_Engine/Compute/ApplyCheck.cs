@@ -54,6 +54,8 @@ namespace BH.Engine.CIH
                 }
                 else
                 {
+                    // Consider some way to compare objects 
+
                     result.Passed = valueCheck.Value == propertyValue;
 
                     //if (valueCheck.ValueComparison == ValueComparison.Equal)
