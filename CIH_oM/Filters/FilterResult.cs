@@ -21,12 +21,15 @@
  */
 
 using BH.oM.Base;
+using System;
+using System.Collections.Generic;
 
-namespace BH.oM.Data
+namespace BH.oM.Data.Filters
 {
-    public interface IResult : IObject
+    public class FilterResult : IObject
     {
+        public virtual List<object> PassedObject { get; set; } = new List<object>();
+        public virtual List<object> BlockedObjects { get; set; } = new List<object>();
+        public virtual List<bool> Pattern { get; set; } = new List<bool>();
     }
 }
-
-
