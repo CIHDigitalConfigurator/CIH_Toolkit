@@ -23,15 +23,16 @@
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data.Filters
+namespace BH.oM.Data.Conditions
 {
-    public class CustomDataFilter : IFilter
+    public class FragmentCondition : BaseCondition
     {
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
 
-        public virtual string CustomData { get; set; } = null;
+        public virtual Type FragmentType { get; set; } = null;
+        public virtual string FragmentProperty { get; set; } = null;
         public virtual object Value { get; set; } = null;
 
         /***************************************************/

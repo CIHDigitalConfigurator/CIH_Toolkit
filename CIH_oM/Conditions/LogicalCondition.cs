@@ -23,18 +23,19 @@
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data.Filters
+namespace BH.oM.Data.Conditions
 {
-    public class IdFilter : IFilter
+    public class LogicalCondition : BaseCondition
     {
         /***************************************************/
-        /**** Properties                                ****/
+        /****                Properties                 ****/
         /***************************************************/
 
-        public virtual List<object> Ids { get; set; } = null;
+        public virtual List<ICondition> Conditions { get; set; } = new List<ICondition>();
+
+        public virtual BooleanOperator BooleanOperator { get; set; }
 
         /***************************************************/
     }
 }
-
 

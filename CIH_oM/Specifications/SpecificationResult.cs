@@ -21,6 +21,7 @@
  */
 
 using BH.oM.Base;
+using BH.oM.Data.Conditions;
 using System;
 using System.Collections.Generic;
 
@@ -28,8 +29,9 @@ namespace BH.oM.Data.Specifications
 {
     public class SpecificationResult : IObject
     {
-        List<object> AllRelevantObjects { get; set; } = new List<object>();
-        List<object> PassedObjects { get; set; } = new List<object>();
-        List<object> RelevantObjects { get; set; } = new List<object>();
+        public virtual List<object> PassedObjects { get; set; } = new List<object>();
+        public virtual List<object> FailedObjects { get; set; } = new List<object>();
+        public virtual List<object> NotAssessedObjects { get; set; } = new List<object>();
+        public virtual Specification Specification { get; set; }
     }
 }

@@ -20,19 +20,18 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Base;
-using BH.oM.Data.Filters;
-using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data.Checks
+namespace BH.oM.Data
 {
-    public interface ICheck : IObject
+    public enum ValueComparison
     {
-        Source Source { get; set; }
-        string Reason { get; set; }
+        SmallerThan,
+        SmallerThanOrEqual,
+        Equal,
+        LargerThanOrEqual,
+        LargerThan
     }
 }
-
 

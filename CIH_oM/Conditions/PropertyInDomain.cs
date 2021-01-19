@@ -20,20 +20,20 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Base;
+using BH.oM.Data.Collections;
+using BH.oM.Data.Conditions;
+using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data.Filters
+namespace BH.oM.Data.Conditions
 {
-    public class TypeFilter : IFilter
+    public class PropertyInDomainCondition : BaseCondition, IPropertyCondition
     {
-        /***************************************************/
-        /**** Properties                                ****/
-        /***************************************************/
-
-        public virtual Type Type { get; set; } = null;
-
-        /***************************************************/
+        public virtual string PropertyName { get; set; }
+        public virtual Domain Domain { get; set; }
+        public virtual double Tolerance { get; set; }
     }
 }
 

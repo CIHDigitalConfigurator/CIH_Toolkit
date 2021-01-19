@@ -51,8 +51,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compute\ApplyFilter.cs" />
-    <Compile Include="Compute\ApplyCheck.cs" />
+    <Compile Include="Compute\ApplyCondition\ApplyPropertyValueCondition.cs" />
+    <Compile Include="Compute\ApplyCondition\ApplyPropertyInDomain.cs" />
+    <Compile Include="Compute\ApplyCondition\ApplyLogicalCondition.cs" />
+    <Compile Include="Compute\ApplyCondition\ApplyIdCondition.cs" />
+    <Compile Include="Compute\ApplyCondition\ApplyTypeCondition.cs" />
+    <Compile Include="Modify\SetCustomData.cs" />
+    <Compile Include="Compute\IApplyCondition.cs" />
     <Compile Include="Compute\ApplySpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

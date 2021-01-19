@@ -21,12 +21,15 @@
  */
 
 using BH.oM.Base;
+using System;
+using System.Collections.Generic;
 
-namespace BH.oM.Data.Filters
+namespace BH.oM.Data
 {
-    public interface IFilter : IObject
+    public class ConditionResult : IObject
     {
+        public virtual List<object> PassedObjects { get; set; } = new List<object>();
+        public virtual List<object> FailedObjects { get; set; } = new List<object>();
+        public virtual List<bool> Pattern { get; set; } = new List<bool>();
     }
 }
-
-

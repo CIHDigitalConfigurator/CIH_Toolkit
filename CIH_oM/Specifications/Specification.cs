@@ -21,8 +21,7 @@
  */
 
 using BH.oM.Base;
-using BH.oM.Data.Checks;
-using BH.oM.Data.Filters;
+using BH.oM.Data.Conditions;
 using System.Collections.Generic;
 
 namespace BH.oM.Data.Specifications
@@ -32,8 +31,8 @@ namespace BH.oM.Data.Specifications
         public virtual string Name { get; set; }
         public virtual string Description { get; set; }
 
-        public virtual List<IFilter> Filters { get; set; } 
-        public virtual List<ICheck> Checks { get; set; }
+        public virtual List<ICondition> FilterConditions { get; set; }
+        public virtual List<ICondition> CheckConditions { get; set; }
     }
 }
 

@@ -22,19 +22,17 @@
 
 using BH.oM.Base;
 using BH.oM.Data.Collections;
-using BH.oM.Data.Filters;
+using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data.Checks
+namespace BH.oM.Data.Conditions
 {
-    public class PropertyInSet : IPropertyCheck
+    public class PropertyInSet : BaseCondition, IPropertyCondition
     {
         public string PropertyName { get; set; }
         List<object> Set { get; set; }
-        public Source Source { get; set; }
-        public string Reason { get; set; }
     }
 }
 

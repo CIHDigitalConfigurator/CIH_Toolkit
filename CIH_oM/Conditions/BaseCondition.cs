@@ -20,23 +20,19 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Data.Checks;
+using BH.oM.Base;
+using BH.oM.Data.Conditions;
+using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data.Filters
+namespace BH.oM.Data.Conditions
 {
-    public class ILogicalCheck : IFilter
+    public abstract class BaseCondition : ICondition
     {
-        /***************************************************/
-        /****                Properties                 ****/
-        /***************************************************/
-
-        public virtual List<ICheck> Checks { get; set; } = new List<ICheck>();
-
-        public virtual BooleanOperator BooleanOperator { get; set; }
-
-        /***************************************************/
+        public virtual Source Source { get; set; }
+        public virtual string Comment { get; set; }
     }
 }
+
 
