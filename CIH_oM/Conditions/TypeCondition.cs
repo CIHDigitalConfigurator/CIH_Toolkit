@@ -20,30 +20,20 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Base;
-using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 
-namespace BH.oM.Data.Checks
+namespace BH.oM.Data.Conditions
 {
-    [Description("Describes the result of a Check on a single object.")]
-    public class CheckResult : IObject
+    public class TypeCondition : BaseCondition
     {
-        public virtual object Object { get; set; }
-        public virtual ICheck Check { get; set; }
-        public virtual bool Passed { get; set; } // alternative: CheckStatus Status
-    }
+        /***************************************************/
+        /**** Properties                                ****/
+        /***************************************************/
 
-    [Description("Describes the status of a Check: Passed, Failed, and 3 different Warning levels. Objects returned with a Warning are still considered `Passed`.")]
-    public enum CheckStatus
-    {
-        Passed, // The check on the object passed with no warning.
-        Warning_Severe, // The check on the object passed, but severe problems were found that need immediate attention.
-        Warning_Moderate, // The check on the object passed, but moderate problems were found that need attention.
-        Warning_Minor,  // The check on the object passed, but minor problems were found.
-        Failed // The check on the object failed.
+        public virtual Type Type { get; set; } = null;
+
+        /***************************************************/
     }
 }
 

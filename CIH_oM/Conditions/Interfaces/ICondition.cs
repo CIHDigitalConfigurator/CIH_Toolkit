@@ -21,16 +21,17 @@
  */
 
 using BH.oM.Base;
-using BH.oM.Data.Filters;
+using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data.Checks
+namespace BH.oM.Data.Conditions
 {
-    public interface IPropertyCheck : ICheck
+    public interface ICondition : IObject
     {
-        string PropertyName { get; set; }
+        Source Source { get; set; }
+        string Comment { get; set; }
     }
 }
 

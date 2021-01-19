@@ -20,22 +20,18 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Base;
+using BH.oM.Data.Conditions;
+using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data.Filters
+namespace BH.oM.Data.Conditions
 {
-    public class LogicalFilter : IFilter
+    public interface IPropertyCondition : ICondition
     {
-        /***************************************************/
-        /****                Properties                 ****/
-        /***************************************************/
-
-        public virtual List<IFilter> Filters { get; set; } = new List<IFilter>();
-
-        public virtual BooleanOperator BooleanOperator { get; set; }
-
-        /***************************************************/
+        string PropertyName { get; set; }
     }
 }
+
 
