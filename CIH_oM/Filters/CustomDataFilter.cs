@@ -25,17 +25,17 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Filters
 {
-    public class ILogicalFilter : IFilter
+    public class CustomDataFilter : IFilter
     {
         /***************************************************/
-        /****                Properties                 ****/
+        /**** Properties                                ****/
         /***************************************************/
 
-        public virtual List<IFilter> Filters { get; set; } = new List<IFilter>();
-
-        public virtual BooleanOperator BooleanOperator { get; set; }
+        public virtual string CustomData { get; set; } = null;
+        public virtual object Value { get; set; } = null;
 
         /***************************************************/
     }
 }
+
 

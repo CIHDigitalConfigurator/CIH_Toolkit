@@ -14,7 +14,7 @@ namespace BH.Engine.CIH
     {
         public static FilterResult ApplyFilters(List<object> objects, List<IFilter> filters, BooleanOperator booleanOperator = BooleanOperator.AND)
         {
-            return ApplyFilter(objects, new ILogicalFilter() { Filters = filters, BooleanOperator = booleanOperator });
+            return ApplyFilter(objects, new LogicalFilter() { Filters = filters, BooleanOperator = booleanOperator });
         }
 
         public static FilterResult IApplyFilter(List<object> objects, IFilter filter)
@@ -48,7 +48,7 @@ namespace BH.Engine.CIH
             {
                 IBHoMObject bhomObj = obj as IBHoMObject;
 
-                if (bhomObj == null || filter.Ids.Contains(bhomObj.FindFragment<IAdapterId>().Id))
+                if (bhomObj == null || filter.Ids.Contains(bhomObj.FindFragment<IAdapterId>()?.Id))
                 {
                     result.PassedObject.Add(obj);
                     result.Pattern.Add(true);
@@ -62,8 +62,17 @@ namespace BH.Engine.CIH
             return result;
         }
 
-        private static FilterResult ApplyFilter(List<object> objects, ILogicalFilter filter)
+        private static FilterResult ApplyFilter(List<object> objects, LogicalFilter filter)
         {
+            if (filter.BooleanOperator == BooleanOperator.NOT)
+            {
+                BH.Engine.Reflection.Compute.RecordError($"Boolean operator `{BooleanOperator.NOT}` is not applicable when combining filters.");
+                return null;
+            }
+
+            if (filter.Filters.Count > 1)
+                BH.Engine.Reflection.Compute.RecordNote($"A total of {filter.Filters.Count} filters were specified. The filters will be applied in sequential order: the result of the first filtering will be filtered by the second filter, and so on.");
+
             List<bool> passes = new List<bool>();
             Enumerable.Repeat(true, objects.Count);
 
@@ -100,7 +109,24 @@ namespace BH.Engine.CIH
 
         private static List<bool> AggreateBooleanSequences(IEnumerable<IEnumerable<bool>> lists, BooleanOperator booleanOperator = BooleanOperator.AND)
         {
-            return lists.Aggregate((a, b) => a.Zip(b, (aElement, bElement) => aElement && bElement)).ToList(); // TODO: lambdas for different operators
+            return lists.Aggregate((a, b) => a.Zip(b, (aElement, bElement) => BooleanOperation(aElement, bElement, booleanOperator))).ToList();
+        }
+
+        private static bool BooleanOperation(bool A, bool B, BooleanOperator booleanOperator)
+        {
+            switch (booleanOperator)
+            {
+                case (BooleanOperator.AND):
+                    return A && B;
+                case (BooleanOperator.OR):
+                    return A || B;
+                case (BooleanOperator.XOR):
+                    return A ^ B;
+                case (BooleanOperator.IMPLIES):
+                    return !A | B;
+                default:
+                    return false;
+            }
         }
     }
 }
