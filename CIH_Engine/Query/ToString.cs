@@ -12,14 +12,9 @@ namespace BH.Engine.CIH
 {
     public static partial class Query
     {
-        public static string Description(ICondition condition)
+        public static string ToString(IObject iObj)
         {
-            return condition.ToString();
-        }
-
-        public static string Description(ConditionResult condRes)
-        {
-            return condRes.Condition.ToString();
+            return iObj.ToString();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            return $"Must be of type `{Type.Name}`";
+            return $"must be of type `{Type.Name}`";
         }
     }
 }

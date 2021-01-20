@@ -36,7 +36,7 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            return $"Must be included in the set of values: {string.Join(", ", Set.Select(v => v.ToString()))}";
+            return $"must be included in the set of values: {string.Join(", ", Set.Select(v => v.ToString()))}";
         }
     }
 }
