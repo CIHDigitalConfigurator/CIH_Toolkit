@@ -39,7 +39,7 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            return $"Objects property `{PropertyName}` must comply with: {Condition.ToString()}";
+            return $"Property `{PropertyName}` {Condition.ToString()}";
         }
     }
 }

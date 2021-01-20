@@ -60,7 +60,7 @@
     <Compile Include="Compute\ApplyCondition\ApplyIdCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyCustomDataCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyTypeCondition.cs" />
-    <Compile Include="Query\Description.cs" />
+    <Compile Include="Query\ToString.cs" />
     <Compile Include="Modify\SetCustomData.cs" />
     <Compile Include="Compute\IApplyCondition.cs" />
     <Compile Include="Compute\ApplySpecification.cs" />

@@ -40,7 +40,7 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            return $"Objects must comply with the following conditions:\n\t - {string.Join($", {BooleanOperator}\n\t - ", Conditions.Select(c => c.ToString()))}";
+            return $" - {string.Join($", {BooleanOperator}\n\t - ", Conditions.Select(c => c.ToString()))}";
         }
     }
 }

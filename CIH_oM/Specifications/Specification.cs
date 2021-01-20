@@ -23,6 +23,7 @@
 using BH.oM.Base;
 using BH.oM.Data.Conditions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BH.oM.Data.Specifications
 {
@@ -33,6 +34,12 @@ namespace BH.oM.Data.Specifications
 
         public virtual List<ICondition> FilterConditions { get; set; }
         public virtual List<ICondition> CheckConditions { get; set; }
+
+        public override string ToString()
+        {
+            return $"This Specification {(string.IsNullOrWhiteSpace(Name) ? "" : $"`{Name}` ")}requires all objects that respect the following conditions:\n\t - {string.Join(",\n\t - ", FilterConditions.Select(c => c.ToString()))}\n" +
+                $"to comply with the following conditions:\n\t - {string.Join(",\n\t - ", CheckConditions.Select(c => c.ToString()))}";
+        }
     }
 }
 

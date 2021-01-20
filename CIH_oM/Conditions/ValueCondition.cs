@@ -45,7 +45,7 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            return $"Must be {ValueComparison} `{ReferenceValue.ToString()}`";
+            return $"must be {ValueComparison} `{ReferenceValue.ToString()}`";
         }
     }
 }
