@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BH.oM.Data.Conditions
 {
@@ -34,6 +35,11 @@ namespace BH.oM.Data.Conditions
         public virtual List<object> Ids { get; set; } = null;
 
         /***************************************************/
+
+        public override string ToString()
+        {
+            return $"Only BHoMObjects with one of the following Ids: {string.Join(",", Ids.Select(o => o.ToString()))}";
+        }
     }
 }
 

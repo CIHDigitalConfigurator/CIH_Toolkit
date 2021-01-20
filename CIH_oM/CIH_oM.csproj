@@ -54,9 +54,9 @@
     <Compile Include="Conditions\Interfaces\ICondition.cs" />
     <Compile Include="Conditions\Interfaces\IPropertyCondition.cs" />
     <Compile Include="Conditions\LogicalCondition.cs" />
-    <Compile Include="Conditions\PropertyNullCondition.cs" />
-    <Compile Include="Conditions\PropertyInDomain.cs" />
-    <Compile Include="Conditions\PropertyInSet.cs" />
+    <Compile Include="Conditions\ValueNullCondition.cs" />
+    <Compile Include="Conditions\ValueInDomain.cs" />
+    <Compile Include="Conditions\ValueInSet.cs" />
     <Compile Include="Conditions\PropertyCondition.cs" />
     <Compile Include="Conditions\ValueCondition.cs" />
     <Compile Include="Conditions\TypeCondition.cs" />

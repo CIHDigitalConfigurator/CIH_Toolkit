@@ -14,7 +14,7 @@ namespace BH.Engine.CIH
     {
         private static ConditionResult ApplyCondition(List<object> objects, CustomDataCondition customDataCondition)
         {
-            ConditionResult result = new ConditionResult();
+            ConditionResult result = new ConditionResult() { Condition = customDataCondition };
             foreach (var obj in objects)
             {
                 IBHoMObject bhomObj = obj as IBHoMObject;
@@ -27,7 +27,7 @@ namespace BH.Engine.CIH
                     ConditionResult subConditionResult = new ConditionResult();
                     subConditionResult = IApplyCondition(new List<object>() { customDataValue }, customDataCondition.Condition);
 
-                    if (result.Pattern.TrueForAll(v => v == true))
+                    if (subConditionResult.Pattern.TrueForAll(v => v == true))
                     {
                         result.PassedObjects.Add(obj);
                         result.Pattern.Add(true);

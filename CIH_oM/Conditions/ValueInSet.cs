@@ -26,13 +26,18 @@ using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BH.oM.Data.Conditions
 {
-    public class DomainCondition : BaseCondition
+    public class ValueInSet : BaseCondition 
     {
-        public virtual Domain Domain { get; set; }
-        public virtual double Tolerance { get; set; }
+        List<object> Set { get; set; }
+
+        public override string ToString()
+        {
+            return $"Must be included in the set of values: {string.Join(", ", Set.Select(v => v.ToString()))}";
+        }
     }
 }
 

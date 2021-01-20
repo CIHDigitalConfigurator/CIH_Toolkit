@@ -25,7 +25,7 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data
 {
-    public enum PropertyNullConditions
+    public enum ValueNullConditions
     {
         MustBeNotNull,
         MustBeNull

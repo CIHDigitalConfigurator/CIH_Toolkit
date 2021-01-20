@@ -32,9 +32,14 @@ namespace BH.oM.Data.Conditions
         /***************************************************/
 
         public virtual Type FragmentType { get; set; }
-        public virtual IPropertyCondition Condition { get; set; }
+        public virtual ICondition Condition { get; set; }
 
         /***************************************************/
+
+        public override string ToString()
+        {
+            return $"Fragment of type {FragmentType.Name} must comply with {Condition.ToString()}";
+        }
     }
 }
 

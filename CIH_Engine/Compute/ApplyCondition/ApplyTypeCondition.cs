@@ -14,7 +14,7 @@ namespace BH.Engine.CIH
     {
         private static ConditionResult ApplyCondition(List<object> objects, TypeCondition typeCondition)
         {
-            ConditionResult result = new ConditionResult();
+            ConditionResult result = new ConditionResult() { Condition = typeCondition };
             foreach (var obj in objects)
             {
                 if (obj.GetType() == typeCondition.Type)

@@ -14,7 +14,7 @@ namespace BH.Engine.CIH
     {
         private static ConditionResult ApplyCondition(List<object> objects, FragmentCondition fragmentCondition)
         {
-            ConditionResult result = new ConditionResult();
+            ConditionResult result = new ConditionResult() { Condition = fragmentCondition };
             foreach (var obj in objects)
             {
                 IBHoMObject bhomObj = obj as IBHoMObject;

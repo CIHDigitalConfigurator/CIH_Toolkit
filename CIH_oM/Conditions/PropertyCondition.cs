@@ -36,6 +36,11 @@ namespace BH.oM.Data.Conditions
         public virtual string PropertyName { get; set; }
 
         public virtual ICondition Condition { get; set; }
+
+        public override string ToString()
+        {
+            return $"Objects property `{PropertyName}` must comply with: {Condition.ToString()}";
+        }
     }
 }
 

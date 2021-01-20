@@ -29,9 +29,14 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Conditions
 {
-    public class ValueInSet : BaseCondition 
+    public class ValueNullCondition : BaseCondition
     {
-        List<object> Set { get; set; }
+        public virtual ValueNullConditions NullCondition { get; set; } = ValueNullConditions.MustBeNotNull;
+
+        public override string ToString()
+        {
+            return $"{NullCondition}";
+        }
     }
 }
 
