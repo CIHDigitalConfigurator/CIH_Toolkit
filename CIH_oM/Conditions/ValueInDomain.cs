@@ -29,9 +29,15 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Conditions
 {
-    public class PropertyNullCondition : BaseCondition
+    public class DomainCondition : BaseCondition
     {
-        public virtual PropertyNullConditions NullCondition { get; set; } = PropertyNullConditions.MustBeNotNull;
+        public virtual Domain Domain { get; set; }
+        public virtual double Tolerance { get; set; }
+
+        public override string ToString()
+        {
+            return $"Must be included between {Domain.Min} and {Domain.Max}";
+        }
     }
 }
 

@@ -38,7 +38,7 @@ namespace BH.Engine.CIH
             IEnumerable<IEnumerable<bool>> patterns = results.Select(r => r.Pattern);
             List<bool> bools = AggreateBooleanSequences(patterns, logicalCondition.BooleanOperator);
 
-            ConditionResult result = new ConditionResult();
+            ConditionResult result = new ConditionResult() { Condition = logicalCondition };
 
             if (bools.Count != objects.Count)
             {

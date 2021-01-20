@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BH.oM.Data.Conditions
 {
@@ -36,6 +37,11 @@ namespace BH.oM.Data.Conditions
         public virtual BooleanOperator BooleanOperator { get; set; }
 
         /***************************************************/
+
+        public override string ToString()
+        {
+            return $"Objects must comply with the following conditions:\n\t - {string.Join($", {BooleanOperator}\n\t - ", Conditions.Select(c => c.ToString()))}";
+        }
     }
 }
 

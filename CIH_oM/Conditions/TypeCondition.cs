@@ -34,6 +34,11 @@ namespace BH.oM.Data.Conditions
         public virtual Type Type { get; set; } = null;
 
         /***************************************************/
+
+        public override string ToString()
+        {
+            return $"Must be of type `{Type.Name}`";
+        }
     }
 }
 

@@ -18,7 +18,7 @@ namespace BH.Engine.CIH
                 return null;
 
             if (objects == null || objects.Count == 0)
-                return new ConditionResult();
+                return new ConditionResult() { Condition = condition };
 
             return ApplyCondition(objects, condition as dynamic);
         }

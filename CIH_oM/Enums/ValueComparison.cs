@@ -28,9 +28,9 @@ namespace BH.oM.Data
     public enum ValueComparison
     {
         SmallerThan,
-        SmallerThanOrEqual,
-        Equal,
-        LargerThanOrEqual,
+        SmallerThanOrEqualTo,
+        EqualTo,
+        LargerThanOrEqualTo,
         LargerThan
     }
 }

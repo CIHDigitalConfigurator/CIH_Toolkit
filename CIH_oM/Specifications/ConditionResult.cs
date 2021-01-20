@@ -21,6 +21,7 @@
  */
 
 using BH.oM.Base;
+using BH.oM.Data.Conditions;
 using System;
 using System.Collections.Generic;
 
@@ -28,6 +29,7 @@ namespace BH.oM.Data
 {
     public class ConditionResult : IObject
     {
+        public virtual ICondition Condition { get; set; }
         public virtual List<object> PassedObjects { get; set; } = new List<object>();
         public virtual List<object> FailedObjects { get; set; } = new List<object>();
         public virtual List<bool> Pattern { get; set; } = new List<bool>();

@@ -14,34 +14,36 @@ namespace BH.Engine.CIH
     {
         private static ConditionResult ApplyCondition(List<object> objects, ValueCondition valueCondition)
         {
-            ConditionResult result = new ConditionResult();
+            ConditionResult result = new ConditionResult() { Condition = valueCondition };
 
             foreach (var obj in objects)
             {
                 bool passed = true;
+                double numericalValue;
 
-                double actualValue;
-                if (valueCondition.ReferenceValue != null && double.TryParse(valueCondition.ReferenceValue.ToString(), out actualValue))
+                if (valueCondition.ReferenceValue != null && obj == null)
+                    passed = false;
+                else if (valueCondition.ReferenceValue != null && double.TryParse(obj.ToString(), out numericalValue))
                 {
-                    double requestedValue = Convert.ToDouble(valueCondition.ReferenceValue);
+                    double requestedNumbericalValue = Convert.ToDouble(valueCondition.ReferenceValue);
                     double tolerance = valueCondition.Tolerance == null ? 1e-03 : Convert.ToDouble(valueCondition.Tolerance);
 
                     switch (valueCondition.ValueComparison)
                     {
-                        case (ValueComparison.Equal):
-                            passed = requestedValue - tolerance <= actualValue && actualValue <= requestedValue + tolerance;
+                        case (ValueComparison.EqualTo):
+                            passed = requestedNumbericalValue - tolerance <= numericalValue && numericalValue <= requestedNumbericalValue + tolerance;
                             break;
                         case (ValueComparison.SmallerThan):
-                            passed = actualValue < requestedValue + tolerance;
+                            passed = numericalValue < requestedNumbericalValue + tolerance;
                             break;
-                        case (ValueComparison.SmallerThanOrEqual):
-                            passed = actualValue <= requestedValue + tolerance;
+                        case (ValueComparison.SmallerThanOrEqualTo):
+                            passed = numericalValue <= requestedNumbericalValue + tolerance;
                             break;
-                        case (ValueComparison.LargerThanOrEqual):
-                            passed = actualValue >= requestedValue + tolerance;
+                        case (ValueComparison.LargerThanOrEqualTo):
+                            passed = numericalValue >= requestedNumbericalValue + tolerance;
                             break;
                         case (ValueComparison.LargerThan):
-                            passed = actualValue > requestedValue + tolerance;
+                            passed = numericalValue > requestedNumbericalValue + tolerance;
                             break;
                         default:
                             passed = false;
@@ -79,6 +81,6 @@ namespace BH.Engine.CIH
             return result;
         }
 
-     
+
     }
 }

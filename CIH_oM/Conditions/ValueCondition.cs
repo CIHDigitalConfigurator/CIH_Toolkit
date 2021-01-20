@@ -37,11 +37,16 @@ namespace BH.oM.Data.Conditions
         public virtual object ReferenceValue { get; set; }
 
         [Description("Whether the property value should be smaller, greater, etc. than the ReferenceValue.")]
-        public virtual ValueComparison ValueComparison { get; set; } = ValueComparison.Equal;
+        public virtual ValueComparison ValueComparison { get; set; } = ValueComparison.EqualTo;
 
         [Description("If applicable, tolerance to be considered in the comparison." +
             "\nIt can be a number, or a DateTime (e.g. ± 1 day), or anything comparable with the property value.")]
         public virtual object Tolerance { get; set; } = null;
+
+        public override string ToString()
+        {
+            return $"Must be {ValueComparison} `{ReferenceValue.ToString()}`";
+        }
     }
 }
 

@@ -15,7 +15,7 @@ namespace BH.Engine.CIH
     {
         private static ConditionResult ApplyCondition(List<object> objects, PropertyCondition propertyCondition)
         {
-            ConditionResult result = new ConditionResult();
+            ConditionResult result = new ConditionResult() { Condition = propertyCondition };
 
             foreach (var obj in objects)
             {
