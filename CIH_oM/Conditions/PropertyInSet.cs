@@ -29,9 +29,8 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Conditions
 {
-    public class PropertyInSet : BaseCondition, IPropertyCondition
+    public class ValueInSet : BaseCondition 
     {
-        public string PropertyName { get; set; }
         List<object> Set { get; set; }
     }
 }

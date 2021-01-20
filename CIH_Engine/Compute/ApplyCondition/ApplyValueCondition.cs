@@ -12,14 +12,8 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, PropertyValueCondition propertyValueCondition)
+        private static ConditionResult ApplyCondition(List<object> objects, ValueCondition valueCondition)
         {
-            if (propertyValueCondition == null)
-            {
-                BH.Engine.Reflection.Compute.RecordError("Specified condition is null.");
-                return null;
-            }
-
             ConditionResult result = new ConditionResult();
 
             foreach (var obj in objects)
@@ -27,12 +21,12 @@ namespace BH.Engine.CIH
                 bool passed = true;
 
                 double actualValue;
-                if (double.TryParse(propertyValueCondition.Value.ToString(), out actualValue))
+                if (valueCondition.ReferenceValue != null && double.TryParse(valueCondition.ReferenceValue.ToString(), out actualValue))
                 {
-                    double requestedValue = Convert.ToDouble(propertyValueCondition.Value);
-                    double tolerance = propertyValueCondition.Tolerance == null ? 1e-03 : Convert.ToDouble(propertyValueCondition.Tolerance);
+                    double requestedValue = Convert.ToDouble(valueCondition.ReferenceValue);
+                    double tolerance = valueCondition.Tolerance == null ? 1e-03 : Convert.ToDouble(valueCondition.Tolerance);
 
-                    switch (propertyValueCondition.ValueComparison)
+                    switch (valueCondition.ValueComparison)
                     {
                         case (ValueComparison.Equal):
                             passed = requestedValue - tolerance <= actualValue && actualValue <= requestedValue + tolerance;

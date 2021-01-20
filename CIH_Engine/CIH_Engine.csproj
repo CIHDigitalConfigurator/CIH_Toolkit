@@ -51,10 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compute\ApplyCondition\ApplyPropertyValueCondition.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplyPropertyInDomain.cs" />
+    <Compile Include="Compute\ApplyCondition\ApplyFragmentCondition.cs" />
+    <Compile Include="Compute\ApplyCondition\ApplyPropertyCondition.cs" />
+    <Compile Include="Compute\CheckForNull.cs" />
+    <Compile Include="Compute\ApplyCondition\ApplyValueCondition.cs" />
+    <Compile Include="Compute\ApplyCondition\ApplyDomainCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyLogicalCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyIdCondition.cs" />
+    <Compile Include="Compute\ApplyCondition\ApplyCustomDataCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyTypeCondition.cs" />
     <Compile Include="Modify\SetCustomData.cs" />
     <Compile Include="Compute\IApplyCondition.cs" />

@@ -20,22 +20,15 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Base;
-using BH.oM.Data.Collections;
-using BH.oM.Data.Conditions;
-using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.Data
 {
-    public class PropertyValueCondition : BaseCondition, IPropertyCondition
+    public enum PropertyNullConditions
     {
-        public virtual string PropertyName { get; set; }
-        public virtual object Value { get; set; }
-        public virtual ValueComparison ValueComparison { get; set; } = ValueComparison.Equal;
-        public virtual object Tolerance { get; set; } = null; // could be a number, or a DateTime (e.g. ± 1 day), or anything measurable
+        MustBeNotNull,
+        MustBeNull
     }
 }
-
 

@@ -29,10 +29,9 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Conditions
 {
-    public class DomainCondition : BaseCondition
+    public class PropertyNullCondition : BaseCondition
     {
-        public virtual Domain Domain { get; set; }
-        public virtual double Tolerance { get; set; }
+        public virtual PropertyNullConditions NullCondition { get; set; } = PropertyNullConditions.MustBeNotNull;
     }
 }
 

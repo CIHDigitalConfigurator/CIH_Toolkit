@@ -54,10 +54,13 @@
     <Compile Include="Conditions\Interfaces\ICondition.cs" />
     <Compile Include="Conditions\Interfaces\IPropertyCondition.cs" />
     <Compile Include="Conditions\LogicalCondition.cs" />
+    <Compile Include="Conditions\PropertyNullCondition.cs" />
     <Compile Include="Conditions\PropertyInDomain.cs" />
     <Compile Include="Conditions\PropertyInSet.cs" />
-    <Compile Include="Conditions\PropertyValueCondition.cs" />
+    <Compile Include="Conditions\PropertyCondition.cs" />
+    <Compile Include="Conditions\ValueCondition.cs" />
     <Compile Include="Conditions\TypeCondition.cs" />
+    <Compile Include="Enums\PropertyNullConditions.cs" />
     <Compile Include="Enums\BooleanOperator.cs" />
     <Compile Include="Enums\ValueComparison.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

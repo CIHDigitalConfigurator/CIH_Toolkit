@@ -26,13 +26,16 @@ using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
-    public class DomainCondition : BaseCondition
+    public class PropertyCondition : BaseCondition, IPropertyCondition
     {
-        public virtual Domain Domain { get; set; }
-        public virtual double Tolerance { get; set; }
+        [Description("Property whose value is to be subject to the condition.")]
+        public virtual string PropertyName { get; set; }
+
+        public virtual ICondition Condition { get; set; }
     }
 }
 
