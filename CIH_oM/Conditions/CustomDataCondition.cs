@@ -31,8 +31,8 @@ namespace BH.oM.Data.Conditions
         /**** Properties                                ****/
         /***************************************************/
 
-        public virtual string CustomDataKey { get; set; } = null;
-        public virtual object Value { get; set; } = null;
+        public virtual string CustomDataKey { get; set; }
+        public virtual IPropertyCondition Condition { get; set; }
 
         /***************************************************/
     }

@@ -31,9 +31,8 @@ namespace BH.oM.Data.Conditions
         /**** Properties                                ****/
         /***************************************************/
 
-        public virtual Type FragmentType { get; set; } = null;
-        public virtual string FragmentProperty { get; set; } = null;
-        public virtual object Value { get; set; } = null;
+        public virtual Type FragmentType { get; set; }
+        public virtual IPropertyCondition Condition { get; set; }
 
         /***************************************************/
     }

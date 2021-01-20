@@ -14,12 +14,18 @@ namespace BH.Engine.CIH
     {
         public static ConditionResult IApplyCondition(List<object> objects, ICondition condition)
         {
+            if (IsAnyConditionNull(condition))
+                return null;
+
+            if (objects == null || objects.Count == 0)
+                return new ConditionResult();
+
             return ApplyCondition(objects, condition as dynamic);
         }
 
         public static ConditionResult ApplyConditions(List<object> objects, List<ICondition> conditions, BooleanOperator booleanOperator = BooleanOperator.AND)
         {
-            return ApplyCondition(objects, new LogicalCondition() { Conditions = conditions, BooleanOperator = booleanOperator });
+            return IApplyCondition(objects, new LogicalCondition() { Conditions = conditions, BooleanOperator = booleanOperator });
         }
 
         //Fallback

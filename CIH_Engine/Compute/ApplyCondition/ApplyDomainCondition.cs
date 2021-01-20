@@ -13,14 +13,8 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, PropertyInDomainCondition propertyInDomainCondition)
+        private static ConditionResult ApplyCondition(List<object> objects, DomainCondition domainCondition)
         {
-            if (propertyInDomainCondition == null)
-            {
-                BH.Engine.Reflection.Compute.RecordError("Specified condition is null.");
-                return null;
-            }
-
             ConditionResult result = new ConditionResult();
 
             foreach (var obj in objects)
@@ -29,11 +23,11 @@ namespace BH.Engine.CIH
 
                 double number;
                 if (double.TryParse(obj.ToString(), out number))
-                    passed = NumberInDomain((long)number, propertyInDomainCondition.Domain, propertyInDomainCondition.Tolerance);
+                    passed = NumberInDomain((long)number, domainCondition.Domain, domainCondition.Tolerance);
                 else if (obj is DateTime)
                 {
                     DateTime? dt = obj as DateTime?;
-                    passed = NumberInDomain(dt.Value.Ticks, propertyInDomainCondition.Domain, propertyInDomainCondition.Tolerance);
+                    passed = NumberInDomain(dt.Value.Ticks, domainCondition.Domain, domainCondition.Tolerance);
                 }
 
                 if (passed)
