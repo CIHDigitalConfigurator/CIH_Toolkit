@@ -37,7 +37,7 @@ namespace BH.oM.Data.Specifications
 
         public override string ToString()
         {
-            return $"This Specification {(string.IsNullOrWhiteSpace(Name) ? "" : $"`{Name}` ")}requires all objects that respect the following conditions:\n\t - {string.Join(",\n\t - ", FilterConditions.Select(c => c.ToString()))}\n" +
+            return $"This Specification {(string.IsNullOrWhiteSpace(Name) ? "" : $"`{Name}` ")}requires objects that respect the following conditions:\n\t - {string.Join(",\n\t - ", FilterConditions.Select(c => c.ToString()))}\n" +
                 $"to comply with the following conditions:\n\t - {string.Join(",\n\t - ", CheckConditions.Select(c => c.ToString()))}";
         }
     }
