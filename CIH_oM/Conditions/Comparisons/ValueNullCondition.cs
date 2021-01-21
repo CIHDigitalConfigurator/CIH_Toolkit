@@ -26,17 +26,16 @@ using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BH.oM.Data.Conditions
 {
-    public class ValueInSet : BaseCondition 
+    public class ValueNullComparison : BaseCondition
     {
-        List<object> Set { get; set; }
+        public virtual ValueNullConditions NullCondition { get; set; } = ValueNullConditions.MustBeNotNull;
 
         public override string ToString()
         {
-            return $"must be included in the set of values: {string.Join(", ", Set.Select(v => v.ToString()))}";
+            return $"{NullCondition}";
         }
     }
 }

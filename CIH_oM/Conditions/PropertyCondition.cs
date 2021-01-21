@@ -35,11 +35,11 @@ namespace BH.oM.Data.Conditions
         [Description("Property whose value is to be subject to the condition.")]
         public virtual string PropertyName { get; set; }
 
-        public virtual ICondition Condition { get; set; }
+        public virtual IComparison Comparison { get; set; }
 
         public override string ToString()
         {
-            return $"Property `{PropertyName}` {Condition.ToString()}";
+            return $"Property `{PropertyName}` {Comparison.ToString()}";
         }
     }
 }

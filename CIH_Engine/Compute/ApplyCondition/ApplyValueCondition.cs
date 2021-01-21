@@ -12,7 +12,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, ValueCondition valueCondition)
+        private static ConditionResult ApplyCondition(List<object> objects, ValueComparison valueCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = valueCondition };
 
@@ -28,21 +28,21 @@ namespace BH.Engine.CIH
                     double requestedNumbericalValue = Convert.ToDouble(valueCondition.ReferenceValue);
                     double tolerance = valueCondition.Tolerance == null ? 1e-03 : Convert.ToDouble(valueCondition.Tolerance);
 
-                    switch (valueCondition.ValueComparison)
+                    switch (valueCondition.Comparison)
                     {
-                        case (ValueComparison.EqualTo):
+                        case (ValueComparisons.EqualTo):
                             passed = requestedNumbericalValue - tolerance <= numericalValue && numericalValue <= requestedNumbericalValue + tolerance;
                             break;
-                        case (ValueComparison.SmallerThan):
+                        case (ValueComparisons.SmallerThan):
                             passed = numericalValue < requestedNumbericalValue + tolerance;
                             break;
-                        case (ValueComparison.SmallerThanOrEqualTo):
+                        case (ValueComparisons.SmallerThanOrEqualTo):
                             passed = numericalValue <= requestedNumbericalValue + tolerance;
                             break;
-                        case (ValueComparison.LargerThanOrEqualTo):
+                        case (ValueComparisons.LargerThanOrEqualTo):
                             passed = numericalValue >= requestedNumbericalValue + tolerance;
                             break;
-                        case (ValueComparison.LargerThan):
+                        case (ValueComparisons.LargerThan):
                             passed = numericalValue > requestedNumbericalValue + tolerance;
                             break;
                         default:

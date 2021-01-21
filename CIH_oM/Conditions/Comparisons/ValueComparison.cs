@@ -20,18 +20,34 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Base;
+using BH.oM.Data.Collections;
+using BH.oM.Data.Conditions;
+using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
-namespace BH.oM.Data
+namespace BH.oM.Data.Conditions
 {
-    public enum ValueComparisons
+    public class ValueComparison : IComparison
     {
-        SmallerThan,
-        SmallerThanOrEqualTo,
-        EqualTo,
-        LargerThanOrEqualTo,
-        LargerThan
+        [Description("Reference Value that the property value should be compared to." +
+            "\nIt can be a number, or a DateTime (e.g. ± 1 day), or anything comparable.")]
+        public virtual object ReferenceValue { get; set; }
+
+        [Description("Whether the property value should be smaller, greater, etc. than the ReferenceValue.")]
+        public virtual ValueComparisons Comparison { get; set; } = ValueComparisons.EqualTo;
+
+        [Description("If applicable, tolerance to be considered in the comparison." +
+            "\nIt can be a number, or a DateTime (e.g. ± 1 day), or anything comparable with the property value.")]
+        public virtual object Tolerance { get; set; } = null;
+
+        public override string ToString()
+        {
+            return $"must be {Comparison} `{ReferenceValue.ToString()}`";
+        }
     }
 }
+
 

@@ -26,18 +26,13 @@ using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
-    public class DomainCondition : BaseCondition
+    [Description("Used to specify what kind of comparison should be done.")]
+    public interface IComparison : ICondition
     {
-        public virtual Domain Domain { get; set; }
-        public virtual double Tolerance { get; set; }
-
-        public override string ToString()
-        {
-            return $"must be included between {Domain.Min} and {Domain.Max}";
-        }
     }
 }
 

@@ -48,17 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conditions\BaseCondition.cs" />
+    <Compile Include="Conditions\Comparisons\ValueNullCondition.cs" />
     <Compile Include="Conditions\CustomDataCondition.cs" />
     <Compile Include="Conditions\FragmentCondition.cs" />
     <Compile Include="Conditions\IdCondition.cs" />
     <Compile Include="Conditions\Interfaces\ICondition.cs" />
     <Compile Include="Conditions\Interfaces\IPropertyCondition.cs" />
     <Compile Include="Conditions\LogicalCondition.cs" />
-    <Compile Include="Conditions\ValueNullCondition.cs" />
-    <Compile Include="Conditions\ValueInDomain.cs" />
-    <Compile Include="Conditions\ValueInSet.cs" />
+    <Compile Include="Conditions\Comparisons\IComparison.cs" />
+    <Compile Include="Conditions\Comparisons\DomainComparison.cs" />
+    <Compile Include="Conditions\Comparisons\SetComparison.cs" />
     <Compile Include="Conditions\PropertyCondition.cs" />
-    <Compile Include="Conditions\ValueCondition.cs" />
+    <Compile Include="Conditions\Comparisons\ValueComparison.cs" />
     <Compile Include="Conditions\TypeCondition.cs" />
     <Compile Include="Enums\PropertyNullConditions.cs" />
     <Compile Include="Enums\BooleanOperator.cs" />

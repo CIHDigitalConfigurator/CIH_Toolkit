@@ -19,13 +19,13 @@ namespace BH.Engine.CIH
             {
                 IBHoMObject bhomObj = obj as IBHoMObject;
 
-                if (bhomObj != null && !IsAnyConditionNull(customDataCondition.Condition, nameof(CustomDataCondition) + "." + nameof(CustomDataCondition.Condition)))
+                if (bhomObj != null && !IsAnyConditionNull(customDataCondition.Comparison, nameof(CustomDataCondition) + "." + nameof(CustomDataCondition.Comparison)))
                 {
                     object customDataValue = null;
                     bhomObj.CustomData.TryGetValue(customDataCondition.CustomDataKey, out customDataValue);
 
                     ConditionResult subConditionResult = new ConditionResult();
-                    subConditionResult = IApplyCondition(new List<object>() { customDataValue }, customDataCondition.Condition);
+                    subConditionResult = IApplyCondition(new List<object>() { customDataValue }, customDataCondition.Comparison);
 
                     if (subConditionResult.Pattern.TrueForAll(v => v == true))
                     {

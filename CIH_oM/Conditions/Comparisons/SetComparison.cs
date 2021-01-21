@@ -26,26 +26,17 @@ using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 
 namespace BH.oM.Data.Conditions
 {
-    public class ValueCondition : BaseCondition
+    public class SetComparison : IComparison 
     {
-        [Description("Reference Value that the property value should be compared to." +
-            "\nIt can be a number, or a DateTime (e.g. ± 1 day), or anything comparable.")]
-        public virtual object ReferenceValue { get; set; }
-
-        [Description("Whether the property value should be smaller, greater, etc. than the ReferenceValue.")]
-        public virtual ValueComparison ValueComparison { get; set; } = ValueComparison.EqualTo;
-
-        [Description("If applicable, tolerance to be considered in the comparison." +
-            "\nIt can be a number, or a DateTime (e.g. ± 1 day), or anything comparable with the property value.")]
-        public virtual object Tolerance { get; set; } = null;
+        List<object> Set { get; set; }
 
         public override string ToString()
         {
-            return $"must be {ValueComparison} `{ReferenceValue.ToString()}`";
+            return $"must be included in the set of values: {string.Join(", ", Set.Select(v => v.ToString()))}";
         }
     }
 }
