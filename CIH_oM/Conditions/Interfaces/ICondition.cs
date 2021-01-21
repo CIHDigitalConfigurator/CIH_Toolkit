@@ -30,8 +30,6 @@ namespace BH.oM.Data.Conditions
 {
     public interface ICondition : IObject
     {
-        Source Source { get; set; }
-        string Comment { get; set; }
     }
 }
 

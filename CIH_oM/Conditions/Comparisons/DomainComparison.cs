@@ -29,13 +29,14 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Conditions
 {
-    public class ValueNullCondition : BaseCondition
+    public class DomainComparison : IComparison
     {
-        public virtual ValueNullConditions NullCondition { get; set; } = ValueNullConditions.MustBeNotNull;
+        public virtual Domain Domain { get; set; }
+        public virtual double Tolerance { get; set; }
 
         public override string ToString()
         {
-            return $"{NullCondition}";
+            return $"must be included between {Domain.Min} and {Domain.Max}";
         }
     }
 }

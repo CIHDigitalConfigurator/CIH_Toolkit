@@ -34,4 +34,19 @@ namespace BH.oM.Data.Specifications
         public virtual List<object> NotAssessedObjects { get; set; } = new List<object>();
         public virtual Specification Specification { get; set; }
     }
+
+    public class CombinedSpecificationsResult : IObject
+    {
+        public virtual List<object> PassedObjects { get; set; } //objects that passed all specifications.
+        public virtual List<object> FailedObjects { get; set; } = new List<object>(); //objects that failed one specification or more.
+        public virtual List<object> NotAssessedObjects { get; set; } = new List<object>(); // objects that were not assessed by any of the specifications.
+        public virtual List<Specification> Specifications { get; set; } // All specifications that were applied.
+        public List<Failures> Failures { get; set; } // objects that failed one or more specifications, and what specifications they failed.
+    }
+
+    public class Failures : IObject
+    {
+        public virtual object Object { get; set; } // Object that failed the specifications.
+        public virtual List<ISpecification> FailedSpecifications { get; set; } // What specifications were failed.
+    }
 }

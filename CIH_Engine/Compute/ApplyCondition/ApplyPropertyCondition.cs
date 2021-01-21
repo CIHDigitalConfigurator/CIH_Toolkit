@@ -22,7 +22,7 @@ namespace BH.Engine.CIH
                 bool passed = false;
 
                 ConditionResult subConditionResult = new ConditionResult();
-                subConditionResult = IApplyCondition(new List<object>() { BH.Engine.Reflection.Query.PropertyValue(obj, propertyCondition.PropertyName) }, propertyCondition.Condition);
+                subConditionResult = IApplyCondition(new List<object>() { BH.Engine.Reflection.Query.PropertyValue(obj, propertyCondition.PropertyName) }, propertyCondition.Comparison);
 
                 if (subConditionResult != null && subConditionResult.Pattern.Count != 0 && subConditionResult.Pattern.TrueForAll(v => v == true))
                 {

@@ -13,7 +13,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, DomainCondition domainCondition)
+        private static ConditionResult ApplyCondition(List<object> objects, DomainComparison domainCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = domainCondition };
 

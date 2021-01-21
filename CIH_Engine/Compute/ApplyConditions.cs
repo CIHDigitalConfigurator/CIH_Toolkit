@@ -12,7 +12,12 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        public static ConditionResult IApplyCondition(List<object> objects, ICondition condition)
+        public static ConditionResult ApplyConditions(List<object> objects, List<ICondition> conditions, BooleanOperator booleanOperator = BooleanOperator.AND)
+        {
+            return IApplyCondition(objects, new LogicalCondition() { Conditions = conditions, BooleanOperator = booleanOperator });
+        }
+
+        private static ConditionResult IApplyCondition(List<object> objects, ICondition condition)
         {
             if (IsAnyConditionNull(condition))
                 return null;
@@ -21,11 +26,6 @@ namespace BH.Engine.CIH
                 return new ConditionResult() { Condition = condition };
 
             return ApplyCondition(objects, condition as dynamic);
-        }
-
-        public static ConditionResult ApplyConditions(List<object> objects, List<ICondition> conditions, BooleanOperator booleanOperator = BooleanOperator.AND)
-        {
-            return IApplyCondition(objects, new LogicalCondition() { Conditions = conditions, BooleanOperator = booleanOperator });
         }
 
         //Fallback

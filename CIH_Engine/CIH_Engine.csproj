@@ -62,7 +62,7 @@
     <Compile Include="Compute\ApplyCondition\ApplyTypeCondition.cs" />
     <Compile Include="Query\ToString.cs" />
     <Compile Include="Modify\SetCustomData.cs" />
-    <Compile Include="Compute\IApplyCondition.cs" />
+    <Compile Include="Compute\ApplyConditions.cs" />
     <Compile Include="Compute\ApplySpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -32,13 +32,13 @@ namespace BH.oM.Data.Conditions
         /***************************************************/
 
         public virtual string CustomDataKey { get; set; }
-        public virtual ICondition Condition { get; set; }
+        public virtual IComparison Comparison { get; set; }
 
         /***************************************************/
 
         public override string ToString()
         {
-            return $"CustomData[{CustomDataKey}] {Condition.ToString()}";
+            return $"CustomData[{CustomDataKey}] {Comparison?.ToString()}";
         }
     }
 }
