@@ -33,5 +33,6 @@ namespace BH.oM.Data
         public virtual List<object> PassedObjects { get; set; } = new List<object>();
         public virtual List<object> FailedObjects { get; set; } = new List<object>();
         public virtual List<bool> Pattern { get; set; } = new List<bool>();
+        public virtual object FailInfo { get; set; }
     }
 }

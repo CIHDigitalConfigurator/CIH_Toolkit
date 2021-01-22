@@ -27,26 +27,26 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Specifications
 {
-    public class SpecificationResult : IObject
+    public class ObjectFailures : IObject
     {
-        public virtual List<object> PassedObjects { get; set; } = new List<object>();
-        public virtual List<object> FailedObjects { get; set; } = new List<object>();
-        public virtual List<object> NotAssessedObjects { get; set; } = new List<object>();
-        public virtual Specification Specification { get; set; }
+        public virtual object Object { get; set; } // Object that failed the specifications.
+        public virtual HashSet<Specification> FailedSpecifications { get; set; } // All specifications that this object failed.
+        public virtual List<SpecificationFailure> FailInfo { get; set; } // Info about the specification fails.
     }
 
-    public class CombinedSpecificationsResult : IObject
+    public class SpecificationResult : IObject
     {
-        public virtual List<object> PassedObjects { get; set; } //objects that passed all specifications.
+        public virtual List<object> PassedObjects { get; set; } = new List<object>();  //objects that passed all specifications.
         public virtual List<object> FailedObjects { get; set; } = new List<object>(); //objects that failed one specification or more.
         public virtual List<object> NotAssessedObjects { get; set; } = new List<object>(); // objects that were not assessed by any of the specifications.
         public virtual List<Specification> Specifications { get; set; } // All specifications that were applied.
-        public List<Failures> Failures { get; set; } // objects that failed one or more specifications, and what specifications they failed.
+        public List<ObjectFailures> ObjectFailures { get; set; } = new List<ObjectFailures>(); // objects that failed one or more specifications, and what specifications they failed.
     }
 
-    public class Failures : IObject
+    public class SpecificationFailure : IObject
     {
-        public virtual object Object { get; set; } // Object that failed the specifications.
-        public virtual List<ISpecification> FailedSpecifications { get; set; } // What specifications were failed.
+        public virtual ISpecification ParentSpecification { get; set; } // Where the failed checkCondition comes from.
+        public virtual ICondition FailedCheckCondition { get; set; } // The checkCondition that failed.
+        public virtual List<object> FailInfo { get; set; } = new List<object>(); // Info coming by the failed checkCondition.
     }
 }

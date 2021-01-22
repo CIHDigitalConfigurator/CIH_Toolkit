@@ -16,6 +16,7 @@ namespace BH.Engine.CIH
         private static ConditionResult ApplyCondition(List<object> objects, SetCondition setCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = setCondition };
+            List<object> info = new List<object>();
 
             foreach (var obj in objects)
             {
@@ -31,11 +32,15 @@ namespace BH.Engine.CIH
                 if (passed)
                     result.PassedObjects.Add(obj);
                 else
+                {
                     result.FailedObjects.Add(obj);
+                    info.Add($"Value of {setCondition.PropertyName} was {value}, which is not among: {setCondition.Set.Select(v => v.ToString())}.");
+                }
 
                 result.Pattern.Add(passed);
             }
 
+            result.FailInfo = info;
             return result;
         }
 

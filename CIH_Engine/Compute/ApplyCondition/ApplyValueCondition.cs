@@ -16,6 +16,7 @@ namespace BH.Engine.CIH
         private static ConditionResult ApplyCondition(List<object> objects, ValueCondition valueCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = valueCondition };
+            List<object> info = new List<object>();
 
             foreach (var obj in objects)
             {
@@ -103,12 +104,15 @@ namespace BH.Engine.CIH
                 if (passed)
                     result.PassedObjects.Add(obj);
                 else
+                {
                     result.FailedObjects.Add(obj);
+                    info.Add($"Value of {valueCondition.PropertyName} was {value}, which does not respect '{valueCondition.ToString()}'.");
+                }
 
                 result.Pattern.Add(passed);
             }
 
-
+            result.FailInfo = info;
             return result;
         }
 

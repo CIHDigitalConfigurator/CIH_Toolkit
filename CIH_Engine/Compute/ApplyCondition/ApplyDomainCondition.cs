@@ -16,6 +16,7 @@ namespace BH.Engine.CIH
         private static ConditionResult ApplyCondition(List<object> objects, DomainCondition domainCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = domainCondition };
+            List<object> info = new List<object>();
 
             foreach (var obj in objects)
             {
@@ -24,24 +25,28 @@ namespace BH.Engine.CIH
                 object value = obj.ValueFromSource(domainCondition.PropertyName);
                 double numericalValue;
                 double tolerance;
-                double.TryParse(domainCondition.Tolerance.ToString(), out numericalValue);
+                double.TryParse(domainCondition.Tolerance.ToString(), out tolerance);
 
                 if (double.TryParse(value.ToString(), out numericalValue))
-                    passed = NumberInDomain(numericalValue, domainCondition.Domain, domainCondition.Tolerance);
+                    passed = NumberInDomain(numericalValue, domainCondition.Domain, tolerance);
                 else if (obj is DateTime)
                 {
                     DateTime? dt = obj as DateTime?;
-                    passed = NumberInDomain(dt.Value.Ticks, domainCondition.Domain, domainCondition.Tolerance);
+                    passed = NumberInDomain(dt.Value.Ticks, domainCondition.Domain, tolerance);
                 }
 
                 if (passed)
                     result.PassedObjects.Add(obj);
                 else
+                {
                     result.FailedObjects.Add(obj);
+                    info.Add($"{domainCondition.PropertyName} was {value} which does not respect: {domainCondition.ToString()}");
+                }
 
                 result.Pattern.Add(passed);
             }
 
+            result.FailInfo = info;
             return result;
         }
 

@@ -26,19 +26,22 @@ namespace BH.Engine.CIH
             List<bool> passes = new List<bool>();
             Enumerable.Repeat(true, objects.Count);
 
+            ConditionResult combinedResult = new ConditionResult() { Condition = logicalCondition };
             List<ConditionResult> results = new List<ConditionResult>();
+            List<object> failInfos = new List<object>();
 
             foreach (var f in logicalCondition.Conditions)
             {
                 ConditionResult r = IApplyCondition(objects, f);
                 if (r != null)
                     results.Add(r);
+
+                failInfos.Add(r.FailInfo);
             }
 
             IEnumerable<IEnumerable<bool>> patterns = results.Select(r => r.Pattern);
             List<bool> bools = AggreateBooleanSequences(patterns, logicalCondition.BooleanOperator);
 
-            ConditionResult result = new ConditionResult() { Condition = logicalCondition };
 
             if (bools.Count != objects.Count)
             {
@@ -49,14 +52,15 @@ namespace BH.Engine.CIH
             for (int i = 0; i < objects.Count; i++)
             {
                 if (bools[i])
-                    result.PassedObjects.Add(objects[i]);
+                    combinedResult.PassedObjects.Add(objects[i]);
                 else
-                    result.FailedObjects.Add(objects[i]);
+                    combinedResult.FailedObjects.Add(objects[i]);
             }
 
-            result.Pattern = bools;
+            combinedResult.Pattern = bools;
+            combinedResult.FailInfo = failInfos;
 
-            return result;
+            return combinedResult;
         }
 
         private static List<bool> AggreateBooleanSequences(IEnumerable<IEnumerable<bool>> lists, BooleanOperator booleanOperator = BooleanOperator.AND)
