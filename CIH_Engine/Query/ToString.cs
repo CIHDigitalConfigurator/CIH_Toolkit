@@ -14,7 +14,7 @@ namespace BH.Engine.CIH
     {
         public static string ToString(IObject iObj)
         {
-            return iObj.ToString();
+            return iObj?.ToString();
         }
     }
 }

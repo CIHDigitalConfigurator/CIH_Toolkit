@@ -26,17 +26,35 @@ using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
-    public class SetComparison : IComparison 
+    public class ValueCondition : BaseCondition, IPropertyCondition, IComparisonCondition
     {
-        List<object> Set { get; set; }
+        [Description("Source of the value to be extracted from the objects that will be subject to the condition." +
+            "\nValid inputs: " +
+            "\n\t- Name of the property (e.g. BHoM_Guid)" +
+            "\n\t- Name of any sub-property, using dot separators (e.g. Bar.SectionProperty.Area)" +
+            "\n\t- Name of any queriable derived property (e.g. Length)" +
+            "\n\t- For a value stored in a BHoMObject's CustomData, enter `CustomData[keyName]`" +
+            "\n\t- For a value stored in a Fragment's property, enter `FragmentTypeName.PropertyName`.")]
+        public virtual string PropertyName { get; set; }
+
+        [Description("Reference Value that the property value should be compared to." +
+            "\nIt can be a number, or a DateTime (e.g. ± 1 day), or anything comparable.")]
+        public virtual object ReferenceValue { get; set; }
+
+        [Description("Whether the property value should be smaller, greater, etc. than the ReferenceValue.")]
+        public virtual ValueComparisons Comparison { get; set; } = ValueComparisons.EqualTo;
+
+        [Description("If applicable, tolerance to be considered in the comparison." +
+            "\nIt can be a number, or a DateTime (e.g. ± 1 day), or anything comparable with the property value.")]
+        public virtual object Tolerance { get; set; } = null;
 
         public override string ToString()
         {
-            return $"must be included in the set of values: {string.Join(", ", Set.Select(v => v.ToString()))}";
+            return $"`{PropertyName}` must be {Comparison} `{ReferenceValue.ToString()}`";
         }
     }
 }

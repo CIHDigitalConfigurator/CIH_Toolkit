@@ -32,7 +32,7 @@ namespace BH.oM.Data.Conditions
         /***************************************************/
 
         public virtual string CustomDataKey { get; set; }
-        public virtual IComparison Comparison { get; set; }
+        public virtual IComparisonCondition Comparison { get; set; }
 
         /***************************************************/
 

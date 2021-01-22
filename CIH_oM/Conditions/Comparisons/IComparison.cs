@@ -30,9 +30,15 @@ using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
-    [Description("Used to specify what kind of comparison should be done.")]
-    public interface IComparison : ICondition
+    public interface IComparisonCondition : ICondition
     {
+        [Description("If applicable, tolerance to be considered in the comparison. Valid inputs:" +
+            "\n\t- a numeric tolerance (e.g. 1E-03)" +
+            "\n\t- a DateTime (e.g. ± 1 day)," +
+            "\n\t- a BH.oM.Base.ComparisonConfig object" +
+            "\n\t- a IEqualityComparer" +
+            "\n\t-or anything comparable with the property value.")]
+        object Tolerance { get; set; }
     }
 }
 

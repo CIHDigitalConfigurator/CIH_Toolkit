@@ -61,7 +61,12 @@ namespace BH.Engine.CIH
 
         private static List<bool> AggreateBooleanSequences(IEnumerable<IEnumerable<bool>> lists, BooleanOperator booleanOperator = BooleanOperator.AND)
         {
-            return lists.Aggregate((a, b) => a.Zip(b, (aElement, bElement) => BooleanOperation(aElement, bElement, booleanOperator))).ToList();
+            List<bool> result = new List<bool>();
+
+            if (lists != null && lists.Count() != 0)
+                result = lists.Aggregate((a, b) => a.Zip(b, (aElement, bElement) => BooleanOperation(aElement, bElement, booleanOperator))).ToList();
+
+            return result;
         }
 
         private static bool BooleanOperation(bool A, bool B, BooleanOperator booleanOperator)
