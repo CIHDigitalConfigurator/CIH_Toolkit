@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="Compute\ApplyCondition\ApplyFragmentCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplySetCondition.cs" />
-    <Compile Include="Compute\CheckForNull.cs" />
+    <Compile Include="Compute\Utilities\IsAnyConditionNull.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyValueCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyDomainCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyLogicalCondition.cs" />

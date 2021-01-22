@@ -15,7 +15,7 @@ namespace BH.Engine.CIH
     {
         public static SpecificationResult ApplySpecification(List<object> objects, Specification specification)
         {
-            SpecificationResult result = new SpecificationResult();
+            SpecificationResult specRes = new SpecificationResult();
 
             // First apply filter to get relevant objects
             ConditionResult filterResult = ApplyConditions(objects, specification.FilterConditions);
@@ -24,29 +24,42 @@ namespace BH.Engine.CIH
             ConditionResult checkResult = ApplyConditions(filterResult.PassedObjects, specification.CheckConditions);
 
             // Populate the result.
-            result.PassedObjects.AddRange(checkResult.PassedObjects);
-            result.FailedObjects.AddRange(checkResult.FailedObjects);
-            result.NotAssessedObjects.AddRange(filterResult.FailedObjects);
+            specRes.PassedObjects.AddRange(checkResult.PassedObjects);
+            specRes.FailedObjects.AddRange(checkResult.FailedObjects);
+            specRes.NotAssessedObjects.AddRange(filterResult.FailedObjects);
 
-            result.Specification = specification;
+            specRes.Specifications = new List<Specification>() { specification };
+            specRes.ObjectFailures = new List<ObjectFailures>();
 
-            return result;
+            for (int i = 0; i < specRes.FailedObjects.Count(); i++)
+            {
+                ObjectFailures f = new ObjectFailures();
+                f.Object = specRes.FailedObjects.ElementAtOrDefault(i);
+                f.FailedSpecifications = new HashSet<Specification>() { specification };
+                f.FailInfo = new List<SpecificationFailure>() { new SpecificationFailure() { ParentSpecification = specification, FailedCheckCondition = checkResult.Condition, FailInfo = new List<object>() { checkResult.FailInfo } } };
+                specRes.ObjectFailures.Add(f);
+            }
+
+            return specRes;
         }
 
-        public static CombinedSpecificationsResult ApplySpecifications(List<object> objects, List<Specification> specifications)
+        public static SpecificationResult ApplySpecifications(List<object> objects, List<Specification> specifications)
         {
+            SpecificationResult combinedResult = new SpecificationResult();
+
             // Find unique objects.
             HashSet<object> allObjs = new HashSet<object>(objects); // TODO: evaluate whether to use our HashComparer.
             objects = allObjs.ToList();
 
             List<object> passedObjs = new List<object>();
-            HashSet<object> failedObjs = new HashSet<object>();
-            HashSet<object> NotAssessed = new HashSet<object>();
-            Dictionary<object, HashSet<ISpecification>> Failures = new Dictionary<object, HashSet<ISpecification>>();
+            List<object> failedObjs = new List<object>();
+            List<object> NotAssessed = new List<object>();
+            Dictionary<object, ObjectFailures> objFailDict = new Dictionary<object, ObjectFailures>();  // one "Failures" per failed object, stating what specification(s) that object failed.
 
             foreach (var spec in specifications)
             {
                 SpecificationResult specRes = ApplySpecification(objects, spec);
+                SpecificationFailure failuresForThisSpec = new SpecificationFailure();
 
                 foreach (var obj in specRes.PassedObjects)
                 {
@@ -59,37 +72,36 @@ namespace BH.Engine.CIH
                     NotAssessed.Remove(obj);
                     passedObjs.Remove(obj);
                     failedObjs.Add(obj);
-                    AddFailure(obj, spec, ref Failures);
+
+                    ObjectFailures f;
+                    if (!objFailDict.TryGetValue(obj, out f))
+                    {
+                        f = new ObjectFailures();
+                        f.Object = obj;
+                        f.FailedSpecifications = new HashSet<Specification>();
+                        f.FailInfo = new List<SpecificationFailure>();
+                    }
+
+                    f.FailedSpecifications.Add(spec);
+                    var singleSpecFailure = specRes.ObjectFailures.First();
+                    f.FailInfo.Add(new SpecificationFailure() { ParentSpecification = spec, FailedCheckCondition = singleSpecFailure.FailInfo.First().FailedCheckCondition, FailInfo = singleSpecFailure.FailInfo.First().FailInfo });
+
+                    objFailDict[obj] = f;
                 }
             }
 
-            passedObjs = (allObjs.Except(failedObjs)).Except(NotAssessed).ToList();
+            NotAssessed = (allObjs.Except(failedObjs)).Except(passedObjs).ToList();
 
-            CombinedSpecificationsResult combinedRes = new CombinedSpecificationsResult()
+            combinedResult = new SpecificationResult()
             {
                 PassedObjects = passedObjs,
                 FailedObjects = failedObjs.ToList(),
                 NotAssessedObjects = NotAssessed.ToList(),
-                Failures = Failures.Select(f => new oM.Data.Specifications.Failures() { Object = f.Key, FailedSpecifications = f.Value.ToList() }).ToList(),
-                Specifications = specifications
+                Specifications = specifications,
+                ObjectFailures = objFailDict.Values.ToList()
             };
 
-            return combinedRes;
-        }
-
-        private static void AddFailure(object obj, ISpecification specification, ref Dictionary<object, HashSet<ISpecification>> Failures)
-        {
-            if (obj == null || specification == null)
-                return;
-
-            HashSet<ISpecification> failedSpecs = new HashSet<ISpecification>();
-            Failures.TryGetValue(obj, out failedSpecs);
-            if (failedSpecs == null)
-                failedSpecs = new HashSet<ISpecification>() { specification };
-            else
-                failedSpecs.Add(specification);
-
-            Failures[obj] = failedSpecs;
+            return combinedResult;
         }
     }
 }

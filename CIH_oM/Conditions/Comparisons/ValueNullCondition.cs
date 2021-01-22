@@ -29,13 +29,14 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Conditions
 {
-    public class ValueNullComparison : BaseCondition
+    public class ValueNullComparison : BaseCondition, IPropertyCondition
     {
+        public string PropertyName { get; set; }
         public virtual ValueNullConditions NullCondition { get; set; } = ValueNullConditions.MustBeNotNull;
 
         public override string ToString()
         {
-            return $"{NullCondition}";
+            return $"{PropertyName} {NullCondition}";
         }
     }
 }
