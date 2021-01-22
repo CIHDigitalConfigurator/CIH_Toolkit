@@ -29,14 +29,15 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Conditions
 {
-    public class DomainComparison : IComparison
+    public class DomainCondition : BaseCondition, IPropertyCondition
     {
+        public string PropertyName { get; set; }
         public virtual Domain Domain { get; set; }
         public virtual double Tolerance { get; set; }
 
         public override string ToString()
         {
-            return $"must be included between {Domain.Min} and {Domain.Max}";
+            return $"`{PropertyName}` must be included between {Domain.Min} and {Domain.Max}";
         }
     }
 }

@@ -13,7 +13,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, DomainComparison domainCondition)
+        private static ConditionResult ApplyCondition(List<object> objects, DomainCondition domainCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = domainCondition };
 
@@ -21,9 +21,13 @@ namespace BH.Engine.CIH
             {
                 bool passed = false;
 
-                double number;
-                if (double.TryParse(obj.ToString(), out number))
-                    passed = NumberInDomain((long)number, domainCondition.Domain, domainCondition.Tolerance);
+                object value = obj.ValueFromSource(domainCondition.PropertyName);
+                double numericalValue;
+                double tolerance;
+                double.TryParse(domainCondition.Tolerance.ToString(), out numericalValue);
+
+                if (double.TryParse(value.ToString(), out numericalValue))
+                    passed = NumberInDomain(numericalValue, domainCondition.Domain, domainCondition.Tolerance);
                 else if (obj is DateTime)
                 {
                     DateTime? dt = obj as DateTime?;
@@ -41,9 +45,15 @@ namespace BH.Engine.CIH
             return result;
         }
 
+        public static bool NumberInDomain(double number, BH.oM.Data.Collections.Domain domain, double tolerance)
+        {
+            if (true) // TODO: implement extremes.
+                return domain.Min <= number + tolerance && number - tolerance <= domain.Max;
+        }
+
         public static bool NumberInDomain(long number, BH.oM.Data.Collections.Domain domain, double tolerance)
         {
-            if (true)
+            if (true) // TODO: implement domain extremes.
                 return domain.Min <= number + tolerance && number - tolerance <= domain.Max;
         }
     }

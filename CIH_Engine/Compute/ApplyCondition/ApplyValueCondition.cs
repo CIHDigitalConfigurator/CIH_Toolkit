@@ -7,67 +7,98 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BH.oM.Data;
+using BH.Engine.Diffing;
 
 namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, ValueComparison valueCondition)
+        private static ConditionResult ApplyCondition(List<object> objects, ValueCondition valueCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = valueCondition };
 
             foreach (var obj in objects)
             {
                 bool passed = true;
-                double numericalValue;
+
+                object value = obj.ValueFromSource(valueCondition.PropertyName);
+
+                if (valueCondition.ReferenceValue == null && obj == null)
+                    passed = true;
+
+                if (valueCondition.ReferenceValue == null && obj != null)
+                    passed = false;
 
                 if (valueCondition.ReferenceValue != null && obj == null)
                     passed = false;
-                else if (valueCondition.ReferenceValue != null && double.TryParse(obj.ToString(), out numericalValue))
-                {
-                    double requestedNumbericalValue = Convert.ToDouble(valueCondition.ReferenceValue);
-                    double tolerance = valueCondition.Tolerance == null ? 1e-03 : Convert.ToDouble(valueCondition.Tolerance);
 
-                    switch (valueCondition.Comparison)
+                if (valueCondition.ReferenceValue != null && obj != null)
+                {
+                    double numericalValue;
+
+                    if (double.TryParse(value?.ToString(), out numericalValue))
                     {
-                        case (ValueComparisons.EqualTo):
-                            passed = requestedNumbericalValue - tolerance <= numericalValue && numericalValue <= requestedNumbericalValue + tolerance;
-                            break;
-                        case (ValueComparisons.SmallerThan):
-                            passed = numericalValue < requestedNumbericalValue + tolerance;
-                            break;
-                        case (ValueComparisons.SmallerThanOrEqualTo):
-                            passed = numericalValue <= requestedNumbericalValue + tolerance;
-                            break;
-                        case (ValueComparisons.LargerThanOrEqualTo):
-                            passed = numericalValue >= requestedNumbericalValue + tolerance;
-                            break;
-                        case (ValueComparisons.LargerThan):
-                            passed = numericalValue > requestedNumbericalValue + tolerance;
-                            break;
-                        default:
-                            passed = false;
-                            break;
+                        double referenceNumValue = Convert.ToDouble(valueCondition.ReferenceValue);
+
+                        double numTolerance;
+                        if (!double.TryParse(valueCondition.Tolerance?.ToString(), out numTolerance))
+                            numTolerance = 1e-03;
+
+                        switch (valueCondition.Comparison)
+                        {
+                            case (ValueComparisons.EqualTo):
+                                passed = referenceNumValue - numTolerance <= numericalValue && numericalValue <= referenceNumValue + numTolerance;
+                                break;
+                            case (ValueComparisons.SmallerThan):
+                                passed = numericalValue < referenceNumValue + numTolerance;
+                                break;
+                            case (ValueComparisons.SmallerThanOrEqualTo):
+                                passed = numericalValue <= referenceNumValue + numTolerance;
+                                break;
+                            case (ValueComparisons.LargerThanOrEqualTo):
+                                passed = numericalValue >= referenceNumValue + numTolerance;
+                                break;
+                            case (ValueComparisons.LargerThan):
+                                passed = numericalValue > referenceNumValue + numTolerance;
+                                break;
+                            default:
+                                passed = false;
+                                break;
+                        }
                     }
+                    else
+                    {
+                        // Consider some other way to compare objects 
 
+                        if (valueCondition.Comparison == ValueComparisons.EqualTo)
+                        {
+                            var cc = valueCondition.Tolerance as ComparisonConfig;
+                            if (cc != null)
+                            {
+                                //Compare by hash
+                                HashComparer<object> hc = new HashComparer<object>(cc);
+                                passed = hc.Equals(obj, valueCondition.ReferenceValue);
+                            }
+                            else
+                                passed = obj == valueCondition.ReferenceValue;
+                        }
+
+                        //result.Passed = propertyValueCondition.Value == propertyValue;
+
+                        //if (valueCheck.ValueComparison == ValueComparison.Equal)
+                        //    result.Passed = requestedValue - tolerance <= actualValue && actualValue <= requestedValue + tolerance;
+                        //else if (valueCheck.ValueComparison == ValueComparison.SmallerThan)
+                        //    result.Passed = actualValue < requestedValue + tolerance;
+                        //else if (valueCheck.ValueComparison == ValueComparison.SmallerThanOrEqual)
+                        //    result.Passed = actualValue <= requestedValue + tolerance;
+                        //else if (valueCheck.ValueComparison == ValueComparison.LargerThan)
+                        //    result.Passed = actualValue > requestedValue + tolerance;
+                        //else if (valueCheck.ValueComparison == ValueComparison.LargerThanOrEqual)
+                        //    result.Passed = actualValue >= requestedValue + tolerance;
+                    }
                 }
-                else
-                {
-                    // Consider some way to compare objects 
 
-                    //result.Passed = propertyValueCondition.Value == propertyValue;
-
-                    //if (valueCheck.ValueComparison == ValueComparison.Equal)
-                    //    result.Passed = requestedValue - tolerance <= actualValue && actualValue <= requestedValue + tolerance;
-                    //else if (valueCheck.ValueComparison == ValueComparison.SmallerThan)
-                    //    result.Passed = actualValue < requestedValue + tolerance;
-                    //else if (valueCheck.ValueComparison == ValueComparison.SmallerThanOrEqual)
-                    //    result.Passed = actualValue <= requestedValue + tolerance;
-                    //else if (valueCheck.ValueComparison == ValueComparison.LargerThan)
-                    //    result.Passed = actualValue > requestedValue + tolerance;
-                    //else if (valueCheck.ValueComparison == ValueComparison.LargerThanOrEqual)
-                    //    result.Passed = actualValue >= requestedValue + tolerance;
-                }
+                // 
 
                 if (passed)
                     result.PassedObjects.Add(obj);

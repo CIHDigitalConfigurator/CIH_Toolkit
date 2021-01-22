@@ -18,7 +18,7 @@ namespace BH.Engine.CIH
         /**** Private Methods                           ****/
         /***************************************************/
 
-        private static object ValueFromSource(this object obj, string sourceName)
+        public static object ValueFromSource(this object obj, string sourceName)
         {
             if (obj == null || sourceName == null)
                 return null;
@@ -47,9 +47,17 @@ namespace BH.Engine.CIH
         private static object GetValue(this IBHoMObject obj, string sourceName)
         {
             IBHoMObject bhomObj = obj as IBHoMObject;
+            object value;
             if (bhomObj.CustomData.ContainsKey(sourceName))
             {
-                return bhomObj.CustomData[sourceName];
+                value = bhomObj.CustomData.TryGetValue(sourceName, out value);
+                return value;
+            }
+            else if (sourceName.ToLower().Contains("customdata["))
+            {
+                string keyName = sourceName.Substring(sourceName.IndexOf('[')+1, sourceName.IndexOf(']') - sourceName.IndexOf('[') -1);
+                bhomObj.CustomData.TryGetValue(keyName, out value);
+                return value;
             }
             else
             {

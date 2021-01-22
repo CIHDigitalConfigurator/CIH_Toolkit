@@ -56,17 +56,17 @@
     <Compile Include="Conditions\Interfaces\IPropertyCondition.cs" />
     <Compile Include="Conditions\LogicalCondition.cs" />
     <Compile Include="Conditions\Comparisons\IComparison.cs" />
-    <Compile Include="Conditions\Comparisons\DomainComparison.cs" />
-    <Compile Include="Conditions\Comparisons\SetComparison.cs" />
+    <Compile Include="Conditions\Comparisons\DomainCondition.cs" />
+    <Compile Include="Conditions\Comparisons\SetCondition.cs" />
     <Compile Include="Conditions\PropertyCondition.cs" />
-    <Compile Include="Conditions\Comparisons\ValueComparison.cs" />
+    <Compile Include="Conditions\Comparisons\ValueCondition.cs" />
     <Compile Include="Conditions\TypeCondition.cs" />
     <Compile Include="Enums\PropertyNullConditions.cs" />
     <Compile Include="Enums\BooleanOperator.cs" />
-    <Compile Include="Enums\ValueComparison.cs" />
+    <Compile Include="Enums\ValueComparisons.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specifications\Specification.cs" />
-    <Compile Include="Specifications\ConditionResult.cs" />
+    <Compile Include="Conditions\ConditionResult.cs" />
     <Compile Include="Specifications\SpecificationResult.cs" />
   </ItemGroup>
   <ItemGroup />
