@@ -24,15 +24,21 @@ using BH.oM.Base;
 using BH.oM.Data.Conditions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.Data
 {
     public class ConditionResult : IObject
     {
+        [Description("The condition that was evaluated.")]
         public virtual ICondition Condition { get; set; }
+        [Description("The objects that passed the condition.")]
         public virtual List<object> PassedObjects { get; set; } = new List<object>();
+        [Description("The objects that failed the condition.")]
         public virtual List<object> FailedObjects { get; set; } = new List<object>();
+        [Description("One info text per each failed object, describing how it failed.")]
+        public virtual List<string> FailInfo { get; set; } = new List<string>();
+        [Description("A pattern of booleans (true/false) that describes if each object in the original list passed or failed.")]
         public virtual List<bool> Pattern { get; set; } = new List<bool>();
-        public virtual object FailInfo { get; set; }
     }
 }

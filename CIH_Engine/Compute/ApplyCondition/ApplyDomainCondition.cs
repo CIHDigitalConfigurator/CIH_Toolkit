@@ -16,7 +16,7 @@ namespace BH.Engine.CIH
         private static ConditionResult ApplyCondition(List<object> objects, DomainCondition domainCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = domainCondition };
-            List<object> info = new List<object>();
+            List<string> failInfo = new List<string>();
 
             foreach (var obj in objects)
             {
@@ -40,13 +40,13 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    info.Add($"{domainCondition.PropertyName} was {value} which does not respect: {domainCondition.ToString()}");
+                    failInfo.Add($"{domainCondition.PropertyName} was {value} which does not respect: {domainCondition.ToString()}");
                 }
 
                 result.Pattern.Add(passed);
             }
 
-            result.FailInfo = info;
+            result.FailInfo = failInfo;
             return result;
         }
 
