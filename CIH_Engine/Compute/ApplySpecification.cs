@@ -36,7 +36,7 @@ namespace BH.Engine.CIH
                 ObjectFailures f = new ObjectFailures();
                 f.Object = specRes.FailedObjects.ElementAtOrDefault(i);
                 f.FailedSpecifications = new HashSet<Specification>() { specification };
-                f.FailInfo = new List<SpecificationFailure>() { new SpecificationFailure() { ParentSpecification = specification, FailedCheckCondition = checkResult.Condition, FailInfo = new List<object>() { checkResult.FailInfo } } };
+                f.FailInfo = new List<SpecificationFailure>() { new SpecificationFailure() { ParentSpecification = specification, FailedCheckCondition = checkResult.Condition, FailInfo = checkResult.FailInfo } };
                 specRes.ObjectFailures.Add(f);
             }
 
@@ -84,7 +84,7 @@ namespace BH.Engine.CIH
 
                     f.FailedSpecifications.Add(spec);
                     var singleSpecFailure = specRes.ObjectFailures.First();
-                    f.FailInfo.Add(new SpecificationFailure() { ParentSpecification = spec, FailedCheckCondition = singleSpecFailure.FailInfo.First().FailedCheckCondition, FailInfo = singleSpecFailure.FailInfo.First().FailInfo });
+                    f.FailInfo.Add(new SpecificationFailure() { ParentSpecification = spec, FailedCheckCondition = singleSpecFailure.FailInfo.First().FailedCheckCondition, FailInfo = singleSpecFailure.FailInfo.FirstOrDefault()?.FailInfo });
 
                     objFailDict[obj] = f;
                 }

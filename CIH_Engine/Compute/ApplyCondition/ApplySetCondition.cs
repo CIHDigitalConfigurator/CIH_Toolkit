@@ -16,7 +16,7 @@ namespace BH.Engine.CIH
         private static ConditionResult ApplyCondition(List<object> objects, SetCondition setCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = setCondition };
-            List<object> info = new List<object>();
+            List<string> info = new List<string>();
 
             foreach (var obj in objects)
             {

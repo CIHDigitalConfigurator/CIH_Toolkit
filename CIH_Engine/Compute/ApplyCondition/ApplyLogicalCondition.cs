@@ -28,7 +28,13 @@ namespace BH.Engine.CIH
 
             ConditionResult combinedResult = new ConditionResult() { Condition = logicalCondition };
             List<ConditionResult> results = new List<ConditionResult>();
-            List<object> failInfos = new List<object>();
+
+            // FailInfos matrix: contains all failInfo, for each condition, for each object.
+            var failInfos = new List<List<string>>();
+            // ParentList = one subList of infos per each failed condition
+            // SubList = one FailInfo per each failed object.
+
+            List<string> allFailuresPerObject = new List<string>();
 
             foreach (var f in logicalCondition.Conditions)
             {
@@ -37,6 +43,19 @@ namespace BH.Engine.CIH
                     results.Add(r);
 
                 failInfos.Add(r.FailInfo);
+            }
+
+            Dictionary<object, string> failInfoPerObject = new Dictionary<object, string>();
+            foreach (var r in results)
+            {
+                for (int i = 0; i < r.FailedObjects.Count; i++)
+                {
+                    object failedObject = r.FailedObjects[i];
+                    if (!failInfoPerObject.ContainsKey(failedObject))
+                        failInfoPerObject[failedObject] = r.FailInfo[i];
+                    else
+                        failInfoPerObject[failedObject] += "\n\t" + r.FailInfo[i];
+                }
             }
 
             IEnumerable<IEnumerable<bool>> patterns = results.Select(r => r.Pattern);
@@ -57,8 +76,15 @@ namespace BH.Engine.CIH
                     combinedResult.FailedObjects.Add(objects[i]);
             }
 
+            // Add Failinfo in order
+            foreach (var failedObj in combinedResult.FailedObjects)
+            {
+                string str;
+                if (failInfoPerObject.TryGetValue(failedObj, out str))
+                    combinedResult.FailInfo.Add(str);
+            }
+
             combinedResult.Pattern = bools;
-            combinedResult.FailInfo = failInfos;
 
             return combinedResult;
         }
