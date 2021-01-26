@@ -36,7 +36,7 @@ namespace BH.Engine.CIH
                 ObjectFailures f = new ObjectFailures();
                 f.Object = specRes.FailedObjects.ElementAtOrDefault(i);
                 f.FailedSpecifications = new HashSet<Specification>() { specification };
-                f.FailInfo = new List<SpecificationFailure>() { new SpecificationFailure() { ParentSpecification = specification, FailedCheckCondition = checkResult.Condition, FailInfo = checkResult.FailInfo } };
+                f.FailInfo = new List<SpecificationFailure>() { new SpecificationFailure() { ParentSpecification = specification, FailedCheckCondition = checkResult.Condition, FailInfo = string.Join("\n\t", checkResult.FailInfo) } };
                 specRes.ObjectFailures.Add(f);
             }
 
