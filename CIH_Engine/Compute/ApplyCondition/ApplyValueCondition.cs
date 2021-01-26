@@ -63,10 +63,10 @@ namespace BH.Engine.CIH
                                 passed = numericalValue <= referenceNumValue + numTolerance;
                                 break;
                             case (ValueComparisons.LargerThanOrEqualTo):
-                                passed = numericalValue >= referenceNumValue + numTolerance;
+                                passed = numericalValue >= referenceNumValue - numTolerance;
                                 break;
                             case (ValueComparisons.LargerThan):
-                                passed = numericalValue > referenceNumValue + numTolerance;
+                                passed = numericalValue > referenceNumValue - numTolerance;
                                 break;
                             default:
                                 passed = false;
