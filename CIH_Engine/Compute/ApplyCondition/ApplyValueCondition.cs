@@ -18,6 +18,11 @@ namespace BH.Engine.CIH
             ConditionResult result = new ConditionResult() { Condition = valueCondition };
             List<string> info = new List<string>();
 
+            var refValue = valueCondition.ReferenceValue;
+            if (refValue == null)
+                BH.Engine.Reflection.Compute.RecordNote($"A {nameof(ValueCondition)}'s {nameof(valueCondition.ReferenceValue)} was null. Make sure this is intended.\nTo check for null/not null, consider using a {nameof(ValueNullComparison)} instead.");
+
+
             foreach (var obj in objects)
             {
                 bool passed = true;
@@ -39,7 +44,8 @@ namespace BH.Engine.CIH
 
                     if (double.TryParse(value?.ToString(), out numericalValue))
                     {
-                        double referenceNumValue = Convert.ToDouble(valueCondition.ReferenceValue);
+                        double referenceNumValue;
+                        double.TryParse(valueCondition.ReferenceValue?.ToString(), out referenceNumValue);
 
                         double numTolerance;
                         if (!double.TryParse(valueCondition.Tolerance?.ToString(), out numTolerance))
@@ -69,8 +75,7 @@ namespace BH.Engine.CIH
                     }
                     else
                     {
-                        // Consider some other way to compare objects 
-
+                        // Consider some other way to compare objects
                         if (valueCondition.Comparison == ValueComparisons.EqualTo)
                         {
                             var cc = valueCondition.Tolerance as ComparisonConfig;
@@ -78,28 +83,27 @@ namespace BH.Engine.CIH
                             {
                                 //Compare by hash
                                 HashComparer<object> hc = new HashComparer<object>(cc);
-                                passed = hc.Equals(obj, valueCondition.ReferenceValue);
+                                passed = hc.Equals(obj, refValue);
                             }
                             else
-                                passed = obj == valueCondition.ReferenceValue;
+                            {
+                                if (value is string && refValue is string)
+                                    passed = value.ToString() == refValue.ToString(); // workaround needed. Not even Convert.ChangeType and dynamic type worked.
+                                else
+                                    passed = value == refValue;
+                            }
+
                         }
-
-                        //result.Passed = propertyValueCondition.Value == propertyValue;
-
-                        //if (valueCheck.ValueComparison == ValueComparison.Equal)
-                        //    result.Passed = requestedValue - tolerance <= actualValue && actualValue <= requestedValue + tolerance;
-                        //else if (valueCheck.ValueComparison == ValueComparison.SmallerThan)
-                        //    result.Passed = actualValue < requestedValue + tolerance;
-                        //else if (valueCheck.ValueComparison == ValueComparison.SmallerThanOrEqual)
-                        //    result.Passed = actualValue <= requestedValue + tolerance;
-                        //else if (valueCheck.ValueComparison == ValueComparison.LargerThan)
-                        //    result.Passed = actualValue > requestedValue + tolerance;
-                        //else if (valueCheck.ValueComparison == ValueComparison.LargerThanOrEqual)
-                        //    result.Passed = actualValue >= requestedValue + tolerance;
+                        //else if (valueCondition.Comparison == ValueComparisons.SmallerThan)
+                        //    passed = value < refValue;
+                        //else if (valueCondition.Comparison == ValueComparisons.SmallerThanOrEqualTo)
+                        //    passed = actualValue <= requestedValue + tolerance;
+                        //else if (valueCondition.Comparison == ValueComparisons.LargerThan)
+                        //    passed = actualValue > requestedValue + tolerance;
+                        //else if (valueCondition.Comparison == ValueComparisons.LargerThanOrEqualTo)
+                        //    passed = actualValue >= requestedValue + tolerance;
                     }
                 }
-
-                // 
 
                 if (passed)
                     result.PassedObjects.Add(obj);
