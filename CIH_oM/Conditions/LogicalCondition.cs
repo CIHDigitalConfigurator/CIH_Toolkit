@@ -40,7 +40,7 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            return $" - {string.Join($", {BooleanOperator}\n\t - ", Conditions.Select(c => c.ToString()))}";
+            return $" - {string.Join($",\n\t - {BooleanOperator} ", Conditions.Select(c => c.ToString()))}".Replace("-  -", "-");
         }
     }
 }
