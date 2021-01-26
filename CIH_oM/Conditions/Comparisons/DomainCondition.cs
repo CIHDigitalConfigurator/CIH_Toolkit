@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2021, the respective contributors. All rights reserved.
  *
@@ -37,7 +37,7 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            return $"`{PropertyName}` included between {Domain.Min} and {Domain.Max}";
+            return $"`{PropertyName}` included between {Domain.ToString()}.";
         }
     }
 }
