@@ -29,7 +29,7 @@ using System.Collections.Generic;
 
 namespace BH.oM.Data.Conditions
 {
-    public class ValueNullComparison : BaseCondition, IPropertyCondition
+    public class ValueNullCondition : BaseCondition, IPropertyCondition
     {
         public string PropertyName { get; set; }
         public virtual ValueNullConditions NullCondition { get; set; } = ValueNullConditions.MustBeNotNull;
