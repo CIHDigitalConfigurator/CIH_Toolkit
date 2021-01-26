@@ -54,7 +54,7 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            return $"{PropertyName} {Comparison} {ReferenceValue.ToString()}";
+            return $"{PropertyName} {Comparison} {(ReferenceValue == null ? "null" : ReferenceValue.ToString())}";
         }
     }
 }
