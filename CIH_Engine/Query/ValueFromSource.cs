@@ -50,8 +50,8 @@ namespace BH.Engine.CIH
             object value;
             if (bhomObj.CustomData.ContainsKey(sourceName))
             {
-                value = bhomObj.CustomData.TryGetValue(sourceName, out value);
-                return value;
+                if (bhomObj.CustomData.TryGetValue(sourceName, out value))
+                    return value;
             }
             else if (sourceName.ToLower().Contains("customdata["))
             {
