@@ -37,7 +37,7 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            return $"`{PropertyName}` included between {Domain.Min} and {Domain.Max}";
+            return Domain == null ? "" : $"`{PropertyName}` included between {Domain.Min} and {Domain.Max}";
         }
     }
 }
