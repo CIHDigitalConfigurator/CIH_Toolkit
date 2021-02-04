@@ -27,7 +27,7 @@ namespace BH.Engine.CIH
                 double tolerance;
                 double.TryParse(domainCondition.Tolerance.ToString(), out tolerance);
 
-                if (double.TryParse(value.ToString(), out numericalValue))
+                if (double.TryParse(value?.ToString(), out numericalValue))
                     passed = NumberInDomain(numericalValue, domainCondition.Domain, tolerance);
                 else if (obj is DateTime)
                 {
