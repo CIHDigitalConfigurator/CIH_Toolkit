@@ -78,7 +78,7 @@ namespace BH.Engine.CIH
                 else
                 {
                     // Try extracting the property using an Extension method.
-                    BH.Engine.Reflection.Compute.RunExtensionMethod(obj, sourceName);
+                    return BH.Engine.Reflection.Compute.RunExtensionMethod(obj, sourceName);
                 }
             }
 
