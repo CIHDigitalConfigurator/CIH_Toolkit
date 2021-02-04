@@ -55,7 +55,7 @@ namespace BH.Engine.CIH
             }
             else if (sourceName.ToLower().Contains("customdata["))
             {
-                string keyName = sourceName.Substring(sourceName.IndexOf('[')+1, sourceName.IndexOf(']') - sourceName.IndexOf('[') -1);
+                string keyName = sourceName.Substring(sourceName.IndexOf('[') + 1, sourceName.IndexOf(']') - sourceName.IndexOf('[') - 1);
                 bhomObj.CustomData.TryGetValue(keyName, out value);
                 return value;
             }
@@ -74,6 +74,11 @@ namespace BH.Engine.CIH
                         return values.Count == 1 ? values.First() : values;
                     }
 
+                }
+                else
+                {
+                    // Try extracting the property using an Extension method.
+                    BH.Engine.Reflection.Compute.RunExtensionMethod(obj, sourceName);
                 }
             }
 
