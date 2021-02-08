@@ -25,18 +25,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BH.oM.Dimensional;
+using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
-    public class Element2DCondition : BaseCondition, ISpatialCondition
+    public class BoundingBoxCondition : BaseCondition, ISpatialCondition
     {
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
 
-        public IElement2D ReferenceElement { get; set; }
-
-        public double LocalZDimension { get; set; }
+        [Description("Bonding box within which the Condition must hold.")]
+        public BoundingBox BoundingBox { get; set; }
 
         public ICondition Condition { get; set; } = null;
 

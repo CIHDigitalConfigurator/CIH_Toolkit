@@ -20,32 +20,18 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Geometry;
+using BH.oM.Base;
+using BH.oM.Data.Conditions;
+using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using BH.oM.Dimensional;
+using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
-    public class Element2DCondition : BaseCondition, ISpatialCondition
+    [Description("Identifies conditions that exist only in a certain location in space.")]
+    public interface ISpatialCondition : ICondition
     {
-        /***************************************************/
-        /**** Properties                                ****/
-        /***************************************************/
-
-        public IElement2D ReferenceElement { get; set; }
-
-        public double LocalZDimension { get; set; }
-
-        public ICondition Condition { get; set; } = null;
-
-        /***************************************************/
-
-        public override string ToString()
-        {
-            return Condition.ToString();
-        }
     }
 }
 

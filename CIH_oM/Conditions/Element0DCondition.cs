@@ -40,16 +40,13 @@ namespace BH.oM.Data.Conditions
         public double LocalYDimension { get; set; }
         public double LocalZDimension { get; set; }
 
-        public ICondition LocalXCondition { get; set; } = null;
-        public ICondition LocalYCondition { get; set; } = null;
-        public ICondition LocalZCondition { get; set; } = null;
+        public ICondition Condition { get; set; } = null;
 
         /***************************************************/
 
         public override string ToString()
         {
-            var combined = new string[] { LocalXCondition?.ToString(), LocalYCondition?.ToString(), LocalZCondition?.ToString() }.Where(s => !string.IsNullOrWhiteSpace(s));
-            return $"Must satisfy \"{string.Join("\" and \"", combined)}\"";
+            return Condition.ToString();
         }
     }
 }
