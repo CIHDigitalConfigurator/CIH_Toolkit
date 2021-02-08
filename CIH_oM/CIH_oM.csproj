@@ -37,6 +37,16 @@
     <Reference Include="Data_oM">
       <HintPath>C:\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
     </Reference>
+    <Reference Include="Geometry_oM, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_oM.dll</HintPath>
+    </Reference>
+    <Reference Include="Spatial_oM">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Spatial_oM.dll</HintPath>
+    </Reference>
+    <Reference Include="Dimensional_oM">
+        <HintPath>C:\ProgramData\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +61,7 @@
     <Compile Include="Conditions\Comparisons\ValueNullCondition.cs" />
     <Compile Include="Conditions\CustomDataCondition.cs" />
     <Compile Include="Conditions\FragmentCondition.cs" />
+    <Compile Include="Conditions\SpatialCondition.cs" />
     <Compile Include="Conditions\IdCondition.cs" />
     <Compile Include="Conditions\Interfaces\ICondition.cs" />
     <Compile Include="Conditions\Interfaces\IPropertyCondition.cs" />
