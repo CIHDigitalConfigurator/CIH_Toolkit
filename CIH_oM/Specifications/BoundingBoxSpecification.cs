@@ -30,7 +30,7 @@ using BH.oM.Base;
 
 namespace BH.oM.Data.Conditions
 {
-    public class BoundingBoxSpecification : ISpecification
+    public class BoundingBoxSpecification : ISpatialSpecification
     {
         /***************************************************/
         /**** Properties                                ****/

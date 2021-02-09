@@ -29,7 +29,7 @@ using BH.oM.Base;
 
 namespace BH.oM.Data.Conditions
 {
-    public class Element0DSpecification : ISpecification
+    public class Element0DSpecification : ISpatialSpecification
     {
         /***************************************************/
         /**** Properties                                ****/

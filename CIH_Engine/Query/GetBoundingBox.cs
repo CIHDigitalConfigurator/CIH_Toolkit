@@ -84,6 +84,12 @@ namespace BH.Engine.CIH
         }
 
 
+        public static BoundingBox GetBoundingBox(Point pt, double localXDimension, double localYDimension, double localZDimension)
+        {
+            throw new NotImplementedException(); //TODO.
+        }
+
+
         private static Vector UnitVector(this Vector vec)
         {
             double length = vec.Length();

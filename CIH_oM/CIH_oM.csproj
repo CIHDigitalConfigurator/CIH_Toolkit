@@ -60,11 +60,12 @@
     <Compile Include="Conditions\BaseCondition.cs" />
     <Compile Include="Conditions\Comparisons\ValueNullCondition.cs" />
     <Compile Include="Conditions\CustomDataCondition.cs" />
-    <Compile Include="Conditions\Element0DCondition.cs" />
-    <Compile Include="Conditions\Element2DCondition.cs" />
+    <Compile Include="Specifications\Element0DSpecification.cs" />
+    <Compile Include="Specifications\BoundingBoxSpecification.cs" />
+    <Compile Include="Specifications\Element2DSpecification.cs" />
     <Compile Include="Conditions\BoundingBoxCondition.cs" />
     <Compile Include="Conditions\FragmentCondition.cs" />
-    <Compile Include="Conditions\Element1DCondition.cs" />
+    <Compile Include="Specifications\Element1DSpecification.cs" />
     <Compile Include="Conditions\IdCondition.cs" />
     <Compile Include="Conditions\Interfaces\ISpatialCondition.cs" />
     <Compile Include="Conditions\Interfaces\ICondition.cs" />
