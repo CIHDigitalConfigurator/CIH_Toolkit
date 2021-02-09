@@ -59,21 +59,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compute\ApplyCondition\ApplyBoundingBoxCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyFragmentCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplySetCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplySpatialCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyValueNullCondition.cs" />
+    <Compile Include="Compute\ApplySpecification\ApplySpatialSpecification.cs" />
+    <Compile Include="Compute\ApplySpecifications.cs" />
+    <Compile Include="Compute\Utilities\PopulateSpecificationResult.cs" />
     <Compile Include="Compute\Utilities\IsAnyConditionNull.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyValueCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyDomainCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyLogicalCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyIdCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyTypeCondition.cs" />
-    <Compile Include="Convert\ToBoundingboxCondition.cs" />
+    <Compile Include="Query\GetBoundingBox.cs" />
     <Compile Include="Query\ValueFromSource.cs" />
     <Compile Include="Query\ToString.cs" />
     <Compile Include="Modify\SetCustomData.cs" />
-    <Compile Include="Compute\ApplyConditions.cs" />
+    <Compile Include="Compute\IApplyConditions.cs" />
     <Compile Include="Compute\ApplySpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
