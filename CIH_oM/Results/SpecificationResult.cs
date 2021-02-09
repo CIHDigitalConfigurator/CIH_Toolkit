@@ -31,7 +31,7 @@ namespace BH.oM.Data.Specifications
     public class SpecificationResult : IObject
     {
         [Description("Specification(s) that were applied.")]
-        public virtual List<Specification> Specifications { get; set; } // All specifications that were applied.
+        public virtual List<ISpecification> Specifications { get; set; } // All specifications that were applied.
         [Description("Objects that passed all specifications.")]
         public virtual List<object> PassedObjects { get; set; } = new List<object>();
         [Description("Objects that failed one specification or more.")]
@@ -47,7 +47,7 @@ namespace BH.oM.Data.Specifications
         [Description("Object that failed the specifications.")]
         public virtual object Object { get; set; }
         [Description("All specifications that this object failed.")]
-        public virtual HashSet<Specification> FailedSpecifications { get; set; }
+        public virtual HashSet<ISpecification> FailedSpecifications { get; set; }
         [Description("Info about the specification fails.")]
         public virtual List<SpecificationFailure> FailInfo { get; set; }
     }

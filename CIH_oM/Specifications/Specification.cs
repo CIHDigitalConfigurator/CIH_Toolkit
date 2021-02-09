@@ -32,8 +32,8 @@ namespace BH.oM.Data.Specifications
         public virtual string Name { get; set; }
         public virtual string Description { get; set; }
 
-        public virtual List<ICondition> FilterConditions { get; set; }
-        public virtual List<ICondition> CheckConditions { get; set; }
+        public virtual List<ICondition> FilterConditions { get; set; } // TODO: switch to single condition instead of list. Multiple conditions can be done in one logical condition.
+        public virtual List<ICondition> CheckConditions { get; set; } // TODO: switch to single condition instead of list. Multiple conditions can be done in one logical condition.
 
         public override string ToString()
         {

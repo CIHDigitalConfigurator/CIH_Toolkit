@@ -12,10 +12,19 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
+
+        /***************************************************/
+        /**** Public Methods                            ****/
+        /***************************************************/
+
         public static ConditionResult ApplyConditions(List<object> objects, List<ICondition> conditions, BooleanOperator booleanOperator = BooleanOperator.AND)
         {
             return IApplyCondition(objects, new LogicalCondition() { Conditions = conditions, BooleanOperator = booleanOperator });
         }
+
+        /***************************************************/
+        /**** Private Methods                           ****/
+        /***************************************************/
 
         private static ConditionResult IApplyCondition(List<object> objects, ICondition condition)
         {
@@ -27,6 +36,8 @@ namespace BH.Engine.CIH
 
             return ApplyCondition(objects, condition as dynamic);
         }
+
+        /***************************************************/
 
         //Fallback
         private static ConditionResult ApplyCondition(List<object> objects, ICondition condition)
