@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BH.oM.Dimensional;
+using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
