@@ -28,13 +28,13 @@ using BH.oM.Dimensional;
 
 namespace BH.oM.Data.Conditions
 {
-    public class Element0DCondition : BaseCondition
+    public class Element0DCondition : BaseCondition, ISpatialCondition
     {
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
 
-        public IElement0D ReferenceElement { get; set; }
+        public Point ReferencePoint { get; set; }
 
         public double LocalXDimension { get; set; }
         public double LocalYDimension { get; set; }

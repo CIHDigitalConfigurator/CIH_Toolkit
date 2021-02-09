@@ -28,13 +28,13 @@ using BH.oM.Dimensional;
 
 namespace BH.oM.Data.Conditions
 {
-    public class Element1DCondition : BaseCondition
+    public class Element1DCondition : BaseCondition, ISpatialCondition
     {
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
 
-        public IElement1D ReferenceElement { get; set; }
+        public Line ReferenceLine { get; set; }
 
         public double LocalYDimension { get; set; }
         public double LocalZDimension { get; set; }
@@ -45,8 +45,7 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            var combined = new string[] { LocalYCondition?.ToString(), LocalZCondition?.ToString() }.Where(s => !string.IsNullOrWhiteSpace(s));
-            return $"Must satisfy \"{string.Join("\" and \"", combined)}\"";
+            return Condition.ToString();
         }
     }
 }

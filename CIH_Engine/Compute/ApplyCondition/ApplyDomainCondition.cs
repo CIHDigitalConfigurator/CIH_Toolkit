@@ -40,7 +40,7 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    failInfo.Add($"\"{domainCondition.ToString()}\" not respected:\nvalue is {value}.");
+                    failInfo.Add($"\"{domainCondition.ToString()}\"\nnot respected: value is {value}.");
                 }
 
                 result.Pattern.Add(passed);

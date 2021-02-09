@@ -45,7 +45,7 @@
       <HintPath>C:\ProgramData\BHoM\Assemblies\Spatial_oM.dll</HintPath>
     </Reference>
     <Reference Include="Dimensional_oM">
-        <HintPath>C:\ProgramData\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,9 +60,13 @@
     <Compile Include="Conditions\BaseCondition.cs" />
     <Compile Include="Conditions\Comparisons\ValueNullCondition.cs" />
     <Compile Include="Conditions\CustomDataCondition.cs" />
+    <Compile Include="Conditions\Element0DCondition.cs" />
+    <Compile Include="Conditions\Element2DCondition.cs" />
+    <Compile Include="Conditions\BoundingBoxCondition.cs" />
     <Compile Include="Conditions\FragmentCondition.cs" />
-    <Compile Include="Conditions\SpatialCondition.cs" />
+    <Compile Include="Conditions\Element1DCondition.cs" />
     <Compile Include="Conditions\IdCondition.cs" />
+    <Compile Include="Conditions\Interfaces\ISpatialCondition.cs" />
     <Compile Include="Conditions\Interfaces\ICondition.cs" />
     <Compile Include="Conditions\Interfaces\IPropertyCondition.cs" />
     <Compile Include="Conditions\LogicalCondition.cs" />
