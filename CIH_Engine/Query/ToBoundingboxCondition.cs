@@ -13,31 +13,23 @@ using BH.Engine.Geometry;
 
 namespace BH.Engine.CIH
 {
-    public static partial class Convert
+    public static partial class Query
     {
-        public static string IToBoundingboxCondition(ISpatialCondition spatialCondition)
-        {
-            if (spatialCondition == null) return null;
-
-            return ToBoundingboxCondition(spatialCondition as dynamic);
-        }
-
-        private static BoundingBoxCondition ToBoundingboxCondition(Element2DCondition spatialCondition)
+        public static BoundingBox GetBoundingBox(IElement2D element2d, double localZDimension)
         {
             // Get boundingBox of the Element.
 
             // In order to extract the geometry out of the IElement, I need to cast it to BHoMObject
             // (the oM.Engine.Base method needs BHoMObject - may be worth adding one/changing it?)
-            BoundingBox bb = GetBoundingBox(spatialCondition.ReferenceElement);
+            BoundingBox bb = GetBoundingBox(element2d);
 
-            bb.Min.Z -= spatialCondition.LocalZDimension;
+            bb.Min.Z -= localZDimension;
 
-            return new BoundingBoxCondition() { BoundingBox = bb, Condition = spatialCondition.Condition, Comment = spatialCondition.Comment, Source = spatialCondition.Source };
+            return bb;
         }
 
-        private static BoundingBoxCondition ToBoundingboxCondition(Element1DCondition spatialCondition)
+        public static BoundingBox GetBoundingBox(Line line, double localYDimension, double localZDimension)
         {
-            Line line = spatialCondition.ReferenceLine;
             BoundingBox bb = null;
 
             // Works only for horizontal or vertical objects.
@@ -48,7 +40,7 @@ namespace BH.Engine.CIH
 
             if (!isHorizontal && !isVertical)
             {
-                BH.Engine.Reflection.Compute.RecordError("Element must be either horizontal or vertical.");
+                BH.Engine.Reflection.Compute.RecordError("Line must be either horizontal or vertical.");
                 return null;
             }
 
@@ -63,9 +55,9 @@ namespace BH.Engine.CIH
 
                 bb = BH.Engine.Geometry.Query.IBounds(line);
 
-                bb.Max.ITranslate(vecLocalY * spatialCondition.LocalYDimension / 2);
-                bb.Min.ITranslate(-vecLocalY * spatialCondition.LocalYDimension / 2);
-                bb.Min.ITranslate(-vecLocalZ * spatialCondition.LocalZDimension);
+                bb.Max.ITranslate(vecLocalY * localYDimension / 2);
+                bb.Min.ITranslate(-vecLocalY * localYDimension / 2);
+                bb.Min.ITranslate(-vecLocalZ * localZDimension);
             }
 
             if (isVertical)
@@ -84,11 +76,11 @@ namespace BH.Engine.CIH
 
             if (bb == null)
             {
-                BH.Engine.Reflection.Compute.RecordError($"Error computing the BoundingBox of the {nameof(spatialCondition)}.");
+                BH.Engine.Reflection.Compute.RecordError($"Error computing the BoundingBox of the Reference Line.");
                 return null;
             }
 
-            return new BoundingBoxCondition() { BoundingBox = bb, Condition = spatialCondition.Condition, Comment = spatialCondition.Comment, Source = spatialCondition.Source };
+            return bb;
         }
 
 

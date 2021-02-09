@@ -13,39 +13,11 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        public static SpecificationResult ApplySpecification(List<object> objects, Specification specification)
-        {
-            SpecificationResult specRes = new SpecificationResult();
+        /***************************************************/
+        /**** Public Methods                            ****/
+        /***************************************************/
 
-            // First apply filter to get relevant objects
-            ConditionResult filterResult = ApplyConditions(objects, specification.FilterConditions);
-
-            // Then apply the check to the filteredObject
-            ConditionResult checkResult = ApplyConditions(filterResult.PassedObjects, specification.CheckConditions);
-
-            // Populate the result.
-            specRes.PassedObjects.AddRange(checkResult.PassedObjects);
-            specRes.FailedObjects.AddRange(checkResult.FailedObjects);
-            specRes.NotAssessedObjects.AddRange(filterResult.FailedObjects);
-
-            specRes.Specifications = new List<Specification>() { specification };
-            specRes.ObjectFailures = new List<ObjectFailures>();
-
-            for (int i = 0; i < specRes.FailedObjects.Count(); i++)
-            {
-                ObjectFailures f = new ObjectFailures();
-                f.Object = specRes.FailedObjects.ElementAtOrDefault(i);
-                f.FailedSpecifications = new HashSet<Specification>() { specification };
-
-                var fi = string.Join("\n\t", checkResult.FailInfo);
-                f.FailInfo = new List<SpecificationFailure>() { new SpecificationFailure() { ParentSpecification = specification, FailedCheckCondition = checkResult.Condition, FailInfo = checkResult.FailInfo[i] } };
-                specRes.ObjectFailures.Add(f);
-            }
-
-            return specRes;
-        }
-
-        public static SpecificationResult ApplySpecifications(List<object> objects, List<Specification> specifications)
+        public static SpecificationResult ApplySpecifications(List<object> objects, List<ISpecification> specifications)
         {
             SpecificationResult combinedResult = new SpecificationResult();
 
@@ -80,7 +52,7 @@ namespace BH.Engine.CIH
                     {
                         f = new ObjectFailures();
                         f.Object = obj;
-                        f.FailedSpecifications = new HashSet<Specification>();
+                        f.FailedSpecifications = new HashSet<ISpecification>();
                         f.FailInfo = new List<SpecificationFailure>();
                     }
 

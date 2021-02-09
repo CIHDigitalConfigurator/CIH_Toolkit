@@ -20,18 +20,34 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Base;
-using BH.oM.Data.Conditions;
-using BH.oM.Data.Library;
+using BH.oM.Geometry;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
+using BH.oM.Dimensional;
+using BH.oM.Base;
 
 namespace BH.oM.Data.Conditions
 {
-    [Description("A specification that asks a certain condition to be satisfied only by objects placed in certain location in space.")]
-    public interface ISpatialSpecification : ISpecification
+    public class Element1DSpecification : ISpecification
     {
+        /***************************************************/
+        /**** Properties                                ****/
+        /***************************************************/
+
+        public Line ReferenceLine { get; set; }
+
+        public double LocalYDimension { get; set; }
+        public double LocalZDimension { get; set; }
+
+        public ICondition Condition { get; set; } = null;
+
+        /***************************************************/
+
+        public override string ToString()
+        {
+            return Condition.ToString();
+        }
     }
 }
 

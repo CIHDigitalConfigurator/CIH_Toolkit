@@ -25,19 +25,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BH.oM.Dimensional;
+using System.ComponentModel;
+using BH.oM.Base;
 
 namespace BH.oM.Data.Conditions
 {
-    public class Element0DCondition : BaseCondition, ISpatialCondition
+    public class Element2DSpecification : ISpecification
     {
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
 
-        public Point ReferencePoint { get; set; }
+        public IElement2D ReferenceElement { get; set; }
 
-        public double LocalXDimension { get; set; }
-        public double LocalYDimension { get; set; }
         public double LocalZDimension { get; set; }
 
         public ICondition Condition { get; set; } = null;

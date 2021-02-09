@@ -26,18 +26,17 @@ using System.Collections.Generic;
 using System.Linq;
 using BH.oM.Dimensional;
 using System.ComponentModel;
+using BH.oM.Base;
 
 namespace BH.oM.Data.Conditions
 {
-    public class Element2DCondition : BaseCondition, ISpatialCondition
+    public class BoundingBoxSpecification : ISpecification
     {
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
 
-        public IElement2D ReferenceElement { get; set; }
-
-        public double LocalZDimension { get; set; }
+        public BoundingBoxCondition BoxFilter {get;set;}
 
         public ICondition Condition { get; set; } = null;
 

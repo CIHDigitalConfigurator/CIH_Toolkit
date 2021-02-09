@@ -29,7 +29,7 @@ using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
-    public class BoundingBoxCondition : BaseCondition, ISpatialCondition
+    public class BoundingBoxCondition : BaseCondition
     {
         /***************************************************/
         /**** Properties                                ****/
@@ -38,13 +38,11 @@ namespace BH.oM.Data.Conditions
         [Description("Bonding box within which the Condition must hold.")]
         public BoundingBox BoundingBox { get; set; }
 
-        public ICondition Condition { get; set; } = null;
-
         /***************************************************/
 
         public override string ToString()
         {
-            return Condition.ToString();
+            return $"Must be within specified bounding box";
         }
     }
 }
