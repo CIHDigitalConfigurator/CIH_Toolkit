@@ -23,6 +23,7 @@
 using BH.oM.Base;
 using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
+using BH.oM.Dimensional;
 using BH.oM.Geometry;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace BH.oM.Data.Specifications
     public class SpatialSpecification : ISpecification
     {
         [Description("Objects owning a geometrical property that indicates the location where the Zone Specifications should be applied.")]
-        public List<IObject> Locations { get; set; }
+        public List<IElement> Locations { get; set; }
 
         public List<ZoneSpecification> ZoneSpecifications { get; set; }
     }
