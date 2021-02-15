@@ -44,18 +44,18 @@ namespace BH.Engine.CIH
         [Input("locations", "Objects indicating where the ZoneSpecifications should be applied. They must have a `zoneName` property that specifies in what Zone they're in.")]
         [Input("zoneSpecifications", "Zone specifications to be applied in the `locations`. They will be matched to the `locations` through their ZoneName property.")]
         [Input("prop", "The name of the property where the Zone Name is stored for the 'locations' objects.")]
-        public static List<SpatialSpecification> SpatialSpecification(List<IObject> locations, List<ZoneSpecification> zoneSpecifications, string prop = "ZoneName")
+        public static List<SpatialSpecification> SpatialSpecification(List<IElement> locations, List<ZoneSpecification> zoneSpecifications, string prop = "ZoneName")
         {
             List<SpatialSpecification> result = new List<SpatialSpecification>();
 
-            var zoneLocations = new Dictionary<string, List<IObject>>();
+            var zoneLocations = new Dictionary<string, List<IElement>>();
 
             foreach (var loc in locations)
             {
                 string zoneName = Reflection.Query.PropertyValue(loc, "ZoneName") as string;
 
                 if (!zoneLocations.ContainsKey(zoneName))
-                    zoneLocations[zoneName] = new List<IObject>();
+                    zoneLocations[zoneName] = new List<IElement>();
 
                 zoneLocations[zoneName].Add(loc);
             }

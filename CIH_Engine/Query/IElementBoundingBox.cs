@@ -46,13 +46,13 @@ namespace BH.Engine.CIH
         public static BoundingBox IElementBoundingBox(IElement element, params double[] pars)
         {
             if (element is IElement2D)
-                if (pars.Count() == 1)
+                if (pars[0] != 0 && (pars.Count() == 1 || (pars[1] == 0 && pars[2] == 0)))
                     return ElementBoundingBox(element as IElement2D, pars.FirstOrDefault());
                 else
                     BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {element.GetType().Name}. Specified {pars.Count()} dimensions while only 1 is required.");
 
             if (element is IElement1D)
-                if (pars.Count() == 2)
+                if (pars[0] != 0 && pars[1] != 0 && (pars.Count() == 2 || pars[0] != 0) )
                     return ElementBoundingBox(element as IElement1D, pars[0], pars[1]);
                 else
                     BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {element.GetType().Name}. Specified {pars.Count()} dimensions while 2 are required.");
