@@ -23,8 +23,10 @@ namespace BH.Engine.CIH
         }
 
         /***************************************************/
+        /**** Private Methods                           ****/
+        /***************************************************/
 
-        public static SpecificationResult ApplySpecification(List<object> objects, Specification specification)
+        private static SpecificationResult ApplySpecification(List<object> objects, Specification specification)
         {
 
             // First apply filter to get relevant objects
@@ -36,8 +38,6 @@ namespace BH.Engine.CIH
             return PopulateSpecificationResult(specification, filterResult, checkResult);
         }
 
-        /***************************************************/
-        /**** Private Methods                           ****/
         /***************************************************/
 
         // Fallback

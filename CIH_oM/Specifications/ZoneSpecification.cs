@@ -22,22 +22,32 @@
 
 using BH.oM.Base;
 using BH.oM.Data.Conditions;
+using BH.oM.Data.Library;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace BH.oM.Data.Specifications
 {
-    public class Specification : ISpecification
+    [Description("A specification that asks a certain condition to be satisfied only by objects placed in certain location (Zone) in space." +
+        "The Zone acts both as a Filter condition (spec applies only to elements whose *centreline* in the Zone) and as a CheckCondition (verifies that the element's boundingbox is completely included in the zone).")]
+    public class ZoneSpecification : Specification
     {
-        public virtual string SpecName { get; set; }
-        public virtual string Description { get; set; }
+        [Description("Identifying Name of the Zone this specification is defined for.")]
+        public string ZoneName { get; set; }
 
-        public virtual List<ICondition> FilterConditions { get; set; } // TODO: switch to single condition instead of list. Multiple conditions can be done in one logical condition.
-        public virtual List<ICondition> CheckConditions { get; set; } // TODO: switch to single condition instead of list. Multiple conditions can be done in one logical condition.
+        [Description("Dimension of the Zone in the localY direction. For a horizontal beam, this is horizontally its section plane.")]
+        public double Width { get; set; }
+        [Description("Dimension of the Zone in the localZ direction. For a horizontal beam, this is vertically its section plane.")]
+        public double Height { get; set; }
+        [Description("Dimension of the Zone in the localX direction, that is, parallel to its axis.")]
+        public double Depth { get; set; }
 
         public override string ToString()
         {
-            return $"{(string.IsNullOrWhiteSpace(SpecName) ? "This Specification" : $"`{SpecName}`")} requires objects that respect the following conditions:\n\t - {string.Join(",\n\t - ", FilterConditions.Select(c => c?.ToString()))}\n" +
+            return $"{(string.IsNullOrWhiteSpace(SpecName) ? "This Specification" : $"`{SpecName}`")} is defined for the zone `{ZoneName}`.\n" +
+                $"It requires objects that respect the following conditions:\n\t - {string.Join(",\n\t - ", FilterConditions.Select(c => c?.ToString()))}\n" +
                 $"to comply with the following conditions:\n\t{string.Join(",\n\t - ", CheckConditions.Select(c => c?.ToString()))}";
         }
     }

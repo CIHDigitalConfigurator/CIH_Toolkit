@@ -22,24 +22,22 @@
 
 using BH.oM.Base;
 using BH.oM.Data.Conditions;
+using BH.oM.Data.Library;
+using BH.oM.Geometry;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace BH.oM.Data.Specifications
 {
-    public class Specification : ISpecification
+    [Description("Zone specifications 'applied' to a certain location.")]
+    public class SpatialSpecification : ISpecification
     {
-        public virtual string SpecName { get; set; }
-        public virtual string Description { get; set; }
+        [Description("Objects owning a geometrical property that indicates the location where the Zone Specifications should be applied.")]
+        public List<IObject> Locations { get; set; }
 
-        public virtual List<ICondition> FilterConditions { get; set; } // TODO: switch to single condition instead of list. Multiple conditions can be done in one logical condition.
-        public virtual List<ICondition> CheckConditions { get; set; } // TODO: switch to single condition instead of list. Multiple conditions can be done in one logical condition.
-
-        public override string ToString()
-        {
-            return $"{(string.IsNullOrWhiteSpace(SpecName) ? "This Specification" : $"`{SpecName}`")} requires objects that respect the following conditions:\n\t - {string.Join(",\n\t - ", FilterConditions.Select(c => c?.ToString()))}\n" +
-                $"to comply with the following conditions:\n\t{string.Join(",\n\t - ", CheckConditions.Select(c => c?.ToString()))}";
-        }
+        public List<ZoneSpecification> ZoneSpecifications { get; set; }
     }
 }
 
