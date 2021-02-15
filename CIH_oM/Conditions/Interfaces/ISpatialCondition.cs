@@ -30,8 +30,10 @@ using System.ComponentModel;
 namespace BH.oM.Data.Conditions
 {
     [Description("A specification that asks a certain condition to be satisfied only by objects placed in certain location in space.")]
-    public interface ISpatialSpecification : ISpecification
+    public interface ISpatialCondition : ICondition
     {
+        // Evaluate inner geometry (e.g. centreLine) or outside geometry
+        bool Containment3D { get; set; } // If true, checks containment of the object's Geometry3D(). Otherwise, checks containment of Geometry().
     }
 }
 

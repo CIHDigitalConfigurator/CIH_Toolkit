@@ -64,7 +64,6 @@
     <Compile Include="Compute\ApplyCondition\ApplySetCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplySpatialCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyValueNullCondition.cs" />
-    <Compile Include="Compute\ApplySpecification\ApplySpatialSpecification.cs" />
     <Compile Include="Compute\ApplySpecifications.cs" />
     <Compile Include="Compute\Utilities\PopulateSpecificationResult.cs" />
     <Compile Include="Compute\Utilities\IsAnyConditionNull.cs" />

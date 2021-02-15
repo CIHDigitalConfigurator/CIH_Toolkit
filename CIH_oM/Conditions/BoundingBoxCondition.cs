@@ -29,7 +29,7 @@ using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
-    public class BoundingBoxCondition : BaseCondition
+    public class BoundingBoxCondition : BaseCondition, ISpatialCondition
     {
         /***************************************************/
         /**** Properties                                ****/
@@ -37,12 +37,13 @@ namespace BH.oM.Data.Conditions
 
         [Description("Bonding box within which the Condition must hold.")]
         public BoundingBox BoundingBox { get; set; }
+        public bool Containment3D { get; set; } = false;
 
         /***************************************************/
 
         public override string ToString()
         {
-            return $"Must be within specified bounding box";
+            return $"within Bounding Box defined by {BoundingBox.Min} and {BoundingBox.Max}.";
         }
     }
 }

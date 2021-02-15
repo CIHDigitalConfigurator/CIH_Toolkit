@@ -30,6 +30,7 @@ namespace BH.oM.Data.Conditions
 {
     public abstract class BaseCondition : ICondition
     {
+        public virtual string Name { get; set; } 
         public virtual Source Source { get; set; }
         public virtual string Comment { get; set; }
     }

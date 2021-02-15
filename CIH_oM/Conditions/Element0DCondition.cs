@@ -25,28 +25,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BH.oM.Dimensional;
-using System.ComponentModel;
 using BH.oM.Base;
 
 namespace BH.oM.Data.Conditions
 {
-    public class Element2DSpecification : ISpatialSpecification
+    public class Element0DCondition : BaseCondition, ISpatialCondition
     {
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
 
-        public IElement2D ReferenceElement { get; set; }
+        public Point ReferencePoint { get; set; }
 
+        public double LocalXDimension { get; set; }
+        public double LocalYDimension { get; set; }
         public double LocalZDimension { get; set; }
-
-        public ICondition Condition { get; set; } = null;
+        public bool Containment3D { get; set; } = false;
 
         /***************************************************/
 
         public override string ToString()
         {
-            return Condition.ToString();
+            return $"Must be in a Box of dimensions {LocalXDimension}x{LocalYDimension}x{LocalZDimension} centered in ({ReferencePoint.X},{ReferencePoint.Y},{ReferencePoint.Z}).";
         }
     }
 }

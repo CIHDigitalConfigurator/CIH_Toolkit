@@ -29,27 +29,23 @@ using BH.oM.Base;
 
 namespace BH.oM.Data.Conditions
 {
-    public class Element0DSpecification : ISpatialSpecification
+    public class Element1DCondition : BaseCondition, ISpatialCondition
     {
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
 
-        public Point ReferencePoint { get; set; }
+        public Line ReferenceLine { get; set; }
 
-        public double LocalXDimension { get; set; }
         public double LocalYDimension { get; set; }
         public double LocalZDimension { get; set; }
-
-        public ICondition Condition { get; set; } = null;
+        public bool Containment3D { get; set; } = false; // If true, checks containment of the object's Geometry3D(). Otherwise, checks containment of Geometry().
 
         /***************************************************/
 
         public override string ToString()
         {
-            return Condition.ToString();
+            return $"Must be in a location below the specified ReferenceLine with dimensions {LocalYDimension}x{LocalZDimension}.";
         }
     }
 }
-
-

@@ -25,28 +25,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BH.oM.Dimensional;
+using System.ComponentModel;
 using BH.oM.Base;
 
 namespace BH.oM.Data.Conditions
 {
-    public class Element1DSpecification : ISpatialSpecification
+    public class Element2DCondition : BaseCondition, ISpatialCondition
     {
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
 
-        public Line ReferenceLine { get; set; }
+        public IElement2D ReferenceElement { get; set; }
 
-        public double LocalYDimension { get; set; }
         public double LocalZDimension { get; set; }
 
-        public ICondition Condition { get; set; } = null;
+        public bool Containment3D { get; set; } = false;
 
         /***************************************************/
 
         public override string ToString()
         {
-            return Condition.ToString();
+            return $"Must be in a location below the specified ReferenceElement with depth {LocalZDimension}.";
         }
     }
 }
