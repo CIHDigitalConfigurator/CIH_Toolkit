@@ -25,7 +25,12 @@ namespace BH.Engine.CIH
                 IGeometry geom = null;
                 BHoMObject bhomObj = obj as BHoMObject;
                 if (bhomObj != null)
-                    geom = bhomObj.IGeometry();
+                {
+                    if (bbc.Containment3D)
+                        geom = bhomObj.IGeometry3D();
+                    else
+                        geom = bhomObj.IGeometry();
+                }
 
                 if (obj is IGeometry)
                     geom = obj as IGeometry;

@@ -42,34 +42,62 @@ namespace BH.Engine.CIH
     {
         [Description("Returns an 'Applied' Spatial Specification. This is a set of Zone Specifications applied to precise locations.")]
         [Input("locations", "Objects indicating where the ZoneSpecifications should be applied. They must have a `zoneName` property that specifies in what Zone they're in.")]
-        [Input("zoneSpecifications", "Zone specifications to be applied in the `locations`. They will be matched to the `locations` through their ZoneName property.")]
-        [Input("prop", "The name of the property where the Zone Name is stored for the 'locations' objects.")]
-        public static List<SpatialSpecification> SpatialSpecification(List<IElement> locations, List<ZoneSpecification> zoneSpecifications, string prop = "ZoneName")
+        [Input("zoneSpecification", "Zone specification to be applied in the `locations`. It will be matched to the `locations` through the `ZoneName` property.")]
+        [Input("prop", "The name of the property where the Zone Name is stored for the 'locations' objects. Defaults to `ZoneName`.")]
+        public static SpatialSpecification SpatialSpecification(List<IObject> locations, ZoneSpecification zoneSpecification, string prop = "ZoneName")
         {
-            List<SpatialSpecification> result = new List<SpatialSpecification>();
-
-            var zoneLocations = new Dictionary<string, List<IElement>>();
+            SpatialSpecification result = new SpatialSpecification();
 
             foreach (var loc in locations)
             {
                 string zoneName = Reflection.Query.PropertyValue(loc, "ZoneName") as string;
 
+                if (zoneName == zoneSpecification.ZoneName)
+                    result.Locations.Add(loc);
+            }
+
+            result.ZoneSpecification = zoneSpecification;
+
+            return result;
+        }
+
+        [Description("Returns an 'Applied' Spatial Specification. This is a set of Zone Specifications applied to precise locations.")]
+        [Input("locations", "Objects indicating where the ZoneSpecifications should be applied. They must have a `zoneName` property that specifies in what Zone they're in.")]
+        [Input("zoneSpecification", "Zone specification to be applied in the `locations`. It will be matched to the `locations` through the `ZoneName` property.")]
+        [Input("prop", "The name of the property where the Zone Name is stored for the 'locations' objects. Defaults to `ZoneName`.")]
+        public static List<SpatialSpecification> SpatialSpecifications(List<IObject> locations, List<ZoneSpecification> zoneSpecifications, string prop = "ZoneName")
+        {
+            List<SpatialSpecification> result = new List<SpatialSpecification>();
+
+            var zoneLocations = new Dictionary<string, List<IObject>>();
+
+            bool missingProp = false;
+            foreach (var loc in locations)
+            {
+                string zoneName = Reflection.Query.PropertyValue(loc, "ZoneName") as string;
+
+                if (string.IsNullOrWhiteSpace(zoneName))
+                {
+                    missingProp = true;
+                    continue;
+                }
+
                 if (!zoneLocations.ContainsKey(zoneName))
-                    zoneLocations[zoneName] = new List<IElement>();
+                    zoneLocations[zoneName] = new List<IObject>();
 
                 zoneLocations[zoneName].Add(loc);
             }
+
+            if (missingProp)
+                BH.Engine.Reflection.Compute.RecordError($"Some {nameof(locations)} object did not have the required `{prop}` property in its CustomData.");
+
+            Dictionary<string, ZoneSpecification> zoneDic = zoneSpecifications.GroupBy(z => z.ZoneName).ToDictionary(g => g.Key, g => g.FirstOrDefault());
 
             foreach (string zoneName in zoneLocations.Keys)
             {
                 SpatialSpecification sp = new SpatialSpecification();
                 sp.Locations = zoneLocations[zoneName];
-
-                foreach (var zoneSpec in zoneSpecifications)
-                {
-                    if (zoneSpec.ZoneName == zoneName)
-                        sp.ZoneSpecifications.Add(zoneSpec);
-                }
+                sp.ZoneSpecification = zoneDic[zoneName];
 
                 result.Add(sp);
             }

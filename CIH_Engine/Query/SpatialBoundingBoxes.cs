@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2021, the respective contributors. All rights reserved.
  *
@@ -20,26 +20,48 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Base;
 using BH.oM.Data.Conditions;
-using BH.oM.Data.Library;
-using BH.oM.Dimensional;
-using BH.oM.Geometry;
+using BH.Engine.Base;
+using BH.oM.Base;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BH.oM.Data;
+using BH.oM.Geometry;
+using BH.oM.Dimensional;
+using BH.Engine.Geometry;
+using System.ComponentModel;
+using BH.oM.Data.Specifications;
 
-namespace BH.oM.Data.Specifications
+namespace BH.Engine.CIH
 {
-    [Description("Zone specification 'applied' to a certain location.")]
-    public class SpatialSpecification : ISpecification
+    public static partial class Query
     {
-        [Description("Objects owning a geometrical property that indicates the location where the Zone Specifications should be applied.")]
-        public List<IObject> Locations { get; set; } = new List<IObject>(); // this could be a list of boxes.
+        /***************************************************/
+        /**** Public Methods                            ****/
+        /***************************************************/
 
-        public ZoneSpecification ZoneSpecification { get; set; } // this could be a "normal specification"
+        [Description("Extract the bounding boxes associated to a SpatialSpecification.")]
+        public static List<BoundingBox> SpatialBoundingBoxes(this SpatialSpecification spatialSpec)
+        {
+            List<BoundingBox> result = new List<BoundingBox>();
+
+            List<IGeometry> locations = spatialSpec.Locations.Select(l => BH.Engine.Base.Query.IGeometry(l)).ToList();
+            ZoneSpecification zoneSpec = spatialSpec.ZoneSpecification;
+
+            Dictionary<BHoMObject, Tuple<IElement, IGeometry>> objsReferenceElement = new Dictionary<BHoMObject, Tuple<IElement, IGeometry>>();
+
+            foreach (var obj in locations)
+            {
+                BoundingBox bb = Query.IElementBoundingBox(obj, zoneSpec.Width, zoneSpec.Height, zoneSpec.Depth);
+
+                if (bb != null)
+                    result.Add(bb);
+            }
+
+            return result;
+        }
     }
 }
-
-
