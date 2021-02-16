@@ -43,8 +43,12 @@ namespace BH.Engine.CIH
         /***************************************************/
 
         [Description("Extracts the Bounding Box of a IElement using its geometrical component(s) and additional parameters to indicate any missing dimension.")]
-        public static BoundingBox IElementBoundingBox(IElement element, params double[] pars)
+        public static BoundingBox IElementBoundingBox(IObject iObj, params double[] pars)
         {
+            IElement element = iObj as IElement;
+            if (iObj == null)
+                element = iObj.IGeometry() as IElement;
+
             if (element is IElement2D)
                 if (pars[0] != 0 && (pars.Count() == 1 || (pars[1] == 0 && pars[2] == 0)))
                     return ElementBoundingBox(element as IElement2D, pars.FirstOrDefault());
