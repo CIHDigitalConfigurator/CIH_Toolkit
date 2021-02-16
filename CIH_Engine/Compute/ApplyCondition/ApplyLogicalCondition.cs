@@ -14,6 +14,11 @@ namespace BH.Engine.CIH
     {
         private static ConditionResult ApplyCondition(List<object> objects, LogicalCondition logicalCondition)
         {
+            ConditionResult combinedResult = new ConditionResult() { Condition = logicalCondition };
+
+            if (logicalCondition.Conditions.Count == 0)
+                return combinedResult;
+
             if (logicalCondition.BooleanOperator == BooleanOperator.NOT)
             {
                 BH.Engine.Reflection.Compute.RecordError($"Boolean operator `{BooleanOperator.NOT}` is not applicable when combining filters.");
@@ -26,7 +31,6 @@ namespace BH.Engine.CIH
             List<bool> passes = new List<bool>();
             Enumerable.Repeat(true, objects.Count);
 
-            ConditionResult combinedResult = new ConditionResult() { Condition = logicalCondition };
             List<ConditionResult> results = new List<ConditionResult>();
 
             // FailInfos matrix: contains all failInfo, for each condition, for each object.
