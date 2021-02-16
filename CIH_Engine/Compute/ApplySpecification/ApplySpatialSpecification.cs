@@ -25,8 +25,15 @@ namespace BH.Engine.CIH
             SpecificationResult res = new SpecificationResult();
             res.NotAssessedObjects = objects.Where(o => !(o is BHoMObject)).ToList();
 
-            var passedObjs = FilterObjects(objects.OfType<BHoMObject>().ToList(), spatialSpec);
+            List<BHoMObject> bhomObjs = objects.OfType<BHoMObject>().ToList();
 
+            List<BHoMObject> passedObjs = FilterObjects(bhomObjs, spatialSpec);
+            res.NotAssessedObjects.AddRange(bhomObjs.Except(passedObjs));
+
+            foreach (var obj in passedObjs)
+            {
+
+            }
 
 
             return null;
@@ -46,7 +53,7 @@ namespace BH.Engine.CIH
                 IGeometry geom = BH.Engine.Base.Query.IGeometry(bhomObj);
                 IElement referenceElement = geom as IElement;
 
-                Tuple<IElement, IGeometry> tup = new Tuple<IElement, IGeometry>(referenceElement, Base.Query.IGeometry(bhomObj));
+                Tuple<IElement, IGeometry> tup = new Tuple<IElement, IGeometry>(referenceElement, geom);
 
                 objsReferenceElement[bhomObj] = tup;
             }
@@ -64,9 +71,13 @@ namespace BH.Engine.CIH
                 {
                     BoundingBox bb = Query.IElementBoundingBox(objsReferenceElement[bhomObj].Item1, zoneSpec.Width, zoneSpec.Height, zoneSpec.Depth);
 
-                    // If the zone bounding box contains the bhomObject's Geometry, it's passed.
+                    // If the zone bounding box contains the bhomObject's Geometry, let's apply the other filters.
                     if (bb.IsContaining(objsReferenceElement[bhomObj].Item2))
-                        passedObjs_thisSpec.Add(bhomObj);
+                    {
+                        var res = ApplyCondition(new List<object>() { bhomObj }, new LogicalCondition() { Conditions = zoneSpec.FilterConditions });
+                        if (res.PassedObjects.Count == 1)
+                            passedObjs_thisSpec.Add(res.PassedObjects.First() as BHoMObject);
+                    }
                 }
 
                 passedObjsSets.Add(passedObjs_thisSpec);
@@ -77,5 +88,8 @@ namespace BH.Engine.CIH
 
             return passedObjs;
         }
+
+
+
     }
 }
