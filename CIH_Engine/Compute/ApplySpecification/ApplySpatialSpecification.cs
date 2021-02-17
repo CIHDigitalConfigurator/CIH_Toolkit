@@ -55,10 +55,14 @@ namespace BH.Engine.CIH
                 {
                     checkResultAggregated.PassedObjects.AddRange(checkResult_obj.PassedObjects);
                     checkResultAggregated.FailedObjects.AddRange(checkResult_obj.FailedObjects);
+                    checkResultAggregated.Condition = checkResult_obj.Condition;
                 }
                 else
                 {
                     checkResultAggregated.FailedObjects.Add(objToCheck);
+                    List<ICondition> failedConditions = new List<ICondition> { new BoundingBoxCondition() { BoundingBox = zoneBB } };
+                    failedConditions.AddRange(spatialSpec.ZoneSpecification.CheckConditions);
+                    checkResultAggregated.Condition = new LogicalCondition() { Conditions = failedConditions };
                 }
 
                 checkResultAggregated.FailInfo.AddRange(checkResult_obj.FailInfo);
