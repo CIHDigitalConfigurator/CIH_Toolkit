@@ -45,6 +45,9 @@ namespace BH.Engine.CIH
         [Description("Extracts the Bounding Box of a IElement using its geometrical component(s) and additional parameters to indicate any missing dimension.")]
         public static BoundingBox IElementBoundingBox(IObject iObj, params double[] pars)
         {
+            if (iObj == null)
+                return null;
+
             IElement element = iObj as IElement;
             if (iObj == null)
                 element = iObj.IGeometry() as IElement;
@@ -131,9 +134,9 @@ namespace BH.Engine.CIH
 
                 bb = BH.Engine.Geometry.Query.IBounds(line);
 
-                bb.Max.ITranslate(vecLocalY * localYDimension / 2);
-                bb.Min.ITranslate(-vecLocalY * localYDimension / 2);
-                bb.Min.ITranslate(-vecLocalZ * localZDimension);
+                bb.Max = bb.Max.ITranslate(vecLocalY * localYDimension / 2) as Point;
+                bb.Min = bb.Min.ITranslate(-vecLocalY * localYDimension / 2) as Point;
+                bb.Min = bb.Min.ITranslate(-vecLocalZ * localZDimension) as Point;
             }
 
             if (isVertical)
@@ -155,6 +158,24 @@ namespace BH.Engine.CIH
                 BH.Engine.Reflection.Compute.RecordError($"Error computing the BoundingBox of the Reference Line.");
                 return null;
             }
+
+            // Ensure validity of the Bounding Box. The min/max have to be lowest/highest in all coordinates.
+            Point min = new Point()
+            {
+                X = new List<double>() { bb.Max.X, bb.Min.X }.Min(),
+                Y = new List<double>() { bb.Max.Y, bb.Min.Y }.Min(),
+                Z = new List<double>() { bb.Max.Z, bb.Min.Z }.Min(),
+            };
+
+            Point max = new Point()
+            {
+                X = new List<double>() { bb.Max.X, bb.Min.X }.Max(),
+                Y = new List<double>() { bb.Max.Y, bb.Min.Y }.Max(),
+                Z = new List<double>() { bb.Max.Z, bb.Min.Z }.Max(),
+            };
+
+            bb.Min = min;
+            bb.Max = max;
 
             return bb;
         }
