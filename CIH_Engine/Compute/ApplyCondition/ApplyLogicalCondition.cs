@@ -17,7 +17,11 @@ namespace BH.Engine.CIH
             ConditionResult combinedResult = new ConditionResult() { Condition = logicalCondition };
 
             if (logicalCondition.Conditions.Count == 0)
+            {
+                combinedResult.PassedObjects = objects;
+                combinedResult.Pattern = Enumerable.Repeat(true, objects.Count()).ToList();
                 return combinedResult;
+            }
 
             if (logicalCondition.BooleanOperator == BooleanOperator.NOT)
             {
