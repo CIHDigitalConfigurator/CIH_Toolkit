@@ -44,7 +44,7 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            return $"within Bounding Box defined by {BoundingBox.Min} and {BoundingBox.Max}.";
+            return $"within Bounding Box defined by Min ({BoundingBox.Min.X},{BoundingBox.Min.Y},{BoundingBox.Min.Z}) and Max ({BoundingBox.Max.X},{BoundingBox.Max.Y},{BoundingBox.Max.Z})";
         }
     }
 }
