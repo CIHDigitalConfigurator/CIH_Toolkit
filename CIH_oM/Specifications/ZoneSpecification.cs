@@ -55,8 +55,8 @@ namespace BH.oM.Data.Specifications
                 $"{(Depth != 0 ? "x" + Depth.ToString() : "")}.");
             conditionsText.AddRange(CheckConditions.Select(c => c?.ToString()));
 
-            return $"{(string.IsNullOrWhiteSpace(SpecName) ? "This Specification" : $"`{SpecName}`")} is defined for the zone `{ZoneName}`. \n" +
-                $"It requires objects that respect the following conditions:\n\t - {string.Join(",\n\t - ", FilterConditions.Select(c => c?.ToString()))}\n" +
+            return $"{(string.IsNullOrWhiteSpace(SpecName) ? "This Specification" : $"`{SpecName}`")} is defined for the zone `{ZoneName}` and " +
+                $"it requires objects that respect the following conditions:\n\t - {string.Join(",\n\t - ", FilterConditions.Select(c => c?.ToString()))}\n" +
                 $"to comply with the following conditions:\n\t{string.Join(",\n\t - ", conditionsText)}";
         }
     }
