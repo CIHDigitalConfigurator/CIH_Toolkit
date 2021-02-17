@@ -47,17 +47,21 @@ namespace BH.oM.Data.Specifications
         {
             List<string> filterConditionsText = new List<string>();
 
-            string filterConditionZone = $"the defining geometry of the object must be contained within the Zone aligned to the reference element and of size " +
-                $"{(ZoneSpecification.Width != 0 ? ZoneSpecification.Width.ToString() : "")}" +
+            string zoneBoxDescription = $"{(ZoneSpecification.Width != 0 ? ZoneSpecification.Width.ToString() : "")}" +
                 $"{(ZoneSpecification.Height != 0 ? "x" + ZoneSpecification.Height.ToString() : "")}" +
                 $"{(ZoneSpecification.Depth != 0 ? "x" + ZoneSpecification.Depth.ToString() : "")}";
 
-            filterConditionsText.Add(filterConditionZone);
+            filterConditionsText.Add($"the defining geometry of the object must be contained within the Zone aligned to the reference element and of size {zoneBoxDescription}");
             filterConditionsText.AddRange(ZoneSpecification.FilterConditions.Select(c => c?.ToString()));
+
+            List<string> conditionsText = new List<string>();
+
+            conditionsText.Add($"geometry3D of the object must be contained within the Zone aligned to the reference element and of size {zoneBoxDescription}");
+            conditionsText.AddRange(ZoneSpecification.CheckConditions.Select(c => c?.ToString()));
 
             return $"{(string.IsNullOrWhiteSpace(SpecName) ? "This Specification" : $"`{SpecName}`")} requires objects that respect the following conditions:" +
                 $"\n\t - {string.Join(",\n\t - ", filterConditionsText)}\n" +
-                $"to comply with the following specification:\n\t{ZoneSpecification.ToString()}";
+                $"to comply with the following conditions:\n\t{conditionsText.ToString()}";
         }
     }
 }

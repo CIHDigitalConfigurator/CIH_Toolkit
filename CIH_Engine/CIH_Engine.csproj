@@ -83,6 +83,7 @@
     <Compile Include="Compute\ApplyCondition\ApplyIdCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyTypeCondition.cs" />
     <Compile Include="Create\SpatialSpecification.cs" />
+    <Compile Include="Query\Geometry3D.cs" />
     <Compile Include="Query\SpatialBoundingBoxes.cs" />
     <Compile Include="Query\IElementBoundingBox.cs" />
     <Compile Include="Query\ValueFromSource.cs" />
