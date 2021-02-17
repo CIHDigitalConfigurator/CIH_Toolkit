@@ -44,11 +44,20 @@ namespace BH.oM.Data.Specifications
         [Description("Dimension of the Zone in the localX direction, that is, parallel to its axis.")]
         public double Depth { get; set; }
 
+        // Prints only the CheckConditions.
         public override string ToString()
         {
-            return $"{(string.IsNullOrWhiteSpace(SpecName) ? "This Specification" : $"`{SpecName}`")} is defined for the zone `{ZoneName}`.\n" +
+            List<string> conditionsText = new List<string>();
+
+            conditionsText.Add($"geometry3D of the object must be contained within the Zone aligned to the reference element and of size " +
+                $"{(Width != 0 ? Width.ToString() : "")}" +
+                $"{(Height != 0 ? "x"+ Height.ToString() : "")}" +
+                $"{(Depth != 0 ? "x" + Depth.ToString() : "")}.");
+            conditionsText.AddRange(CheckConditions.Select(c => c?.ToString()));
+
+            return $"{(string.IsNullOrWhiteSpace(SpecName) ? "This Specification" : $"`{SpecName}`")} is defined for the zone `{ZoneName}`. \n" +
                 $"It requires objects that respect the following conditions:\n\t - {string.Join(",\n\t - ", FilterConditions.Select(c => c?.ToString()))}\n" +
-                $"to comply with the following conditions:\n\t{string.Join(",\n\t - ", CheckConditions.Select(c => c?.ToString()))}";
+                $"to comply with the following conditions:\n\t{string.Join(",\n\t - ", conditionsText)}";
         }
     }
 }
