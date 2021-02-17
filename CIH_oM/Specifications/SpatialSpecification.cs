@@ -35,10 +35,30 @@ namespace BH.oM.Data.Specifications
     [Description("Zone specification 'applied' to a certain location.")]
     public class SpatialSpecification : ISpecification
     {
+        public virtual string SpecName { get; set; }
+        public virtual string Description { get; set; }
+
         [Description("Objects owning a geometrical property that indicates the location where the Zone Specifications should be applied.")]
         public List<IObject> Locations { get; set; } = new List<IObject>(); // this could be a list of boxes.
 
         public ZoneSpecification ZoneSpecification { get; set; } // this could be a "normal specification"
+
+        public override string ToString()
+        {
+            List<string> filterConditionsText = new List<string>();
+
+            string filterConditionZone = $"the defining geometry of the object must be contained within the Zone aligned to the reference element and of size " +
+                $"{(ZoneSpecification.Width != 0 ? ZoneSpecification.Width.ToString() : "")}" +
+                $"{(ZoneSpecification.Height != 0 ? "x" + ZoneSpecification.Height.ToString() : "")}" +
+                $"{(ZoneSpecification.Depth != 0 ? "x" + ZoneSpecification.Depth.ToString() : "")}";
+
+            filterConditionsText.Add(filterConditionZone);
+            filterConditionsText.AddRange(ZoneSpecification.FilterConditions.Select(c => c?.ToString()));
+
+            return $"{(string.IsNullOrWhiteSpace(SpecName) ? "This Specification" : $"`{SpecName}`")} requires objects that respect the following conditions:" +
+                $"\n\t - {string.Join(",\n\t - ", filterConditionsText)}\n" +
+                $"to comply with the following specification:\n\t{ZoneSpecification.ToString()}";
+        }
     }
 }
 
