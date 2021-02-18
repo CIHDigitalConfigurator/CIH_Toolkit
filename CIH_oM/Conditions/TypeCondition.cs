@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.CIH.Conditions
+namespace BH.oM.Data.Conditions
 {
     public class TypeCondition : BaseCondition
     {

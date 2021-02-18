@@ -22,13 +22,13 @@
 
 using BH.oM.Base;
 using BH.oM.Data.Collections;
-using BH.oM.CIH.Conditions;
+using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.CIH.Conditions
+namespace BH.oM.Data.Conditions
 {
     public class PropertyCondition : BaseCondition, IPropertyCondition
     {

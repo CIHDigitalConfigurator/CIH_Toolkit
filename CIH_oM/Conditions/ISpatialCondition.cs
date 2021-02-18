@@ -21,13 +21,13 @@
  */
 
 using BH.oM.Base;
-using BH.oM.CIH.Conditions;
+using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.CIH.Conditions
+namespace BH.oM.Data.Conditions
 {
     [Description("A specification that asks a certain condition to be satisfied only by objects placed in certain location in space.")]
     public interface ISpatialCondition : ICondition

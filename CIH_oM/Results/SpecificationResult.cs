@@ -21,12 +21,12 @@
  */
 
 using BH.oM.Base;
-using BH.oM.CIH.Conditions;
+using BH.oM.Data.Conditions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.CIH.Specifications
+namespace BH.oM.Data.Specifications
 {
     public class SpecificationResult : IObject
     {
