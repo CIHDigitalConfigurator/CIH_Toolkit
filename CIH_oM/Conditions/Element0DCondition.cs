@@ -27,7 +27,7 @@ using System.Linq;
 using BH.oM.Dimensional;
 using BH.oM.Base;
 
-namespace BH.oM.CIH.Conditions
+namespace BH.oM.Data.Conditions
 {
     public class Element0DCondition : BaseCondition, ISpatialCondition
     {

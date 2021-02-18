@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.CIH.Conditions;
+using BH.oM.Data.Conditions;
 using BH.Engine.Base;
 using BH.oM.Base;
 using System;
