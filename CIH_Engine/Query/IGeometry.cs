@@ -34,34 +34,38 @@ using BH.oM.Dimensional;
 using BH.Engine.Geometry;
 using System.ComponentModel;
 using BH.oM.Data.Specifications;
+using System.Collections;
 
 namespace BH.Engine.CIH
 {
     public static partial class Query
     {
         /***************************************************/
-        /**** Public Methods                            ****/
+        /**** Private Methods                           ****/
         /***************************************************/
 
-        [Description("Extract the bounding boxes associated to a SpatialSpecification.")]
-        public static List<BoundingBox> SpatialBoundingBoxes(this SpatialSpecification spatialSpec)
+        private static IGeometry IGeometry(object obj)
         {
-            List<BoundingBox> result = new List<BoundingBox>();
-
-            List<IGeometry> locations = spatialSpec.Locations.Select(l => BH.Engine.CIH.Query.IGeometry(l)).ToList();
-            ZoneSpecification zoneSpec = spatialSpec.ZoneSpecification;
-
-            Dictionary<BHoMObject, Tuple<IElement, IGeometry>> objsReferenceElement = new Dictionary<BHoMObject, Tuple<IElement, IGeometry>>();
-
-            foreach (var obj in locations)
+            if (obj is IGeometry)
+                return obj as IGeometry;
+            else if (obj is IBHoMObject)
+                return ((IBHoMObject)obj).IGeometry();
+            else if (obj is IEnumerable)
             {
-                BoundingBox bb = Query.IElementBoundingBox(obj, zoneSpec.Width, zoneSpec.Height, zoneSpec.Depth);
-
-                if (bb != null)
-                    result.Add(bb);
+                List<IGeometry> geometries = new List<IGeometry>();
+                foreach (object item in (IEnumerable)obj)
+                {
+                    IGeometry geometry = IGeometry(item);
+                    if (geometry != null)
+                        geometries.Add(geometry);
+                }
+                if (geometries.Count() > 0)
+                    return new CompositeGeometry { Elements = geometries };
+                else
+                    return null;
             }
-
-            return result;
+            else
+                return null;
         }
     }
 }

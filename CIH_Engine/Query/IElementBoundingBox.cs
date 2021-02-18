@@ -50,7 +50,7 @@ namespace BH.Engine.CIH
 
             IElement element = iObj as IElement;
             if (iObj == null)
-                element = iObj.IGeometry() as IElement;
+                element = IGeometry(iObj) as IElement;
 
             if (element is IElement2D)
                 if (pars[0] != 0 && (pars.Count() == 1 || (pars[1] == 0 && pars[2] == 0)))
