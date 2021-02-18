@@ -44,6 +44,8 @@ namespace BH.Engine.CIH
         /**** Private Methods                           ****/
         /***************************************************/
 
+        // Wrapper method around BH.Engine.Base.IGeometry() to deal with types different from IBHoMObject. 
+        // Saves repeated casting/type checking. See BHoM/BHoM_Engine#2316
         private static IGeometry IGeometry(object obj)
         {
             if (obj is IGeometry)
