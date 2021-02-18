@@ -85,6 +85,7 @@
     <Compile Include="Specifications\Specification.cs" />
     <Compile Include="Results\ConditionResult.cs" />
     <Compile Include="Results\SpecificationResult.cs" />
+    <Compile Include="ZoneReferenceLine.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
