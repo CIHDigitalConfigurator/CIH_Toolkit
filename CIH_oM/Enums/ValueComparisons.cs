@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data
+namespace BH.oM.CIH
 {
     public enum ValueComparisons
     {
