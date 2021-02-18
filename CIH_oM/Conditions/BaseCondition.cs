@@ -21,12 +21,12 @@
  */
 
 using BH.oM.Base;
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
     public abstract class BaseCondition : ICondition
     {

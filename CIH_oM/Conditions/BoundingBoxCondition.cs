@@ -27,7 +27,7 @@ using System.Linq;
 using BH.oM.Dimensional;
 using System.ComponentModel;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
     public class BoundingBoxCondition : BaseCondition, ISpatialCondition
     {

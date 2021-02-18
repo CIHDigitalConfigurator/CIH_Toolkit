@@ -21,12 +21,12 @@
  */
 
 using BH.oM.Base;
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.Data
+namespace BH.oM.CIH
 {
     public class ConditionResult : IObject
     {
