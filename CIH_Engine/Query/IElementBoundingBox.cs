@@ -143,6 +143,9 @@ namespace BH.Engine.CIH
             {
                 // Bounding box is centered on the element.
 
+                vecLocalY = BH.Engine.Geometry.Query.CrossProduct(new Vector() { Y = 1 }, vecLocalX).UnitVector();
+                vecLocalZ = new Vector() { Y = 1 };
+
                 double minZ = Math.Min(line.Start.Z, line.End.Z);
 
                 Point basePoint = line.Start.DeepClone();
@@ -150,7 +153,13 @@ namespace BH.Engine.CIH
 
                 Vector Zlenght = new Vector() { Z = BH.Engine.Geometry.Query.ILength(line) };
 
-                bb = BH.Engine.Geometry.Query.IBounds(BH.Engine.Geometry.Create.Cylinder(basePoint, Zlenght));
+                bb = BH.Engine.Geometry.Query.IBounds(line);
+
+                bb.Max = bb.Max.ITranslate(vecLocalY * localYDimension / 2) as Point;
+                bb.Max = bb.Max.ITranslate(vecLocalZ * localZDimension / 2) as Point;
+                bb.Min = bb.Min.ITranslate(-vecLocalY * localYDimension / 2) as Point;
+                bb.Min = bb.Min.ITranslate(-vecLocalZ * localZDimension / 2) as Point;
+
             }
 
             if (bb == null)
