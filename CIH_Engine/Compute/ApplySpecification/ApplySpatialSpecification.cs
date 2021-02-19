@@ -68,7 +68,9 @@ namespace BH.Engine.CIH
                 checkResultAggregated.FailInfo.AddRange(checkResult_obj.FailInfo);
             }
 
-            return PopulateSpecificationResult(spatialSpec, filterResultAggregated, checkResultAggregated);
+            var aggregatedRes = PopulateSpecificationResult(spatialSpec, filterResultAggregated, checkResultAggregated);
+
+            return aggregatedRes;
         }
 
         private static Dictionary<BHoMObject, BoundingBox> FilterObjects(List<BHoMObject> objects, SpatialSpecification spatialSpec)
