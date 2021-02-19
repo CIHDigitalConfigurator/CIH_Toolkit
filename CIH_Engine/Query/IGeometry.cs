@@ -48,26 +48,35 @@ namespace BH.Engine.CIH
         // Saves repeated casting/type checking. See BHoM/BHoM_Engine#2316
         private static IGeometry IGeometry(object obj)
         {
+            List<IGeometry> geometries = new List<IGeometry>();
+
             if (obj is IGeometry)
                 return obj as IGeometry;
             else if (obj is IBHoMObject)
                 return ((IBHoMObject)obj).IGeometry();
             else if (obj is IEnumerable)
             {
-                List<IGeometry> geometries = new List<IGeometry>();
                 foreach (object item in (IEnumerable)obj)
                 {
                     IGeometry geometry = IGeometry(item);
                     if (geometry != null)
                         geometries.Add(geometry);
                 }
-                if (geometries.Count() > 0)
-                    return new CompositeGeometry { Elements = geometries };
-                else
-                    return null;
             }
             else
-                return null;
+            {
+                // Collect all sub-properties of type Geometry from the object
+                var subGeomProps = obj.GetType().GetProperties().Where(p => typeof(IGeometry).IsAssignableFrom(p.PropertyType));
+
+                geometries = subGeomProps.Select(g => g.GetValue(obj)).OfType<IGeometry>().ToList();
+            }
+
+            if (geometries.Count > 1)
+                return new CompositeGeometry() { Elements = geometries };
+            if (geometries.Count == 1)
+                return geometries[0];
+
+            return null;
         }
     }
 }
