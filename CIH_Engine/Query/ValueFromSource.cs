@@ -47,7 +47,7 @@ namespace BH.Engine.CIH
         private static object GetValue(this IBHoMObject obj, string sourceName)
         {
             IBHoMObject bhomObj = obj as IBHoMObject;
-            object value;
+            object value = null;
             if (bhomObj.CustomData.ContainsKey(sourceName))
             {
                 if (bhomObj.CustomData.TryGetValue(sourceName, out value))
@@ -71,18 +71,18 @@ namespace BH.Engine.CIH
                     {
                         List<IFragment> allFragmentsOfType = bhomObj.Fragments.Where(fr => fragmentType.IsAssignableFrom(fr.GetType())).ToList();
                         List<object> values = allFragmentsOfType.Select(f => ValueFromSource(f, string.Join(".", props.Skip(1)))).ToList();
-                        return values.Count == 1 ? values.First() : values;
+                        value = values.Count == 1 ? values.First() : values;
                     }
 
                 }
                 else
                 {
                     // Try extracting the property using an Extension method.
-                    return BH.Engine.Reflection.Compute.RunExtensionMethod(obj, sourceName);
+                    value = BH.Engine.Reflection.Compute.RunExtensionMethod(obj, sourceName);
                 }
             }
 
-            return null;
+            return value;
         }
 
         /***************************************************/
