@@ -87,10 +87,30 @@ namespace BH.Engine.CIH
                             }
                             else
                             {
-                                if (value is string && refValue is string)
+                                if (value.ToString().Contains("BH.oM") && !(valueCondition.ReferenceValue is Type))
+                                {
+                                    // If the value is a Type and the referenceValue is not, try comparing the `Name` property extracted from both.
+                                    // In some cases (e.g. Materials) this is useful.
+                                    string valueString = BH.Engine.Reflection.Query.PropertyValue(value, "Name") as string;
+                                    string referenceValue = BH.Engine.Reflection.Query.PropertyValue(valueCondition.ReferenceValue, "Name") as string;
+                                    passed = valueString == referenceValue;
+
+                                    if (!passed)
+                                    {
+                                        // If the previous failed, try comparing the Name extracted from the Value with the ToString() of the reference value.
+                                        // This is useful when an enum is provided as ReferenceValue.
+                                        passed = valueString == valueCondition.ReferenceValue.ToString();
+                                    }
+                                }
+                                else if (value.ToString().Contains("BH.oM") && (valueCondition.ReferenceValue is Type))
+                                {
+                                    passed = value.ToString() == valueCondition.ReferenceValue.ToString();
+                                }
+                                else if (value is string && refValue is string)
                                     passed = value.ToString() == refValue.ToString(); // workaround needed. Not even Convert.ChangeType and dynamic type worked.
                                 else
                                     passed = value == refValue;
+
                             }
 
                         }
@@ -110,7 +130,12 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    info.Add($"{valueCondition.PropertyName} was {value ?? "empty"}, which does not respect '{valueCondition.ToString()}'.");
+                    string valueString = value.ToString();
+
+                    if (valueString.Contains("BH.oM") && !(valueCondition.ReferenceValue is Type))
+                        valueString = BH.Engine.Reflection.Query.PropertyValue(value, "Name") as string;
+
+                    info.Add($"{valueCondition.PropertyName} was {valueString ?? "empty"}, which does not respect '{valueCondition.ToString()}'.");
                 }
 
                 result.Pattern.Add(passed);
