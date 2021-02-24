@@ -92,11 +92,25 @@ namespace BH.Engine.CIH
                 BH.Engine.Reflection.Compute.RecordError($"Some {nameof(locations)} object did not have the required `{prop}` property in its CustomData.");
 
             Dictionary<string, ZoneSpecification> zoneDic = zoneSpecifications.GroupBy(z => z.ZoneName).ToDictionary(g => g.Key, g => g.FirstOrDefault());
-
+            HashSet<string> zoneSpecsNotFound = new HashSet<string>();
             foreach (string zoneName in zoneLocations.Keys)
             {
                 SpatialSpecification sp = new SpatialSpecification();
                 sp.Locations = zoneLocations[zoneName];
+                if (!zoneDic.ContainsKey(zoneName))
+                {
+                    zoneSpecsNotFound.Add(zoneName);
+                    continue;
+                }
+
+                if (zoneSpecsNotFound.Count > 0)
+                {
+                    foreach (var notFoundZoneName in zoneSpecsNotFound)
+                    {
+                        BH.Engine.Reflection.Compute.RecordWarning($"No Zone specification was found for the Zone named `{notFoundZoneName}` that was required by some of the objects provided.");
+                    }
+                }
+
                 sp.ZoneSpecification = zoneDic[zoneName];
 
                 result.Add(sp);
