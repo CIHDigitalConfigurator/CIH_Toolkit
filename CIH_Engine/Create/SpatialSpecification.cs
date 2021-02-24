@@ -74,7 +74,7 @@ namespace BH.Engine.CIH
             bool missingProp = false;
             foreach (var loc in locations)
             {
-                string zoneName = Reflection.Query.PropertyValue(loc, "ZoneName") as string;
+                string zoneName = loc.ValueFromSource("ZoneName") as string;
 
                 if (string.IsNullOrWhiteSpace(zoneName))
                 {
