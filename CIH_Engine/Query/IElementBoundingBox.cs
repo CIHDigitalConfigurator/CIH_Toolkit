@@ -52,32 +52,32 @@ namespace BH.Engine.CIH
             if (iObj == null)
                 element = IGeometry(iObj) as IElement;
 
-            if (element is IElement2D)
+            if (element is IElement2D || iObj is ISurface)
                 if (pars[0] != 0 && (pars.Count() == 1 || (pars[1] == 0 && pars[2] == 0)))
-                    return ElementBoundingBox(element as IElement2D, pars.FirstOrDefault());
+                    return ElementBoundingBox(iObj, pars.FirstOrDefault());
                 else
-                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {element.GetType().Name}. Specified {pars.Count()} dimensions while only 1 is required.");
+                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {iObj.GetType().Name}. Specified {pars.Count()} dimensions while only 1 is required.");
 
             if (element is IElement1D)
                 if (pars[0] != 0 && pars[1] != 0 && (pars.Count() == 2 || pars[0] != 0) )
                     return ElementBoundingBox(element as IElement1D, pars[0], pars[1]);
                 else
-                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {element.GetType().Name}. Specified {pars.Count()} dimensions while 2 are required.");
+                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {iObj.GetType().Name}. Specified {pars.Count()} dimensions while 2 are required.");
 
             if (element is IElement0D)
                 if (pars.Count() == 3)
                     return ElementBoundingBox(element as IElement0D, pars[0], pars[1], pars[2]);
                 else
-                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {element.GetType().Name}. Specified {pars.Count()} dimensions while 3 are required.");
+                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {iObj.GetType().Name}. Specified {pars.Count()} dimensions while 3 are required.");
 
-            BH.Engine.Reflection.Compute.RecordError($"No matching method found for element {element.GetType().Name} and dimensions {string.Join(", ", pars)}");
+            BH.Engine.Reflection.Compute.RecordError($"No matching method found for element {iObj.GetType().Name} and dimensions {string.Join(", ", pars)}");
             return null;
 
         }
 
         /***************************************************/
 
-        public static BoundingBox ElementBoundingBox(IElement2D element2d, double localZDimension)
+        public static BoundingBox ElementBoundingBox(IObject element2d, double localZDimension)
         {
             // Get boundingBox of the Element.
 
@@ -85,6 +85,8 @@ namespace BH.Engine.CIH
             // (the oM.Engine.Base method needs BHoMObject - may be worth adding one/changing it?)
 
             IGeometry geometry = BH.Engine.Base.Query.IGeometry(element2d as BHoMObject);
+            if (element2d is IGeometry && geometry == null)
+                geometry = element2d as IGeometry;
 
             BoundingBox bb = BH.Engine.Geometry.Query.IBounds(geometry);
 
@@ -100,6 +102,13 @@ namespace BH.Engine.CIH
             Line line = element1d as Line;
             if (line != null)
                 return ElementBoundingBox(line, localYDimension, localZDimension);
+            
+            ICurve crv = element1d as ICurve;
+            if (element1d != null)
+            {
+                line = BH.Engine.Geometry.Create.Line(crv.IStartPoint(), crv.IEndPoint());
+                return ElementBoundingBox(line, localYDimension, localZDimension);
+            }
 
             BH.Engine.Reflection.Compute.RecordError($"This method currently supports only Elements that are of type {nameof(Line)}.");
             return null;
