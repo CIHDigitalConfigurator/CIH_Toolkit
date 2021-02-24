@@ -54,7 +54,26 @@ namespace BH.oM.Data.Conditions
 
         public override string ToString()
         {
-            return $"{PropertyName} {Comparison} {(ReferenceValue == null ? "null" : ReferenceValue.ToString())}";
+            string valueString = "";
+
+            if (ReferenceValue == null)
+                valueString = "null";
+            else if (ReferenceValue.ToString().Contains("BH.oM") && !(ReferenceValue is Type))
+                valueString = ReferenceValue.GetType().GetProperty("Name").GetValue(ReferenceValue) as string;
+
+            valueString = string.IsNullOrWhiteSpace(valueString) ? ReferenceValue.ToString() : valueString;
+
+
+            string comparisonText = Comparison.ToString();
+            var builder = new System.Text.StringBuilder();
+            foreach (char c in comparisonText)
+            {
+                if (Char.IsUpper(c) && builder.Length > 0) builder.Append(' ');
+                builder.Append(Char.ToLower(c));
+            }
+            comparisonText = builder.ToString();
+
+            return $"{PropertyName} {comparisonText} {valueString}";
         }
     }
 }
