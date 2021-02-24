@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BH.oM.Data;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace BH.Engine.CIH
 {
@@ -18,7 +19,7 @@ namespace BH.Engine.CIH
         /**** Private Methods                           ****/
         /***************************************************/
 
-        public static object ValueFromSource(this object obj, string sourceName)
+        public static object ValueFromSource(this object obj, string sourceName, bool errorIfNotFound = false)
         {
             if (obj == null || sourceName == null)
                 return null;
@@ -40,11 +41,11 @@ namespace BH.Engine.CIH
             if (prop != null)
                 return prop.GetValue(obj);
             else
-                return GetValue(obj as dynamic, sourceName);
+                return GetValue(obj as dynamic, sourceName, errorIfNotFound);
 
         }
 
-        private static object GetValue(this IBHoMObject obj, string sourceName)
+        private static object GetValue(this IBHoMObject obj, string sourceName, bool errorIfNotFound = false)
         {
             IBHoMObject bhomObj = obj as IBHoMObject;
             object value = null;
@@ -78,7 +79,12 @@ namespace BH.Engine.CIH
                 else
                 {
                     // Try extracting the property using an Extension method.
-                    value = BH.Engine.Reflection.Compute.RunExtensionMethod(obj, sourceName);
+                    MethodInfo method = BH.Engine.Reflection.Query.ExtensionMethodToCall(obj, sourceName);
+                    if (method != null)
+                        value = BH.Engine.Reflection.Compute.RunExtensionMethod(obj, method);
+                    else
+                        if (errorIfNotFound)
+                            BH.Engine.Reflection.Compute.RecordError($"No property, customData or ExtensionMethod found with name `{sourceName}` for this {obj.GetType().Name}.");
                 }
             }
 
