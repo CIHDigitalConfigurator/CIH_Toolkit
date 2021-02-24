@@ -29,16 +29,13 @@ namespace BH.Engine.CIH
 
                 object value = obj.ValueFromSource(valueCondition.PropertyName);
 
-                if (valueCondition.ReferenceValue == null && obj == null)
+                if (valueCondition.ReferenceValue == null && value == null)
                     passed = true;
-
-                if (valueCondition.ReferenceValue == null && obj != null)
+                else if (valueCondition.ReferenceValue == null && value != null)
                     passed = false;
-
-                if (valueCondition.ReferenceValue != null && obj == null)
+                else if(valueCondition.ReferenceValue != null && value == null)
                     passed = false;
-
-                if (valueCondition.ReferenceValue != null && obj != null)
+                else if(valueCondition.ReferenceValue != null && value != null)
                 {
                     double numericalValue;
 
@@ -83,11 +80,11 @@ namespace BH.Engine.CIH
                             {
                                 //Compare by hash
                                 HashComparer<object> hc = new HashComparer<object>(cc);
-                                passed = hc.Equals(obj, refValue);
+                                passed = hc.Equals(value, refValue);
                             }
                             else
                             {
-                                if (value.ToString().Contains("BH.oM") && !(valueCondition.ReferenceValue is Type))
+                                if ((value is Type || ((value as string)?.StartsWith("BH.oM") ?? false)) && !(valueCondition.ReferenceValue is Type))
                                 {
                                     // If the value is a Type and the referenceValue is not, try comparing the `Name` property extracted from both.
                                     // In some cases (e.g. Materials) this is useful.
@@ -109,7 +106,11 @@ namespace BH.Engine.CIH
                                 else if (value is string && refValue is string)
                                     passed = value.ToString() == refValue.ToString(); // workaround needed. Not even Convert.ChangeType and dynamic type worked.
                                 else
-                                    passed = value == refValue;
+                                {
+                                    //Compare by hash
+                                    HashComparer<object> hc = new HashComparer<object>(cc);
+                                    passed = hc.Equals(value, refValue);
+                                }
 
                             }
 
@@ -130,12 +131,15 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    string valueString = value.ToString();
+                    string valueString = value == null ? "null" : value.ToString();
 
                     if (valueString.Contains("BH.oM") && !(valueCondition.ReferenceValue is Type))
                         valueString = BH.Engine.Reflection.Query.PropertyValue(value, "Name") as string;
 
-                    info.Add($"{valueCondition.PropertyName} was {valueString ?? "empty"}, which does not respect '{valueCondition.ToString()}'.");
+                    string conditionText = valueCondition.ToString();
+                    conditionText = conditionText.Replace(valueCondition.PropertyName + " ", "");
+
+                    info.Add($"{valueCondition.PropertyName} was {valueString ?? "empty"}, which does not respect «{conditionText}».");
                 }
 
                 result.Pattern.Add(passed);
