@@ -103,17 +103,17 @@ namespace BH.Engine.CIH
                     continue;
                 }
 
-                if (zoneSpecsNotFound.Count > 0)
-                {
-                    foreach (var notFoundZoneName in zoneSpecsNotFound)
-                    {
-                        BH.Engine.Reflection.Compute.RecordWarning($"No Zone specification was found for the Zone named `{notFoundZoneName}` that was required by some of the objects provided.");
-                    }
-                }
-
                 sp.ZoneSpecification = zoneDic[zoneName];
 
                 result.Add(sp);
+            }
+
+            if (zoneSpecsNotFound.Count > 0)
+            {
+                foreach (var notFoundZoneName in zoneSpecsNotFound)
+                {
+                    BH.Engine.Reflection.Compute.RecordWarning($"No Zone specification was found for the Zone named `{notFoundZoneName}` that was required by some of the objects provided.");
+                }
             }
 
             return result;

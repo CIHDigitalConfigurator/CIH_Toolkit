@@ -84,20 +84,15 @@ namespace BH.Engine.CIH
                             }
                             else
                             {
-                                if ((value is Type || ((value as string)?.StartsWith("BH.oM") ?? false)) && !(valueCondition.ReferenceValue is Type))
-                                {
-                                    // If the value is a Type and the referenceValue is not, try comparing the `Name` property extracted from both.
-                                    // In some cases (e.g. Materials) this is useful.
-                                    string valueString = BH.Engine.Reflection.Query.PropertyValue(value, "Name") as string;
-                                    string referenceValue = BH.Engine.Reflection.Query.PropertyValue(valueCondition.ReferenceValue, "Name") as string;
-                                    passed = valueString == referenceValue;
+                                // Try checking name compatibility. Useful for materials.
+                                string valueString = BH.Engine.Reflection.Query.PropertyValue(value, "Name") as string;
+                                string referenceValue = BH.Engine.Reflection.Query.PropertyValue(valueCondition.ReferenceValue, "Name") as string;
+                                if (string.IsNullOrWhiteSpace(referenceValue))
+                                    referenceValue = valueCondition.ReferenceValue as string;
 
-                                    if (!passed)
-                                    {
-                                        // If the previous failed, try comparing the Name extracted from the Value with the ToString() of the reference value.
-                                        // This is useful when an enum is provided as ReferenceValue.
-                                        passed = valueString == valueCondition.ReferenceValue.ToString();
-                                    }
+                                if (valueString == referenceValue)
+                                {
+                                    passed = true;
                                 }
                                 else if (value.ToString().Contains("BH.oM") && (valueCondition.ReferenceValue is Type))
                                 {
@@ -108,8 +103,7 @@ namespace BH.Engine.CIH
                                 else
                                 {
                                     //Compare by hash
-                                    HashComparer<object> hc = new HashComparer<object>(cc);
-                                    passed = hc.Equals(value, refValue);
+                                    passed = value == refValue;
                                 }
 
                             }
