@@ -32,7 +32,7 @@ namespace BH.Engine.CIH
 
             foreach (var spec in specifications)
             {
-                SpecificationResult specRes = ApplySpecification(objects, spec);
+                SpecificationResult specRes = IApplySpecification(objects, spec);
                 SpecificationFailure failuresForThisSpec = new SpecificationFailure();
 
                 foreach (var obj in specRes.PassedObjects)
@@ -64,7 +64,11 @@ namespace BH.Engine.CIH
                 }
             }
 
+            var passedSomething = failedObjs.Except(passedObjs).ToList();
+            objFailDict.Remove(passedSomething);
+
             NotAssessed = (allObjs.Except(failedObjs)).Except(passedObjs).ToList();
+            failedObjs = passedSomething;
 
             combinedResult = new SpecificationResult()
             {
