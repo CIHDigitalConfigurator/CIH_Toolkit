@@ -102,21 +102,12 @@ namespace BH.Engine.CIH
                                     passed = value.ToString() == refValue.ToString(); // workaround needed. Not even Convert.ChangeType and dynamic type worked.
                                 else
                                 {
-                                    //Compare by hash
                                     passed = value == refValue;
                                 }
 
                             }
 
                         }
-                        //else if (valueCondition.Comparison == ValueComparisons.SmallerThan)
-                        //    passed = value < refValue;
-                        //else if (valueCondition.Comparison == ValueComparisons.SmallerThanOrEqualTo)
-                        //    passed = actualValue <= requestedValue + tolerance;
-                        //else if (valueCondition.Comparison == ValueComparisons.LargerThan)
-                        //    passed = actualValue > requestedValue + tolerance;
-                        //else if (valueCondition.Comparison == ValueComparisons.LargerThanOrEqualTo)
-                        //    passed = actualValue >= requestedValue + tolerance;
                     }
                 }
 
