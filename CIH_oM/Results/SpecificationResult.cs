@@ -46,19 +46,21 @@ namespace BH.oM.Data.Specifications
     {
         [Description("Object that failed the specifications.")]
         public virtual object Object { get; set; }
-        [Description("All specifications that this object failed.")]
+        [Description("All the Specifications that this object failed.")]
         public virtual HashSet<ISpecification> FailedSpecifications { get; set; }
-        [Description("Info about the specification fails.")]
-        public virtual List<SpecificationFailure> FailInfo { get; set; }
+        [Description("Info about how the Checks of these Specifications failed.")]
+        public virtual List<CheckFailure> CheckFailures { get; set; }
     }
 
-    public class SpecificationFailure : IObject
+    public class CheckFailure : IObject
     {
-        [Description("From what Specification the failed checkCondition come from.")]
-        public virtual ISpecification ParentSpecification { get; set; }
+        [Description("Object that failed the check condition.")]
+        public virtual object Object { get; set; }
         [Description("The checkCondition that failed.")]
         public virtual ICondition FailedCheckCondition { get; set; }
         [Description("Info from the failed checkCondition")]
-        public virtual object FailInfo { get; set; } 
+        public virtual object FailInfo { get; set; }
+        [Description("From what Specification the failed checkCondition come from.")]
+        public virtual ISpecification ParentSpecification { get; set; }
     }
 }
