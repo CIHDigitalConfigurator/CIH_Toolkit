@@ -27,12 +27,13 @@ namespace BH.Engine.CIH
 
             for (int i = 0; i < specRes.FailedObjects.Count(); i++)
             {
+                object failedObj = specRes.FailedObjects.ElementAtOrDefault(i);
                 ObjectFailures f = new ObjectFailures();
-                f.Object = specRes.FailedObjects.ElementAtOrDefault(i);
+                f.Object = failedObj;
                 f.FailedSpecifications = new HashSet<ISpecification>() { specification };
 
                 var fi = string.Join("\n\t", checkResult.FailInfo);
-                f.FailInfo = new List<SpecificationFailure>() { new SpecificationFailure() { ParentSpecification = specification, FailedCheckCondition = checkResult.Condition, FailInfo = checkResult.FailInfo[i] } };
+                f.CheckFailures = new List<CheckFailure>() { new CheckFailure() { Object = failedObj, ParentSpecification = specification, FailedCheckCondition = checkResult.Condition, FailInfo = checkResult.FailInfo[i] } };
                 specRes.ObjectFailures.Add(f);
             }
 

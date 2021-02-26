@@ -66,7 +66,9 @@
     <Compile Include="Conditions\BoundingBoxCondition.cs" />
     <Compile Include="Conditions\FragmentCondition.cs" />
     <Compile Include="Conditions\IdCondition.cs" />
+    <Compile Include="Enums\PassRequirement.cs" />
     <Compile Include="Specifications\SpatialSpecification.cs" />
+    <Compile Include="Specifications\LogicalSpecification.cs" />
     <Compile Include="Specifications\ZoneSpecification.cs" />
     <Compile Include="Conditions\ISpatialCondition.cs" />
     <Compile Include="Conditions\Interfaces\ICondition.cs" />

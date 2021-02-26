@@ -17,7 +17,7 @@ namespace BH.Engine.CIH
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static SpecificationResult ApplySpecifications(List<object> objects, List<ISpecification> specifications)
+        public static SpecificationResult ApplySpecifications(List<object> objects, List<ISpecification> specifications, PassRequirement passRequirement = PassRequirement.AllMustPass)
         {
             SpecificationResult combinedResult = new SpecificationResult();
 
@@ -25,25 +25,39 @@ namespace BH.Engine.CIH
             HashSet<object> allObjs = new HashSet<object>(objects); // TODO: evaluate whether to use our HashComparer.
             objects = allObjs.ToList();
 
-            List<object> passedObjs = new List<object>();
-            List<object> failedObjs = new List<object>();
-            List<object> NotAssessed = new List<object>();
+            HashSet<object> passedObjs = new HashSet<object>();
+            HashSet<object> failedObjs = new HashSet<object>();
+            HashSet<object> NotAssessed = new HashSet<object>() { objects };
             Dictionary<object, ObjectFailures> objFailDict = new Dictionary<object, ObjectFailures>();  // one "Failures" per failed object, stating what specification(s) that object failed.
 
             foreach (var spec in specifications)
             {
                 SpecificationResult specRes = IApplySpecification(objects, spec);
-                SpecificationFailure failuresForThisSpec = new SpecificationFailure();
+                CheckFailure failuresForThisSpec = new CheckFailure();
 
                 foreach (var obj in specRes.PassedObjects)
                 {
                     NotAssessed.Remove(obj);
-                    passedObjs.Add(obj);
+
+                    if (passRequirement == PassRequirement.AtLeastOnePasses || (passRequirement == PassRequirement.AllMustPass && !failedObjs.Contains(obj)))
+                    {
+                        passedObjs.Add(obj);
+
+                        if (failedObjs.Contains(obj))
+                        {
+                            failedObjs.Remove(obj);
+                            objFailDict.Remove(obj);
+                        }
+                    }
                 }
 
                 foreach (var obj in specRes.FailedObjects)
                 {
                     NotAssessed.Remove(obj);
+
+                    if (passRequirement == PassRequirement.AtLeastOnePasses && passedObjs.Contains(obj))
+                        continue; // continue considering the object as Passed.
+                    
                     passedObjs.Remove(obj);
                     failedObjs.Add(obj);
 
@@ -53,26 +67,20 @@ namespace BH.Engine.CIH
                         f = new ObjectFailures();
                         f.Object = obj;
                         f.FailedSpecifications = new HashSet<ISpecification>();
-                        f.FailInfo = new List<SpecificationFailure>();
+                        f.CheckFailures = new List<CheckFailure>();
                     }
 
                     f.FailedSpecifications.Add(spec);
                     var singleSpecFailure = specRes.ObjectFailures.First();
-                    f.FailInfo.Add(new SpecificationFailure() { ParentSpecification = spec, FailedCheckCondition = singleSpecFailure.FailInfo.First().FailedCheckCondition, FailInfo = singleSpecFailure.FailInfo.FirstOrDefault()?.FailInfo });
+                    f.CheckFailures.Add(new CheckFailure() { Object = obj, ParentSpecification = spec, FailedCheckCondition = singleSpecFailure.CheckFailures.First().FailedCheckCondition, FailInfo = singleSpecFailure.CheckFailures.FirstOrDefault()?.FailInfo });
 
                     objFailDict[obj] = f;
                 }
             }
 
-            var passedSomething = failedObjs.Except(passedObjs).ToList();
-            objFailDict.Remove(passedSomething);
-
-            NotAssessed = (allObjs.Except(failedObjs)).Except(passedObjs).ToList();
-            failedObjs = passedSomething;
-
             combinedResult = new SpecificationResult()
             {
-                PassedObjects = passedObjs,
+                PassedObjects = passedObjs.ToList(),
                 FailedObjects = failedObjs.ToList(),
                 NotAssessedObjects = NotAssessed.ToList(),
                 Specifications = specifications.Distinct().ToList(),

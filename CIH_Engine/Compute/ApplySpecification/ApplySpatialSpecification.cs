@@ -44,11 +44,18 @@ namespace BH.Engine.CIH
                 BoundingBox zoneBB = kv.Value;
                 IGeometry geom3D = BH.Engine.Base.Query.IGeometry3D(kv.Key);
 
+                if (geom3D == null)
+                {
+                    BH.Engine.Reflection.Compute.RecordWarning($"Could not retrieve the Geometry3D for an object of type `{kv.Key.GetType().Name}`. The object will not be assessed.");
+                    filterResultAggregated.FailedObjects.Add(kv.Key);
+                    filterResultAggregated.PassedObjects.Remove(kv.Key);
+                    continue;
+                }
+
                 bool isContained = zoneBB.IsContaining(geom3D);
 
                 if (!isContained)
                     checkResultAggregated.FailInfo.Add("The 3D geometry of the object is not contained in the Zone.");
-
 
                 var checkResult_obj = ApplyConditions(new List<object>() { objToCheck }, spatialSpec.ZoneSpecification.CheckConditions);
                 if (isContained)
