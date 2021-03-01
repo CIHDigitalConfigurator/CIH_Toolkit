@@ -47,9 +47,9 @@ namespace BH.oM.Data.Specifications
         [Description("Object that failed the specifications.")]
         public virtual object Object { get; set; }
         [Description("All the Specifications that this object failed.")]
-        public virtual HashSet<ISpecification> FailedSpecifications { get; set; }
+        public virtual HashSet<ISpecification> FailedSpecifications { get; set; } = new HashSet<ISpecification>();
         [Description("Info about how the Checks of these Specifications failed.")]
-        public virtual List<CheckFailure> CheckFailures { get; set; }
+        public virtual HashSet<CheckFailure> CheckFailures { get; set; } = new HashSet<CheckFailure>();
     }
 
     public class CheckFailure : IObject

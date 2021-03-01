@@ -66,13 +66,29 @@ namespace BH.Engine.CIH
                     {
                         f = new ObjectFailures();
                         f.Object = obj;
-                        f.FailedSpecifications = new HashSet<ISpecification>();
-                        f.CheckFailures = new List<CheckFailure>();
                     }
 
                     f.FailedSpecifications.Add(spec);
                     var singleSpecFailure = specRes.ObjectFailures.First();
-                    f.CheckFailures.Add(new CheckFailure() { Object = obj, ParentSpecification = spec, FailedCheckCondition = singleSpecFailure.CheckFailures.First().FailedCheckCondition, FailInfo = singleSpecFailure.CheckFailures.FirstOrDefault()?.FailInfo });
+
+
+
+                    var existingCheckFailure = f.CheckFailures.FirstOrDefault(cf => cf.ParentSpecification == spec && (cf.FailedCheckCondition == singleSpecFailure.CheckFailures.First() || cf.FailInfo == singleSpecFailure.CheckFailures.First().FailInfo));
+                    var asdas = f.CheckFailures.FirstOrDefault(cf => cf.ParentSpecification == spec);
+
+
+                    bool areNotEqual = asdas != null;
+
+                    string text1 = asdas?.FailInfo.ToString();
+                    string text2 = singleSpecFailure?.CheckFailures.First().FailInfo.ToString();
+
+                    if (!string.IsNullOrWhiteSpace(text1) && !string.IsNullOrWhiteSpace(text2)) {
+                        string asdasd = string.Join("", text1.Except(text2));
+                        areNotEqual &= !string.IsNullOrWhiteSpace(asdasd);
+                    }
+                    
+                    if (!f.CheckFailures.Any() || areNotEqual)
+                     f.CheckFailures.Add(new CheckFailure() { Object = obj, ParentSpecification = spec, FailedCheckCondition = singleSpecFailure.CheckFailures.First().FailedCheckCondition, FailInfo = singleSpecFailure.CheckFailures.FirstOrDefault()?.FailInfo });
 
                     objFailDict[obj] = f;
                 }

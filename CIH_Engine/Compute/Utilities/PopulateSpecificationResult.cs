@@ -33,7 +33,7 @@ namespace BH.Engine.CIH
                 f.FailedSpecifications = new HashSet<ISpecification>() { specification };
 
                 var fi = string.Join("\n\t", checkResult.FailInfo);
-                f.CheckFailures = new List<CheckFailure>() { new CheckFailure() { Object = failedObj, ParentSpecification = specification, FailedCheckCondition = checkResult.Condition, FailInfo = checkResult.FailInfo[i] } };
+                f.CheckFailures.Add(new CheckFailure() { Object = failedObj, ParentSpecification = specification, FailedCheckCondition = checkResult.Condition, FailInfo = checkResult.FailInfo[i] });
                 specRes.ObjectFailures.Add(f);
             }
 
