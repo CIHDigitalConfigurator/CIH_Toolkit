@@ -27,7 +27,7 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    info.Add($"Type was {obj.GetType().Name} instead of {typeCondition.Type.Name}.");
+                    info.Add($"Type was `{obj.GetType().Name}` instead of `{typeCondition.Type.Name}`.");
                     result.Pattern.Add(false);
                 }
             }
