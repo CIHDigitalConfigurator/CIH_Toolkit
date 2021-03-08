@@ -57,7 +57,8 @@ namespace BH.oM.Data.Specifications
             List<string> conditionsText = new List<string>();
 
             conditionsText.Add($"geometry3D of the object must be contained within the Zone");
-            conditionsText.AddRange(ZoneSpecification.CheckConditions.Select(c => c?.ToString()));
+            if (ZoneSpecification.CheckConditions != null)
+                conditionsText.AddRange(ZoneSpecification.CheckConditions.Select(c => c?.ToString()));
 
             return $"{(string.IsNullOrWhiteSpace(SpecName) ? "This Spatial Specification" : $"`{SpecName}`")} defines a Zone `{ZoneSpecification.ZoneName}` made of box solids aligned to the reference elements and of size {zoneBoxDescription}. " +
                 $"\nIt requires objects that respect the following conditions:" +
