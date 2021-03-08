@@ -17,9 +17,20 @@ namespace BH.Engine.CIH
             ConditionResult result = new ConditionResult() { Condition = typeCondition };
             List<string> info = new List<string>();
 
+            Type type = typeCondition.Type is string ? BH.Engine.Reflection.Create.Type(typeCondition.Type.ToString()) : typeCondition.Type as Type;
+
+            if (type == null)
+            {
+                string error = $"Invalid {nameof(TypeCondition.Type)} input in the given {nameof(TypeCondition)}.";
+                BH.Engine.Reflection.Compute.RecordError(error);
+                result.FailedObjects = objects;
+                result.FailInfo = Enumerable.Repeat(error, objects.Count).ToList();
+                return result;
+            }
+
             foreach (var obj in objects)
             {
-                if (obj.GetType() == typeCondition.Type)
+                if (obj.GetType() == type)
                 {
                     result.PassedObjects.Add(obj);
                     result.Pattern.Add(true);
@@ -27,7 +38,7 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    info.Add($"Type was `{obj.GetType().Name}` instead of `{typeCondition.Type.Name}`.");
+                    info.Add($"Type was `{obj.GetType().Name}` instead of `{type.Name}`.");
                     result.Pattern.Add(false);
                 }
             }
