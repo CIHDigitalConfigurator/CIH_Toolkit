@@ -22,22 +22,27 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
     public class TypeCondition : BaseCondition
     {
+
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
 
-        public virtual Type Type { get; set; } = null;
+        [Description("Type specified as System.Type or FullName")]
+        public virtual object Type { get; set; } = null;
 
         /***************************************************/
 
         public override string ToString()
         {
-            return $"must be of type `{Type.Name}`";
+            string typename = Type is string ? Type.ToString() : (Type as System.Type)?.Name;
+
+            return $"must be of type `{typename}`";
         }
     }
 }
