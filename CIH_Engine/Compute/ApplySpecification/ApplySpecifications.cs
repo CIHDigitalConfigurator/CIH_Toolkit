@@ -27,7 +27,8 @@ namespace BH.Engine.CIH
 
             HashSet<object> passedObjs = new HashSet<object>();
             HashSet<object> failedObjs = new HashSet<object>();
-            HashSet<object> NotAssessed = new HashSet<object>() { objects };
+            HashSet<object> NotAssessed = new HashSet<object>(objects);
+
             Dictionary<object, ObjectFailures> objFailDict = new Dictionary<object, ObjectFailures>();  // one "Failures" per failed object, stating what specification(s) that object failed.
 
             foreach (var spec in specifications)
