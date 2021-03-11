@@ -85,8 +85,8 @@ namespace BH.Engine.CIH
                             else
                             {
                                 // Try checking name compatibility. Useful for materials.
-                                string valueString = BH.Engine.Reflection.Query.PropertyValue(value, "Name") as string;
-                                string referenceValue = BH.Engine.Reflection.Query.PropertyValue(valueCondition.ReferenceValue, "Name") as string;
+                                string valueString = BH.Engine.CIH.Query.ValueFromSource(value, "Name") as string;
+                                string referenceValue = BH.Engine.CIH.Query.ValueFromSource(valueCondition.ReferenceValue, "Name") as string;
                                 if (string.IsNullOrWhiteSpace(referenceValue))
                                     referenceValue = valueCondition.ReferenceValue as string;
 
