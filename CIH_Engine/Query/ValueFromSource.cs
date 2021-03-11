@@ -41,8 +41,10 @@ namespace BH.Engine.CIH
             if (prop != null)
                 return prop.GetValue(obj);
             else
-                return GetValue(obj as dynamic, sourceName, errorIfNotFound);
-
+                if (obj is IBHoMObject)
+                    return GetValue(obj as IBHoMObject, sourceName, errorIfNotFound);
+                else 
+                    return GetValue(obj as dynamic, sourceName);
         }
 
         private static object GetValue(this IBHoMObject obj, string sourceName, bool errorIfNotFound = false)
