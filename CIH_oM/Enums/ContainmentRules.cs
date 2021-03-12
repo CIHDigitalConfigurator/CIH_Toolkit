@@ -32,7 +32,7 @@ namespace BH.oM.Data
         ContainsGeometry,
         ContainsGeometry3D,
         ContainsCentroid,
-        ContainsCorners,
+        ContainsPoints,
     }
 }
 
