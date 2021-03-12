@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BH.oM.Dimensional;
 using BH.oM.Base;
+using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
@@ -40,7 +41,10 @@ namespace BH.oM.Data.Conditions
         public double LocalXDimension { get; set; }
         public double LocalYDimension { get; set; }
         public double LocalZDimension { get; set; }
-        public bool Containment3D { get; set; } = false;
+
+        [Description("Describes what kind of rule should be applied to evaluate whether the BoundingBox actually contains a BHoMObject." +
+            "By default, it checks the inclusion of the BHoMObject's `Geometry`.")]
+        public ContainmentRules ContainmentRule { get; set; } = ContainmentRules.ContainsGeometry;
 
         /***************************************************/
 

@@ -70,10 +70,10 @@ namespace BH.Engine.CIH
                 {
                     IGeometry geom = null;
 
-                    if (cond.Containment3D)
+                    if (cond.ContainmentRule == ContainmentRules.ContainsGeometry3D)
                         geom = BH.Engine.Base.Query.IGeometry3D(iBHoMObj);
 
-                    if (!cond.Containment3D || geom == null)
+                    if (cond.ContainmentRule == ContainmentRules.ContainsGeometry || geom == null)
                         geom = BH.Engine.Base.Query.IGeometry(iBHoMObj);
 
                     BoundingBox bb = BH.Engine.Geometry.Query.IBounds(geom);

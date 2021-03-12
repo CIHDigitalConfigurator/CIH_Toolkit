@@ -67,6 +67,7 @@
     <Compile Include="Conditions\FragmentCondition.cs" />
     <Compile Include="Conditions\IdCondition.cs" />
     <Compile Include="Enums\PassRequirement.cs" />
+    <Compile Include="Enums\ContainmentRules.cs" />
     <Compile Include="Specifications\SpatialSpecification.cs" />
     <Compile Include="Specifications\LogicalSpecification.cs" />
     <Compile Include="Specifications\ZoneSpecification.cs" />

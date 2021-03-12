@@ -37,8 +37,10 @@ namespace BH.oM.Data.Conditions
 
         [Description("Bonding box within which the Condition must hold.")]
         public BoundingBox BoundingBox { get; set; }
-        [Description("If true, uses the Geometry3D method.")]
-        public bool Containment3D { get; set; } = false;
+
+        [Description("Describes what kind of rule should be applied to evaluate whether the BoundingBox actually contains a BHoMObject." +
+            "By default, it checks the inclusion of the BHoMObject's `Geometry`.")]
+        public ContainmentRules ContainmentRule { get; set; } = ContainmentRules.ContainsGeometry;
 
         /***************************************************/
 

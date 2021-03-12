@@ -20,20 +20,19 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Base;
-using BH.oM.Data.Conditions;
-using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.Data
 {
-    [Description("A specification that asks a certain condition to be satisfied only by objects placed in certain location in space.")]
-    public interface ISpatialCondition : ICondition
+    [Description("Describes what kind of rule should be applied to evaluate whether a BoundingBox actually contains some BHoMObject.")]
+    public enum ContainmentRules
     {
-        ContainmentRules ContainmentRule { get; set; } 
+        ContainsGeometry,
+        ContainsGeometry3D,
+        ContainsCentroid,
+        ContainsCorners,
     }
 }
-
 

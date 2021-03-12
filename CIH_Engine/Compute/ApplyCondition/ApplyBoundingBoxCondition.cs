@@ -26,7 +26,7 @@ namespace BH.Engine.CIH
                 BHoMObject bhomObj = obj as BHoMObject;
                 if (bhomObj != null)
                 {
-                    if (bbc.Containment3D)
+                    if (bbc.ContainmentRule == ContainmentRules.ContainsGeometry3D)
                         geom = bhomObj.IGeometry3D();
                     else
                         geom = bhomObj.IGeometry();
