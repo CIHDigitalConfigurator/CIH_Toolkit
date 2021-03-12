@@ -84,6 +84,7 @@
     <Compile Include="Compute\ApplyCondition\ApplyIdCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyTypeCondition.cs" />
     <Compile Include="Create\SpatialSpecification.cs" />
+    <Compile Include="Query\Points.cs" />
     <Compile Include="Query\DispatchByType.cs" />
     <Compile Include="Query\IGeometry.cs" />
     <Compile Include="Query\Geometry3D.cs" />
