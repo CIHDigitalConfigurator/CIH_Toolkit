@@ -78,7 +78,6 @@
     <Compile Include="Conditions\Comparisons\IComparison.cs" />
     <Compile Include="Conditions\Comparisons\DomainCondition.cs" />
     <Compile Include="Conditions\Comparisons\SetCondition.cs" />
-    <Compile Include="Conditions\PropertyCondition.cs" />
     <Compile Include="Conditions\Comparisons\ValueCondition.cs" />
     <Compile Include="Conditions\TypeCondition.cs" />
     <Compile Include="Enums\PropertyNullConditions.cs" />
