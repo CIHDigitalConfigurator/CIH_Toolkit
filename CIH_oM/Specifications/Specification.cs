@@ -23,12 +23,17 @@
 using BH.oM.Base;
 using BH.oM.Data.Conditions;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace BH.oM.Data.Specifications
 {
     public class Specification : ISpecification
     {
+        [Description("Unique identifier to reference the Condition within a set.")]
+        public virtual string Clause { get; set; }
+
+        [Description("Specification Name.")]
         public virtual string SpecName { get; set; }
         public virtual string Description { get; set; }
 

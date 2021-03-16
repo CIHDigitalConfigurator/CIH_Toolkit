@@ -25,13 +25,22 @@ using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
     public abstract class BaseCondition : ICondition
     {
+        [Description("Unique identifier to reference the Condition within a set.")]
+        public virtual string Clause { get; set; }
+
+        [Description("Name given to this Condition.")]
         public virtual string Name { get; set; } 
+
+        [Description("Source material for this Condition. E.g. Codes, best practices, guidelines, etc.")]
         public virtual Source Source { get; set; }
+
+        [Description("Any additional notes.")]
         public virtual string Comment { get; set; }
     }
 }
