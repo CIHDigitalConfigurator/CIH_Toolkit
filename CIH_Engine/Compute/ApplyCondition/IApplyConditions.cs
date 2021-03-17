@@ -19,6 +19,9 @@ namespace BH.Engine.CIH
 
         public static ConditionResult ApplyConditions(List<object> objects, List<ICondition> conditions, BooleanOperator booleanOperator = BooleanOperator.AND)
         {
+            if (conditions.Count == 1)
+                return IApplyCondition(objects, conditions[0]);
+
             return IApplyCondition(objects, new LogicalCondition() { Conditions = conditions, BooleanOperator = booleanOperator });
         }
 
