@@ -71,6 +71,7 @@
     <Compile Include="Compute\ApplyCondition\ApplyFragmentCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplySetCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplySpatialCondition.cs" />
+    <Compile Include="Compute\ApplyCondition\ApplyComparisonCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyValueNullCondition.cs" />
     <Compile Include="Compute\ApplySpecification\ApplyLogicalSpecification.cs" />
     <Compile Include="Compute\ApplySpecification\ApplyZoneSpecification.cs" />

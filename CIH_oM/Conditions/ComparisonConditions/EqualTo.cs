@@ -39,8 +39,9 @@ namespace BH.oM.Data.Conditions
             "\n\t- Name of any sub-property, using dot separators (e.g. Bar.SectionProperty.Area)" +
             "\n\t- Name of any queriable derived property (e.g. Length)" +
             "\n\t- For a value stored in a BHoMObject's CustomData, enter `CustomData[keyName]`" +
-            "\n\t- For a value stored in a Fragment's property, enter `FragmentTypeName.PropertyName`.")]
-        public virtual string PropertyName { get; set; }
+            "\n\t- For a value stored in a Fragment's property, enter `FragmentTypeName.PropertyName`." +
+            "\n\t- No input (null): if the ReferenceValue is a System.Type, then checks object's type equality.")]
+        public virtual string PropertyName { get; set; } = null;
 
         [Description("Reference Value that the property value should be compared to." +
             "\nIt can be a number, or a DateTime (e.g. ± 1 day), or anything comparable.")]

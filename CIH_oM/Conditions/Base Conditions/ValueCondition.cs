@@ -38,7 +38,8 @@ namespace BH.oM.Data.Conditions
             "\n\t- Name of any sub-property, using dot separators (e.g. Bar.SectionProperty.Area)" +
             "\n\t- Name of any queriable derived property (e.g. Length)" +
             "\n\t- For a value stored in a BHoMObject's CustomData, enter `CustomData[keyName]`" +
-            "\n\t- For a value stored in a Fragment's property, enter `FragmentTypeName.PropertyName`.")]
+            "\n\t- For a value stored in a Fragment's property, enter `FragmentTypeName.PropertyName`." +
+            "\n\t- No input (null): if the ReferenceValue is a System.Type, then check object's type equality.")]
         public virtual string PropertyName { get; set; }
 
         [Description("Reference Value that the property value should be compared to." +
@@ -63,7 +64,7 @@ namespace BH.oM.Data.Conditions
 
             valueString = string.IsNullOrWhiteSpace(valueString) ? ReferenceValue.ToString() : valueString;
 
-
+            // Make the text in the ValueComparisons more readable (remove camelCase and add spaces)
             string comparisonText = Comparison.ToString();
             var builder = new System.Text.StringBuilder();
             foreach (char c in comparisonText)
@@ -72,6 +73,9 @@ namespace BH.oM.Data.Conditions
                 builder.Append(Char.ToLower(c));
             }
             comparisonText = builder.ToString();
+
+            if(string.IsNullOrWhiteSpace(PropertyName) && ReferenceValue is System.Type)
+                return $"must be of type `{(ReferenceValue as Type).Name}`";
 
             return $"{PropertyName} {comparisonText} {valueString}";
         }

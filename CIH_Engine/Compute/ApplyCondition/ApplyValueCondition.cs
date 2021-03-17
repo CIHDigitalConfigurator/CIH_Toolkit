@@ -75,36 +75,41 @@ namespace BH.Engine.CIH
                         // Consider some other way to compare objects
                         if (valueCondition.Comparison == ValueComparisons.EqualTo)
                         {
-                            var cc = valueCondition.Tolerance as ComparisonConfig;
-                            if (cc != null)
-                            {
-                                //Compare by hash
-                                HashComparer<object> hc = new HashComparer<object>(cc);
-                                passed = hc.Equals(value, refValue);
-                            }
+                            if (valueCondition.ReferenceValue is Type && valueCondition.PropertyName == null)
+                                passed = obj.GetType() == valueCondition.ReferenceValue as Type;
                             else
                             {
-                                // Try checking name compatibility. Useful for materials.
-                                string valueString = BH.Engine.CIH.Query.ValueFromSource(value, "Name") as string;
-                                string referenceValue = BH.Engine.CIH.Query.ValueFromSource(valueCondition.ReferenceValue, "Name") as string;
-                                if (string.IsNullOrWhiteSpace(referenceValue))
-                                    referenceValue = valueCondition.ReferenceValue as string;
-
-                                if (valueString == referenceValue)
+                                var cc = valueCondition.Tolerance as ComparisonConfig;
+                                if (cc != null)
                                 {
-                                    passed = true;
+                                    //Compare by hash
+                                    HashComparer<object> hc = new HashComparer<object>(cc);
+                                    passed = hc.Equals(value, refValue);
                                 }
-                                else if (value.ToString().Contains("BH.oM") && (valueCondition.ReferenceValue is Type))
-                                {
-                                    passed = value.ToString() == valueCondition.ReferenceValue.ToString();
-                                }
-                                else if (value is string && refValue is string)
-                                    passed = value.ToString() == refValue.ToString(); // workaround needed. Not even Convert.ChangeType and dynamic type worked.
                                 else
                                 {
-                                    passed = value == refValue;
-                                }
+                                    // Try checking name compatibility. Useful for materials.
+                                    string valueString = BH.Engine.CIH.Query.ValueFromSource(value, "Name") as string;
+                                    string referenceValue = BH.Engine.CIH.Query.ValueFromSource(valueCondition.ReferenceValue, "Name") as string;
+                                    if (string.IsNullOrWhiteSpace(referenceValue))
+                                        referenceValue = valueCondition.ReferenceValue as string;
 
+                                    if (valueString == referenceValue)
+                                    {
+                                        passed = true;
+                                    }
+                                    else if (value.ToString().Contains("BH.oM") && (valueCondition.ReferenceValue is Type))
+                                    {
+                                        passed = value.ToString() == valueCondition.ReferenceValue.ToString();
+                                    }
+                                    else if (value is string && refValue is string)
+                                        passed = value.ToString() == refValue.ToString(); // this workaround is required. Not even Convert.ChangeType and dynamic type worked.
+                                    else
+                                    {
+                                        passed = value == refValue;
+                                    }
+
+                                }
                             }
 
                         }
