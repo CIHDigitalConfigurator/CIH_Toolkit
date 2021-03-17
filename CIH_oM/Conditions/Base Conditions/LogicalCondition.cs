@@ -22,10 +22,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace BH.oM.Data.Conditions
 {
+    [Description("Condition that is made by the combination of several conditions. Each condition is combined with a Boolean Operator to the others." +
+        "E.g. If AND is used, then the LogicalCondition will be considering a pass only if the object satisfies all the given Conditions.")]
     public class LogicalCondition : BaseCondition
     {
         /***************************************************/

@@ -26,10 +26,12 @@ using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace BH.oM.Data.Conditions
 {
+    [Description("Condition that verifies if a Property of the object is included in the given set of values.")]
     public class SetCondition : BaseCondition, IPropertyCondition 
     {
         public string PropertyName { get; set; }

@@ -29,6 +29,7 @@ using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
+    [Description("Base abstract class in common to all Conditions.")]
     public abstract class BaseCondition : ICondition
     {
         [Description("Unique identifier to reference the Condition within a set.")]

@@ -26,9 +26,11 @@ using BH.oM.Data.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
+    [Description("Identifies a Condition that verifies if a Property of the object is within a certain domain (range).")]
     public class DomainCondition : BaseCondition, IPropertyCondition
     {
         public string PropertyName { get; set; }

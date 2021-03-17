@@ -26,6 +26,7 @@ using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
+    [Description("Condition that verifies if an object is of the given System.Type.")]
     public class TypeCondition : BaseCondition
     {
 
