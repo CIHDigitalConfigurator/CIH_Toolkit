@@ -59,7 +59,7 @@ namespace BH.oM.Data.Conditions
         {
             return new ValueCondition()
             {
-                Comparison = ValueComparisons.LargerThan,
+                Comparison = ValueComparisons.GreaterThan,
                 PropertyName = condition.PropertyName,
                 Clause = condition.Clause,
                 Comment = condition.Comment,
