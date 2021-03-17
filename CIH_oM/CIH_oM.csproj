@@ -58,6 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conditions\Base Conditions\BaseCondition.cs" />
+    <Compile Include="Conditions\ComparisonConditions\LargerThanOrEqualTo.cs" />
+    <Compile Include="Conditions\ComparisonConditions\LargerThan.cs" />
+    <Compile Include="Conditions\ComparisonConditions\EqualTo.cs" />
+    <Compile Include="Conditions\ComparisonConditions\SmallerThanOrEqualTo.cs" />
+    <Compile Include="Conditions\ComparisonConditions\SmallerThan.cs" />
     <Compile Include="Conditions\ValueNullCondition.cs" />
     <Compile Include="Conditions\CustomDataCondition.cs" />
     <Compile Include="Conditions\Element0DCondition.cs" />
@@ -75,7 +80,7 @@
     <Compile Include="Conditions\Interfaces\ICondition.cs" />
     <Compile Include="Conditions\Interfaces\IPropertyCondition.cs" />
     <Compile Include="Conditions\Base Conditions\LogicalCondition.cs" />
-    <Compile Include="Conditions\Interfaces\IComparison.cs" />
+    <Compile Include="Conditions\ComparisonConditions\IComparisonCondition.cs" />
     <Compile Include="Conditions\Base Conditions\DomainCondition.cs" />
     <Compile Include="Conditions\Base Conditions\SetCondition.cs" />
     <Compile Include="Conditions\Base Conditions\ValueCondition.cs" />
