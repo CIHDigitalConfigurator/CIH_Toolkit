@@ -16,7 +16,6 @@ namespace BH.Engine.CIH
         private static ConditionResult ApplyCondition(List<object> objects, ValueCondition valueCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = valueCondition };
-            List<string> info = new List<string>();
 
             var refValue = valueCondition.ReferenceValue;
             if (refValue == null)
@@ -33,9 +32,20 @@ namespace BH.Engine.CIH
                     passed = true;
                 else if (valueCondition.ReferenceValue == null && value != null)
                     passed = false;
-                else if(valueCondition.ReferenceValue != null && value == null)
-                    passed = false;
-                else if(valueCondition.ReferenceValue != null && value != null)
+                else if (valueCondition.ReferenceValue != null && value == null)
+                    if (valueCondition.Comparison == ValueComparisons.EqualTo && valueCondition.ReferenceValue is Type && valueCondition.PropertyName == null)
+                    {
+                        TypeCondition typeCondition = new TypeCondition() { Type = valueCondition.ReferenceValue as Type };
+                        var TypeCondResult = ApplyCondition(new List<object>() { obj }, typeCondition);
+                        result.PassedObjects.Add(TypeCondResult.PassedObjects);
+                        result.FailedObjects.Add(TypeCondResult.FailedObjects);
+                        result.FailInfo.Add(TypeCondResult.FailInfo.FirstOrDefault());
+                        result.Pattern.Add(TypeCondResult.Pattern.FirstOrDefault());
+                        result.Condition = valueCondition;
+                    }
+                    else
+                        passed = false;
+                else if (valueCondition.ReferenceValue != null && value != null)
                 {
                     double numericalValue;
 
@@ -75,70 +85,69 @@ namespace BH.Engine.CIH
                         // Consider some other way to compare objects
                         if (valueCondition.Comparison == ValueComparisons.EqualTo)
                         {
-                            if (valueCondition.ReferenceValue is Type && valueCondition.PropertyName == null)
-                                passed = obj.GetType() == valueCondition.ReferenceValue as Type;
+
+                            var cc = valueCondition.Tolerance as ComparisonConfig;
+                            if (cc != null)
+                            {
+                                //Compare by hash
+                                HashComparer<object> hc = new HashComparer<object>(cc);
+                                passed = hc.Equals(value, refValue);
+                            }
                             else
                             {
-                                var cc = valueCondition.Tolerance as ComparisonConfig;
-                                if (cc != null)
+                                // Try checking name compatibility. Useful for materials.
+                                string valueString = BH.Engine.CIH.Query.ValueFromSource(value, "Name") as string;
+                                string referenceValue = BH.Engine.CIH.Query.ValueFromSource(valueCondition.ReferenceValue, "Name") as string;
+                                if (string.IsNullOrWhiteSpace(referenceValue))
+                                    referenceValue = valueCondition.ReferenceValue as string;
+
+                                if (valueString == referenceValue)
                                 {
-                                    //Compare by hash
-                                    HashComparer<object> hc = new HashComparer<object>(cc);
-                                    passed = hc.Equals(value, refValue);
+                                    passed = true;
                                 }
+                                else if (value.ToString().Contains("BH.oM") && (valueCondition.ReferenceValue is Type))
+                                {
+                                    passed = value.ToString() == valueCondition.ReferenceValue.ToString();
+                                }
+                                else if (value is string && refValue is string)
+                                    passed = value.ToString() == refValue.ToString(); // this workaround is required. Not even Convert.ChangeType and dynamic type worked.
                                 else
                                 {
-                                    // Try checking name compatibility. Useful for materials.
-                                    string valueString = BH.Engine.CIH.Query.ValueFromSource(value, "Name") as string;
-                                    string referenceValue = BH.Engine.CIH.Query.ValueFromSource(valueCondition.ReferenceValue, "Name") as string;
-                                    if (string.IsNullOrWhiteSpace(referenceValue))
-                                        referenceValue = valueCondition.ReferenceValue as string;
-
-                                    if (valueString == referenceValue)
-                                    {
-                                        passed = true;
-                                    }
-                                    else if (value.ToString().Contains("BH.oM") && (valueCondition.ReferenceValue is Type))
-                                    {
-                                        passed = value.ToString() == valueCondition.ReferenceValue.ToString();
-                                    }
-                                    else if (value is string && refValue is string)
-                                        passed = value.ToString() == refValue.ToString(); // this workaround is required. Not even Convert.ChangeType and dynamic type worked.
-                                    else
-                                    {
-                                        passed = value == refValue;
-                                    }
-
+                                    passed = value == refValue;
                                 }
-                            }
 
+                            }
                         }
                     }
                 }
 
-                if (passed)
-                    result.PassedObjects.Add(obj);
-                else
-                {
-                    result.FailedObjects.Add(obj);
-                    string valueString = value == null ? "null" : value.ToString();
-
-                    if (valueString.Contains("BH.oM") && !(valueCondition.ReferenceValue is Type))
-                        valueString = BH.Engine.Reflection.Query.PropertyValue(value, "Name") as string;
-
-                    string conditionText = valueCondition.ToString();
-                    conditionText = conditionText.Replace(valueCondition.PropertyName + " ", "");
-
-                    info.Add($"{valueCondition.PropertyName} was {valueString ?? "empty"}, which does not respect «{conditionText}».");
-                }
-
-                result.Pattern.Add(passed);
+                PopulateConditionResults(obj, value, valueCondition, result, passed);
             }
 
-            result.FailInfo = info;
             return result;
         }
 
+        private static void PopulateConditionResults(object obj, object value, ValueCondition valueCondition, ConditionResult result, bool status)
+        {
+            result.Condition = valueCondition;
+            result.Pattern.Add(status);
 
+            if (status) // if it's passed.
+            {
+                result.PassedObjects.Add(obj);
+                return;
+            }
+
+            result.FailedObjects.Add(obj);
+            string valueString = value == null ? "null" : value.ToString();
+
+            if (valueString.Contains("BH.oM") && !(valueCondition.ReferenceValue is Type))
+                valueString = BH.Engine.Reflection.Query.PropertyValue(value, "Name") as string;
+
+            string conditionText = valueCondition.ToString();
+            conditionText = conditionText.Replace(valueCondition.PropertyName + " ", "");
+
+            result.FailInfo.Add($"{valueCondition.PropertyName} was {valueString ?? "empty"}, which does not respect «{conditionText}».");
+        }
     }
 }
