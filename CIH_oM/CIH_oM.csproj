@@ -57,8 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conditions\BaseCondition.cs" />
-    <Compile Include="Conditions\Comparisons\ValueNullCondition.cs" />
+    <Compile Include="Conditions\Base Conditions\BaseCondition.cs" />
+    <Compile Include="Conditions\ValueNullCondition.cs" />
     <Compile Include="Conditions\CustomDataCondition.cs" />
     <Compile Include="Conditions\Element0DCondition.cs" />
     <Compile Include="Conditions\Element1DCondition.cs" />
@@ -74,12 +74,12 @@
     <Compile Include="Conditions\ISpatialCondition.cs" />
     <Compile Include="Conditions\Interfaces\ICondition.cs" />
     <Compile Include="Conditions\Interfaces\IPropertyCondition.cs" />
-    <Compile Include="Conditions\LogicalCondition.cs" />
-    <Compile Include="Conditions\Comparisons\IComparison.cs" />
-    <Compile Include="Conditions\Comparisons\DomainCondition.cs" />
-    <Compile Include="Conditions\Comparisons\SetCondition.cs" />
-    <Compile Include="Conditions\Comparisons\ValueCondition.cs" />
-    <Compile Include="Conditions\TypeCondition.cs" />
+    <Compile Include="Conditions\Base Conditions\LogicalCondition.cs" />
+    <Compile Include="Conditions\Interfaces\IComparison.cs" />
+    <Compile Include="Conditions\Base Conditions\DomainCondition.cs" />
+    <Compile Include="Conditions\Base Conditions\SetCondition.cs" />
+    <Compile Include="Conditions\Base Conditions\ValueCondition.cs" />
+    <Compile Include="Conditions\Base Conditions\TypeCondition.cs" />
     <Compile Include="Enums\PropertyNullConditions.cs" />
     <Compile Include="Enums\BooleanOperator.cs" />
     <Compile Include="Enums\ValueComparisons.cs" />

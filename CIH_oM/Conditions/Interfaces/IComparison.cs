@@ -30,6 +30,7 @@ using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
+    [Description("Identifies Conditions that involve some numerical comparison.")]
     public interface IComparisonCondition : ICondition
     {
         [Description("If applicable, tolerance to be considered in the comparison. Valid inputs:" +
