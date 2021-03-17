@@ -22,29 +22,24 @@ namespace BH.Engine.CIH
 
             foreach (var obj in objects)
             {
-                IGeometry geom = null;
-                BHoMObject bhomObj = obj as BHoMObject;
-                if (bhomObj != null)
+                bool passed = false;
+
+                IObject iObj = obj as IObject;
+                if (iObj != null)
                 {
-                    if (bbc.ContainmentRule == ContainmentRules.ContainsGeometry3D)
-                        geom = bhomObj.IGeometry3D();
+                    passed = BH.Engine.CIH.Query.IsContaining(bbc.BoundingBox, iObj);
+                    if (passed)
+                        result.PassedObjects.Add(obj);
                     else
-                        geom = bhomObj.IGeometry();
+                    {
+                        result.FailedObjects.Add(obj);
+                        failInfo.Add($"Object not in the specified Bounding Box.");
+                    }
                 }
-
-                if (obj is IGeometry)
-                    geom = obj as IGeometry;
-
-                BoundingBox geomBB = Geometry.Query.IBounds(geom);
-
-                bool passed = bbc.BoundingBox.IsContaining(geomBB, true);
-
-                if (passed)
-                    result.PassedObjects.Add(obj);
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    failInfo.Add($"Object not in the specified Bounding Box.");
+                    failInfo.Add($"Could not evaluate containment for an object of type `{obj.GetType().Name}`.");
                 }
 
                 result.Pattern.Add(passed);

@@ -26,13 +26,17 @@ using System.ComponentModel;
 
 namespace BH.oM.Data
 {
-    [Description("Describes what kind of rule should be applied to evaluate whether a BoundingBox actually contains some BHoMObject.")]
+    [Description("Describes what kind of rule should be applied to evaluate whether a BoundingBox actually contains some BHoMObject." +
+        "\n Geometry = checks the containment of the 'essential' Geometry of the object. E.g. for a Beam, this is the Beam's centreline." +
+        "\n Geometry3D = checks the containment of the 'volumetric' Geometry of the object. E.g. for a Beam, this is the Beam's extruded view of its profile section." +
+        "\n BoundingBoxCentre = Centre defined as the centre of the object's BoundingBox." +
+        "\n AtLeastOneGeometryPoint = checks the containment of at least one of the object's 'essential' Geometry's points. Points of the object include any surface corner, mesh vertex, curve endpoint, curve kink, etc.")]
     public enum ContainmentRules
     {
-        ContainsGeometry,
-        ContainsGeometry3D,
-        ContainsCentroid,
-        ContainsPoints,
+        Geometry,
+        Geometry3D,
+        BoundingBoxCentre,
+        AtLeastOneGeometryPoint,
     }
 }
 

@@ -42,7 +42,7 @@ namespace BH.oM.Data.Conditions
 
         [Description("Describes what kind of rule should be applied to evaluate whether the BoundingBox actually contains a BHoMObject." +
             "By default, it checks the inclusion of the BHoMObject's `Geometry`.")]
-        public ContainmentRules ContainmentRule { get; set; } = ContainmentRules.ContainsGeometry;
+        public ContainmentRules ContainmentRule { get; set; } = ContainmentRules.Geometry;
 
         /***************************************************/
 

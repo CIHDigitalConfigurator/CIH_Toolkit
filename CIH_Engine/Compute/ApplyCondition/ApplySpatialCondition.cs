@@ -65,29 +65,21 @@ namespace BH.Engine.CIH
             {
                 bool passed = false;
 
-                IBHoMObject iBHoMObj = obj as IBHoMObject;
-                if (iBHoMObj != null)
-                {
-                    IGeometry geom = null;
-
-                    if (cond.ContainmentRule == ContainmentRules.ContainsGeometry3D)
-                        geom = BH.Engine.Base.Query.IGeometry3D(iBHoMObj);
-
-                    if (cond.ContainmentRule == ContainmentRules.ContainsGeometry || geom == null)
-                        geom = BH.Engine.Base.Query.IGeometry(iBHoMObj);
-
-                    BoundingBox bb = BH.Engine.Geometry.Query.IBounds(geom);
-
-                    if (containingBox.IsContaining(bb))
-                        passed = true;
+                IObject iObj = obj as IObject;
+                if (iObj != null) {
+                    passed = BH.Engine.CIH.Query.IsContaining(containingBox, iObj);
+                    if (passed)
+                        result.PassedObjects.Add(obj);
+                    else
+                    {
+                        result.FailedObjects.Add(obj);
+                        info.Add($"Object was not {new BoundingBoxCondition() { BoundingBox = containingBox }.ToString()}.");
+                    }
                 }
-
-                if (passed)
-                    result.PassedObjects.Add(obj);
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    info.Add($"Object was not {new BoundingBoxCondition() { BoundingBox = containingBox }.ToString()}.");
+                    info.Add($"Could not evaluate containment for an object of type `{obj.GetType().Name}`.");
                 }
 
                 result.Pattern.Add(passed);
