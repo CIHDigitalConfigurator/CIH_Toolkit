@@ -84,6 +84,7 @@
     <Compile Include="Compute\ApplyCondition\ApplyLogicalCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyIdCondition.cs" />
     <Compile Include="Compute\ApplyCondition\ApplyTypeCondition.cs" />
+    <Compile Include="Create\DomainCondition.cs" />
     <Compile Include="Create\SpatialSpecification.cs" />
     <Compile Include="Query\Points.cs" />
     <Compile Include="Query\DispatchByType.cs" />
