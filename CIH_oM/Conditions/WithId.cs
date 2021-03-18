@@ -26,7 +26,7 @@ using System.Linq;
 
 namespace BH.oM.Data.Conditions
 {
-    public class IdCondition : BaseCondition
+    public class WithId : BaseCondition
     {
         /***************************************************/
         /**** Properties                                ****/

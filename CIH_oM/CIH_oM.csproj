@@ -70,7 +70,7 @@
     <Compile Include="Conditions\Element2DCondition.cs" />
     <Compile Include="Conditions\BoundingBoxCondition.cs" />
     <Compile Include="Conditions\FragmentCondition.cs" />
-    <Compile Include="Conditions\IdCondition.cs" />
+    <Compile Include="Conditions\WithId.cs" />
     <Compile Include="Enums\PassRequirement.cs" />
     <Compile Include="Enums\ContainmentRules.cs" />
     <Compile Include="Specifications\SpatialSpecification.cs" />
