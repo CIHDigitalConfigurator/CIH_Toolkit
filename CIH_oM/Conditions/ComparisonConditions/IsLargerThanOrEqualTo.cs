@@ -27,7 +27,7 @@ using System.Linq;
 
 namespace BH.oM.Data.Conditions
 {
-    public class SmallerThan : BaseCondition, IPropertyCondition, IComparisonCondition
+    public class IsLargerThanOrEqualTo : BaseCondition, IPropertyCondition, IComparisonCondition
     {
         /***************************************************/
         /**** Properties                                ****/
@@ -55,11 +55,11 @@ namespace BH.oM.Data.Conditions
         /**** Implicit Casting                          ****/
         /***************************************************/
 
-        public static implicit operator ValueCondition(SmallerThan condition)
+        public static implicit operator ValueCondition(IsLargerThanOrEqualTo condition)
         {
             return new ValueCondition()
             {
-                Comparison = ValueComparisons.LessThan,
+                Comparison = ValueComparisons.GreaterThanOrEqualTo,
                 PropertyName = condition.PropertyName,
                 Clause = condition.Clause,
                 Comment = condition.Comment,

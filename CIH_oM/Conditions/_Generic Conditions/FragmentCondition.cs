@@ -26,6 +26,7 @@ using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
+    [Description("Apply a condition to a BHoMObject's Fragment.")]
     public class FragmentCondition : BaseCondition
     {
         /***************************************************/

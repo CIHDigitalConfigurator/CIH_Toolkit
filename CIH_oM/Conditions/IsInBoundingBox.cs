@@ -30,7 +30,7 @@ using System.ComponentModel;
 namespace BH.oM.Data.Conditions
 {
     [Description("Checks if an object is in a BoundingBox.")]
-    public class BoundingBoxCondition : BaseCondition, ISpatialCondition
+    public class IsInBoundingBox : BaseCondition, ISpatialCondition
     {
         /***************************************************/
         /**** Properties                                ****/

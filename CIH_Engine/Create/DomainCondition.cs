@@ -42,11 +42,11 @@ namespace BH.Engine.CIH
 {
     public static partial class Create
     {
-        public static DomainCondition DomainCondition(string propertyName, double min, double max, double tolerance = 1e-03, string clause = "", string name = "", Source source = null, string comment = "")
+        public static IsInDomain DomainCondition(string propertyName, double min, double max, double tolerance = 1e-03, string clause = "", string name = "", Source source = null, string comment = "")
         {
             Domain dom = BH.Engine.Data.Create.Domain(min, max);
 
-            return new DomainCondition()
+            return new IsInDomain()
             {
                 PropertyName = propertyName,
                 Domain = dom,

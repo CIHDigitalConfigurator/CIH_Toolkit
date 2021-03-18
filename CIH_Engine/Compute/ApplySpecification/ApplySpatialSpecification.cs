@@ -67,7 +67,7 @@ namespace BH.Engine.CIH
                 else
                 {
                     checkResultAggregated.FailedObjects.Add(objToCheck);
-                    List<ICondition> failedConditions = new List<ICondition> { new BoundingBoxCondition() { BoundingBox = zoneBB } };
+                    List<ICondition> failedConditions = new List<ICondition> { new IsInBoundingBox() { BoundingBox = zoneBB } };
                     failedConditions.AddRange(spatialSpec.ZoneSpecification.CheckConditions);
                     checkResultAggregated.Condition = new LogicalCondition() { Conditions = failedConditions };
                 }

@@ -12,7 +12,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, TypeCondition typeCondition)
+        private static ConditionResult ApplyCondition(List<object> objects, IsOfType typeCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = typeCondition };
             List<string> info = new List<string>();
@@ -21,7 +21,7 @@ namespace BH.Engine.CIH
 
             if (type == null)
             {
-                string error = $"Invalid {nameof(TypeCondition.Type)} input in the given {nameof(TypeCondition)}.";
+                string error = $"Invalid {nameof(IsOfType.Type)} input in the given {nameof(IsOfType)}.";
                 BH.Engine.Reflection.Compute.RecordError(error);
                 result.FailedObjects = objects;
                 result.FailInfo = Enumerable.Repeat(error, objects.Count).ToList();

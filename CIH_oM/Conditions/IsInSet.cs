@@ -32,7 +32,7 @@ using System.Linq;
 namespace BH.oM.Data.Conditions
 {
     [Description("Condition that verifies if a Property of the object is included in the given set of values.")]
-    public class SetCondition : BaseCondition, IPropertyCondition 
+    public class IsInSet : BaseCondition, IPropertyCondition 
     {
         public string PropertyName { get; set; }
         public List<object> Set { get; set; }

@@ -27,7 +27,7 @@ using System.Linq;
 
 namespace BH.oM.Data.Conditions
 {
-    public class LargerThan : BaseCondition, IPropertyCondition, IComparisonCondition
+    public class IsEqualTo : BaseCondition, IPropertyCondition, IComparisonCondition
     {
         /***************************************************/
         /**** Properties                                ****/
@@ -39,8 +39,9 @@ namespace BH.oM.Data.Conditions
             "\n\t- Name of any sub-property, using dot separators (e.g. Bar.SectionProperty.Area)" +
             "\n\t- Name of any queriable derived property (e.g. Length)" +
             "\n\t- For a value stored in a BHoMObject's CustomData, enter `CustomData[keyName]`" +
-            "\n\t- For a value stored in a Fragment's property, enter `FragmentTypeName.PropertyName`.")]
-        public virtual string PropertyName { get; set; }
+            "\n\t- For a value stored in a Fragment's property, enter `FragmentTypeName.PropertyName`." +
+            "\n\t- No input (null): checks object's equality with the ReferenceValue.")]
+        public virtual string PropertyName { get; set; } = null;
 
         [Description("Reference Value that the property value should be compared to." +
             "\nIt can be a number, or a DateTime (e.g. ± 1 day), or anything comparable.")]
@@ -55,11 +56,11 @@ namespace BH.oM.Data.Conditions
         /**** Implicit Casting                          ****/
         /***************************************************/
 
-        public static implicit operator ValueCondition(LargerThan condition)
+        public static implicit operator ValueCondition(IsEqualTo condition)
         {
             return new ValueCondition()
             {
-                Comparison = ValueComparisons.GreaterThan,
+                Comparison = ValueComparisons.EqualTo,
                 PropertyName = condition.PropertyName,
                 Clause = condition.Clause,
                 Comment = condition.Comment,

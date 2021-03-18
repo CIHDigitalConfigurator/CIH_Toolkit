@@ -54,7 +54,7 @@ namespace BH.Engine.CIH
             if (spec2D != null)
                 containingBox = Query.ElementBoundingBox(spec2D.ReferenceElement, spec2D.LocalZDimension);
 
-            BoundingBoxCondition bbc = cond as BoundingBoxCondition;
+            IsInBoundingBox bbc = cond as IsInBoundingBox;
             if (bbc != null)
                 containingBox = bbc.BoundingBox;
 
@@ -73,7 +73,7 @@ namespace BH.Engine.CIH
                     else
                     {
                         result.FailedObjects.Add(obj);
-                        info.Add($"Object was not {new BoundingBoxCondition() { BoundingBox = containingBox }.ToString()}.");
+                        info.Add($"Object was not {new IsInBoundingBox() { BoundingBox = containingBox }.ToString()}.");
                     }
                 }
                 else

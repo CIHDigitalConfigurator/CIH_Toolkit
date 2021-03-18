@@ -13,7 +13,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, SetCondition setCondition)
+        private static ConditionResult ApplyCondition(List<object> objects, IsInSet setCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = setCondition };
             List<string> info = new List<string>();

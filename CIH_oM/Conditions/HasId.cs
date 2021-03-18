@@ -20,26 +20,25 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Base;
-using BH.oM.Data.Collections;
-using BH.oM.Data.Conditions;
-using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 
 namespace BH.oM.Data.Conditions
 {
-    [Description("Identifies a Condition that verifies if a Property of the object is within a certain domain (range).")]
-    public class DomainCondition : BaseCondition, IPropertyCondition
+    public class HasId : BaseCondition
     {
-        public string PropertyName { get; set; }
-        public virtual Domain Domain { get; set; }
-        public virtual double Tolerance { get; set; }
+        /***************************************************/
+        /**** Properties                                ****/
+        /***************************************************/
+
+        public virtual List<object> Ids { get; set; } = null;
+
+        /***************************************************/
 
         public override string ToString()
         {
-            return Domain == null ? "" : $"`{PropertyName}` included between {Domain.Min} and {Domain.Max}";
+            return $"Only BHoMObjects with one of the following Ids: {string.Join(",", Ids.Select(o => o.ToString()))}";
         }
     }
 }

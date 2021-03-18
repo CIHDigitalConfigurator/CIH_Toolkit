@@ -15,7 +15,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, BoundingBoxCondition bbc)
+        private static ConditionResult ApplyCondition(List<object> objects, IsInBoundingBox bbc)
         {
             ConditionResult result = new ConditionResult() { Condition = bbc };
             List<string> failInfo = new List<string>();
