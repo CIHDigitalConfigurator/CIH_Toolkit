@@ -51,9 +51,9 @@ namespace BH.Engine.CIH
             List<IGeometry> locations = spatialSpec.Locations.Select(l => BH.Engine.CIH.Query.IGeometry(l)).ToList();
             ZoneSpecification zoneSpec = spatialSpec.ZoneSpecification;
 
-            foreach (var obj in locations)
+            foreach (var loc in locations)
             {
-                BoundingBox bb = Query.IElementBoundingBox(obj, zoneSpec.Width, zoneSpec.Height, zoneSpec.Depth);
+                BoundingBox bb = Query.IElementBoundingBox(loc, zoneSpec.Width, zoneSpec.Height, zoneSpec.Depth);
 
                 if (bb != null)
                     result.Add(bb);

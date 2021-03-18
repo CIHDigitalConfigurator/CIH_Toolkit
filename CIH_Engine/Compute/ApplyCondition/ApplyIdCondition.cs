@@ -12,7 +12,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, IdCondition idCondition)
+        private static ConditionResult ApplyCondition(List<object> objects, WithId idCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = idCondition };
             foreach (var obj in objects)

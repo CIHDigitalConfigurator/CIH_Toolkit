@@ -19,7 +19,7 @@ namespace BH.Engine.CIH
 
             var refValue = valueCondition.ReferenceValue;
             if (refValue == null)
-                BH.Engine.Reflection.Compute.RecordNote($"A {nameof(ValueCondition)}'s {nameof(valueCondition.ReferenceValue)} was null. Make sure this is intended.\nTo check for null/not null, consider using a {nameof(ValueNullCondition)} instead.");
+                BH.Engine.Reflection.Compute.RecordNote($"A {nameof(ValueCondition)}'s {nameof(valueCondition.ReferenceValue)} was null. Make sure this is intended.\nTo check for null/not null, consider using a {nameof(IsNull)} instead.");
 
 
             foreach (var obj in objects)

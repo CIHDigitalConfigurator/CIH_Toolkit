@@ -63,12 +63,12 @@
     <Compile Include="Conditions\ComparisonConditions\EqualTo.cs" />
     <Compile Include="Conditions\ComparisonConditions\SmallerThanOrEqualTo.cs" />
     <Compile Include="Conditions\ComparisonConditions\SmallerThan.cs" />
-    <Compile Include="Conditions\ValueNullCondition.cs" />
-    <Compile Include="Conditions\CustomDataCondition.cs" />
+    <Compile Include="Conditions\IsInZone.cs" />
+    <Compile Include="Conditions\IsNull.cs" />
     <Compile Include="Conditions\Element0DCondition.cs" />
     <Compile Include="Conditions\Element1DCondition.cs" />
     <Compile Include="Conditions\Element2DCondition.cs" />
-    <Compile Include="Conditions\BoundingBoxCondition.cs" />
+    <Compile Include="Conditions\IsInBoundingBox.cs" />
     <Compile Include="Conditions\FragmentCondition.cs" />
     <Compile Include="Conditions\WithId.cs" />
     <Compile Include="Enums\PassRequirement.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="Specifications\SpatialSpecification.cs" />
     <Compile Include="Specifications\LogicalSpecification.cs" />
     <Compile Include="Specifications\ZoneSpecification.cs" />
-    <Compile Include="Conditions\ISpatialCondition.cs" />
+    <Compile Include="Conditions\Interfaces\ISpatialCondition.cs" />
     <Compile Include="Conditions\Interfaces\ICondition.cs" />
     <Compile Include="Conditions\Interfaces\IPropertyCondition.cs" />
     <Compile Include="Conditions\Base Conditions\LogicalCondition.cs" />
@@ -92,6 +92,9 @@
     <Compile Include="Specifications\Specification.cs" />
     <Compile Include="Results\ConditionResult.cs" />
     <Compile Include="Results\SpecificationResult.cs" />
+    <Compile Include="ZoneDimensions.cs" />
+    <Compile Include="Zone.cs" />
+    <Compile Include="ZoneReferenceElement.cs" />
     <Compile Include="ZoneReferenceLine.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -20,29 +20,33 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Geometry;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using BH.oM.Dimensional;
 using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
-    public class FragmentCondition : BaseCondition
+    [Description("Checks if an object is in a BoundingBox.")]
+    public class BoundingBoxCondition : BaseCondition, ISpatialCondition
     {
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
 
-        [Description("Type of the Fragment that, if found on the object, needs to satisfy the below Condition.")]
-        public virtual Type FragmentType { get; set; }
+        public BoundingBox BoundingBox { get; set; }
 
-        [Description("Condition that the Fragment must satisfy.")]
-        public virtual ICondition Condition { get; set; }
+        [Description("Describes what kind of rule should be applied to evaluate whether the BoundingBox actually contains a BHoMObject." +
+            "By default, it checks the inclusion of the BHoMObject's `Geometry`.")]
+        public ContainmentRules ContainmentRule { get; set; } = ContainmentRules.Geometry;
 
         /***************************************************/
 
         public override string ToString()
         {
-            return $"Fragment of type {FragmentType.Name} must comply with {Condition.ToString()}";
+            return $"within Bounding Box defined by Min ({BoundingBox.Min.X},{BoundingBox.Min.Y},{BoundingBox.Min.Z}) and Max ({BoundingBox.Max.X},{BoundingBox.Max.Y},{BoundingBox.Max.Z})";
         }
     }
 }

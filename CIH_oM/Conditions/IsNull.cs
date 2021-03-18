@@ -20,29 +20,23 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Base;
+using BH.oM.Data.Collections;
+using BH.oM.Data.Conditions;
+using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace BH.oM.Data.Conditions
 {
-    public class FragmentCondition : BaseCondition
+    public class IsNull : BaseCondition, IPropertyCondition
     {
-        /***************************************************/
-        /**** Properties                                ****/
-        /***************************************************/
-
-        [Description("Type of the Fragment that, if found on the object, needs to satisfy the below Condition.")]
-        public virtual Type FragmentType { get; set; }
-
-        [Description("Condition that the Fragment must satisfy.")]
-        public virtual ICondition Condition { get; set; }
-
-        /***************************************************/
+        public string PropertyName { get; set; }
+        public virtual ValueNullConditions NullCondition { get; set; } = ValueNullConditions.MustBeNotNull;
 
         public override string ToString()
         {
-            return $"Fragment of type {FragmentType.Name} must comply with {Condition.ToString()}";
+            return $"{PropertyName} {NullCondition}";
         }
     }
 }

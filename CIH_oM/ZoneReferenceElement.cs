@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2021, the respective contributors. All rights reserved.
  *
@@ -20,35 +20,21 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Base;
 using BH.oM.Geometry;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using BH.oM.Dimensional;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH
 {
-    public class BoundingBoxCondition : BaseCondition, ISpatialCondition
+    public class ZoneReferenceElement : IObject
     {
-        /***************************************************/
-        /**** Properties                                ****/
-        /***************************************************/
+        public virtual IGeometry ReferenceGeometry { get; set; }
 
-        [Description("Bonding box within which the Condition must hold.")]
-        public BoundingBox BoundingBox { get; set; }
-
-        [Description("Describes what kind of rule should be applied to evaluate whether the BoundingBox actually contains a BHoMObject." +
-            "By default, it checks the inclusion of the BHoMObject's `Geometry`.")]
-        public ContainmentRules ContainmentRule { get; set; } = ContainmentRules.Geometry;
-
-        /***************************************************/
-
-        public override string ToString()
-        {
-            return $"within Bounding Box defined by Min ({BoundingBox.Min.X},{BoundingBox.Min.Y},{BoundingBox.Min.Z}) and Max ({BoundingBox.Max.X},{BoundingBox.Max.Y},{BoundingBox.Max.Z})";
-        }
+        public string ZoneName { get; set; }
     }
 }
-
-

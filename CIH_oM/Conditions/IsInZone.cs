@@ -20,23 +20,37 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Base;
-using BH.oM.Data.Collections;
-using BH.oM.Data.Conditions;
-using BH.oM.Data.Library;
+using BH.oM.Geometry;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using BH.oM.Dimensional;
+using System.ComponentModel;
+using BH.oM.CIH;
 
 namespace BH.oM.Data.Conditions
 {
-    public class ValueNullCondition : BaseCondition, IPropertyCondition
+    [Description("Checks if a object is in a Zone.")]
+    public class IsInZone : BaseCondition, ISpatialCondition
     {
-        public string PropertyName { get; set; }
-        public virtual ValueNullConditions NullCondition { get; set; } = ValueNullConditions.MustBeNotNull;
+        /***************************************************/
+        /**** Properties                                ****/
+        /***************************************************/
+
+        public string ZoneName { get; set; }
+
+        [Description("Closed volumes associated with the ZoneName and its Reference Elements.")]
+        public List<IGeometry> ClosedVolumes { get; set; }
+
+        [Description("Describes what kind of rule should be applied to evaluate whether the Zone actually contains the object." +
+            "By default, it checks the inclusion of the BHoM's `Geometry`.")]
+        public ContainmentRules ContainmentRule { get; set; } = ContainmentRules.Geometry;
+
+        /***************************************************/
 
         public override string ToString()
         {
-            return $"{PropertyName} {NullCondition}";
+            return $"{ContainmentRule} of the object must be within Zone of name `{ZoneName}`";
         }
     }
 }

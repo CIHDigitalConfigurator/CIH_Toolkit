@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2021, the respective contributors. All rights reserved.
  *
@@ -20,31 +20,54 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Data.Conditions;
+using BH.Engine.Base;
+using BH.oM.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using BH.oM.Data;
+using BH.oM.Geometry;
+using BH.oM.Dimensional;
+using BH.Engine.Geometry;
+using BH.oM.Data.Specifications;
+using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
+using BH.oM.Data.Collections;
+using BH.oM.Data.Library;
+using BH.oM.CIH;
 
-namespace BH.oM.Data.Conditions
+namespace BH.Engine.CIH
 {
-    public class FragmentCondition : BaseCondition
+    public static partial class Convert
     {
-        /***************************************************/
-        /**** Properties                                ****/
-        /***************************************************/
-
-        [Description("Type of the Fragment that, if found on the object, needs to satisfy the below Condition.")]
-        public virtual Type FragmentType { get; set; }
-
-        [Description("Condition that the Fragment must satisfy.")]
-        public virtual ICondition Condition { get; set; }
-
-        /***************************************************/
-
-        public override string ToString()
+        public static ZoneReferenceElement ToZoneReferenceElement(this IObject refElement)
         {
-            return $"Fragment of type {FragmentType.Name} must comply with {Condition.ToString()}";
+            ZoneReferenceElement zoneReferenceElement = refElement as ZoneReferenceElement;
+
+            if (zoneReferenceElement != null)
+                return zoneReferenceElement;
+
+            string refElZoneName;
+            IGeometry referenceGeom;
+
+            if (zoneReferenceElement != null)
+            {
+                refElZoneName = zoneReferenceElement.ZoneName;
+                referenceGeom = zoneReferenceElement.ReferenceGeometry;
+            }
+            else
+            {
+                // Allow for CustomObjects with a property named "ZoneName" to be used as reference Elements.
+                refElZoneName = refElement.ValueFromSource("ZoneName") as string;
+                referenceGeom = BH.Engine.CIH.Query.IGeometry(refElement);
+            }
+
+            if (string.IsNullOrWhiteSpace(refElZoneName) || referenceGeom == null)
+                return null;
+
+            return zoneReferenceElement;
         }
     }
 }
-
-

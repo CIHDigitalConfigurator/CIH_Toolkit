@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2021, the respective contributors. All rights reserved.
  *
@@ -20,27 +20,28 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Base;
+using BH.oM.Geometry;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH
 {
-    public class CustomDataCondition : BaseCondition
+    [Description("Defines a Zone, that is a closed volume in space, tagged with some ZoneName.")]
+    public class Zone : IObject
     {
-        /***************************************************/
-        /**** Properties                                ****/
-        /***************************************************/
+        [Description("Identifier of the Zone.")]
+        public virtual string ZoneName { get; set; }
 
-        public virtual string CustomDataKey { get; set; }
-        public virtual IComparisonCondition Comparison { get; set; }
-
-        /***************************************************/
+        [Description("A BoundingBox or Cuboid (this will later support any kind of closed volume object).")]
+        public virtual IGeometry ClosedVolume { get; set; }
 
         public override string ToString()
         {
-            return $"CustomData[{CustomDataKey}] {Comparison?.ToString()}";
+            return $"Zone of name {ZoneName} and closed volume identified by a {ClosedVolume.GetType().Name}.";
         }
     }
 }
-
-
