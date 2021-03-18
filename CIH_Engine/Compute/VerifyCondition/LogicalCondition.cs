@@ -12,7 +12,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, LogicalCondition logicalCondition)
+        private static ConditionResult VerifyCondition(List<object> objects, LogicalCondition logicalCondition)
         {
             ConditionResult combinedResult = new ConditionResult() { Condition = logicalCondition };
 
@@ -46,7 +46,7 @@ namespace BH.Engine.CIH
 
             foreach (var f in logicalCondition.Conditions)
             {
-                ConditionResult r = IApplyCondition(objects, f);
+                ConditionResult r = IVerifyCondition(objects, f);
                 if (r != null)
                     results.Add(r);
 

@@ -37,7 +37,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, ISpatialCondition cond)
+        private static ConditionResult VerifyCondition(List<object> objects, ISpatialCondition cond)
         {
             // First apply filter to get relevant objects
             BoundingBox containingBox = null;

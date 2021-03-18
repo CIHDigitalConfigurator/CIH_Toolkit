@@ -15,9 +15,9 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, IsInZone isInZone)
+        private static ConditionResult VerifyCondition(List<object> objects, IsInBoundingBox bbc)
         {
-            ConditionResult result = new ConditionResult() { Condition = isInZone };
+            ConditionResult result = new ConditionResult() { Condition = bbc };
             List<string> failInfo = new List<string>();
 
             foreach (var obj in objects)
@@ -27,7 +27,7 @@ namespace BH.Engine.CIH
                 IObject iObj = obj as IObject;
                 if (iObj != null)
                 {
-                    //passed = BH.Engine.CIH.Query.IsContaining(bbc.BoundingBox, iObj);
+                    passed = BH.Engine.CIH.Query.IsContaining(bbc.BoundingBox, iObj);
                     if (passed)
                         result.PassedObjects.Add(obj);
                     else

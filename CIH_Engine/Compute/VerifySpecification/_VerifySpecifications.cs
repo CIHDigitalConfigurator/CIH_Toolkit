@@ -17,7 +17,7 @@ namespace BH.Engine.CIH
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static SpecificationResult ApplySpecifications(List<object> objects, List<ISpecification> specifications, PassRequirement passRequirement = PassRequirement.AllMustPass)
+        public static SpecificationResult VerifySpecifications(List<object> objects, List<ISpecification> specifications, PassRequirement passRequirement = PassRequirement.AllMustPass)
         {
             SpecificationResult combinedResult = new SpecificationResult();
 
@@ -33,7 +33,7 @@ namespace BH.Engine.CIH
 
             foreach (var spec in specifications)
             {
-                SpecificationResult specRes = IApplySpecification(objects, spec);
+                SpecificationResult specRes = IVerifySpecification(objects, spec);
                 CheckFailure failuresForThisSpec = new CheckFailure();
 
                 foreach (var obj in specRes.PassedObjects)

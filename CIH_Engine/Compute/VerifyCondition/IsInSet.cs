@@ -13,29 +13,28 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, IsNull valueNullCondition)
+        private static ConditionResult VerifyCondition(List<object> objects, IsInSet setCondition)
         {
-            ConditionResult result = new ConditionResult() { Condition = valueNullCondition };
+            ConditionResult result = new ConditionResult() { Condition = setCondition };
             List<string> info = new List<string>();
-
-            var requiredState = valueNullCondition.NullCondition;
 
             foreach (var obj in objects)
             {
                 bool passed = false;
-                object value = obj.ValueFromSource(valueNullCondition.PropertyName);
 
-                if (requiredState == ValueNullConditions.MustBeNull)
-                    passed = value == null;
-                else if (requiredState == ValueNullConditions.MustBeNotNull)
-                    passed = value != null;
+                object value = obj.ValueFromSource(setCondition.PropertyName);
+
+                if (setCondition.ComparisonConfig != null) // use hashComparer
+                    passed = setCondition.Set.Contains(value, new HashComparer<object>(setCondition.ComparisonConfig));
+                else if (setCondition.Set.Contains(value)) // use default comparer
+                    passed = true;
 
                 if (passed)
                     result.PassedObjects.Add(obj);
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    info.Add($"{valueNullCondition.PropertyName} was {value ?? "empty"}, which does not respect '{valueNullCondition.ToString()}'.");
+                    info.Add($"Value of {setCondition.PropertyName} was {value}, which is not among: {string.Join(" | ", setCondition.Set.Select(v => v.ToString()))}.");
                 }
 
                 result.Pattern.Add(passed);
@@ -44,5 +43,7 @@ namespace BH.Engine.CIH
             result.FailInfo = info;
             return result;
         }
+
+
     }
 }

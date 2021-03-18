@@ -13,7 +13,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, IsInDomain domainCondition)
+        private static ConditionResult VerifyCondition(List<object> objects, IsInDomain domainCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = domainCondition };
             List<string> failInfo = new List<string>();

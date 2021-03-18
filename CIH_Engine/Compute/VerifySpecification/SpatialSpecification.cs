@@ -20,7 +20,7 @@ namespace BH.Engine.CIH
         /**** Private Methods                           ****/
         /***************************************************/
 
-        private static SpecificationResult ApplySpecification(List<object> objects, SpatialSpecification spatialSpec)
+        private static SpecificationResult VerifySpecification(List<object> objects, SpatialSpecification spatialSpec)
         {
             SpecificationResult specResult = new SpecificationResult();
             specResult.NotAssessedObjects = objects.Where(o => !(o is BHoMObject)).ToList();
@@ -57,7 +57,7 @@ namespace BH.Engine.CIH
                 if (!isContained)
                     checkResultAggregated.FailInfo.Add("The 3D geometry of the object is not contained in the Zone.");
 
-                var checkResult_obj = ApplyConditions(new List<object>() { objToCheck }, spatialSpec.ZoneSpecification.CheckConditions);
+                var checkResult_obj = VerifyConditions(new List<object>() { objToCheck }, spatialSpec.ZoneSpecification.CheckConditions);
                 if (isContained)
                 {
                     checkResultAggregated.PassedObjects.AddRange(checkResult_obj.PassedObjects);
@@ -116,7 +116,7 @@ namespace BH.Engine.CIH
                     if (zoneBB.IsContaining(objsGeometry[bhomObj]))
                     {
                         // If the zone bounding box contains the bhomObject's Geometry, let's apply the other filters.
-                        var res = ApplyCondition(new List<object>() { bhomObj }, new LogicalCondition() { Conditions = zoneSpec.FilterConditions });
+                        var res = VerifyCondition(new List<object>() { bhomObj }, new LogicalCondition() { Conditions = zoneSpec.FilterConditions });
                         if (res.PassedObjects.Count == 1) // if the object passed all the provided Conditions, then it's passed.
                             passedObj_zoneBox[res.PassedObjects.First() as BHoMObject] = zoneBB;
                     }

@@ -17,10 +17,9 @@ namespace BH.Engine.CIH
         /**** Private Methods                           ****/
         /***************************************************/
 
-        private static SpecificationResult ApplySpecification(List<object> objects, ZoneSpecification spatialSpec)
+        private static SpecificationResult VerifySpecification(List<object> objects, LogicalSpecification logicalSpec)
         {
-            BH.Engine.Reflection.Compute.RecordError($"Zone Specifications cannot be applied directly: they have to be paired with a specific location. Read the description of the method `Create.{nameof(Create.SpatialSpecification)}`.");
-            return null;
+            return VerifySpecifications(objects, logicalSpec.Specifications, logicalSpec.PassRequirement);
         }
     }
 }

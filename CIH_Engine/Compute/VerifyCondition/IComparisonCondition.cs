@@ -13,11 +13,11 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, IComparisonCondition comparisonCondition)
+        private static ConditionResult VerifyCondition(List<object> objects, IComparisonCondition comparisonCondition)
         {
             ValueCondition vc = comparisonCondition as ValueCondition;
             if (vc != null)
-                return ApplyCondition(objects, vc);
+                return VerifyCondition(objects, vc);
 
             BH.Engine.Reflection.Compute.RecordError($"Failed to verify Condition of type {comparisonCondition.GetType().Name}");
             return new ConditionResult();

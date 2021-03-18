@@ -12,7 +12,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, FragmentCondition fragmentCondition)
+        private static ConditionResult VerifyCondition(List<object> objects, FragmentCondition fragmentCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = fragmentCondition };
             foreach (var obj in objects)
@@ -29,7 +29,7 @@ namespace BH.Engine.CIH
                     List<IFragment> fragments = bhomObj.GetAllFragments(fragmentCondition.FragmentType);
 
                     ConditionResult subConditionResult = new ConditionResult();
-                    subConditionResult = IApplyCondition(fragments.OfType<object>().ToList(), fragmentCondition.Condition);
+                    subConditionResult = IVerifyCondition(fragments.OfType<object>().ToList(), fragmentCondition.Condition);
 
                     // Forced AND on all child fragments. See comment above.
                     if (subConditionResult.Pattern.TrueForAll(v => v == true))

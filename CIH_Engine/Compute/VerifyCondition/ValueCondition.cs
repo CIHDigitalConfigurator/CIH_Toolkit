@@ -13,7 +13,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, ValueCondition valueCondition)
+        private static ConditionResult VerifyCondition(List<object> objects, ValueCondition valueCondition)
         {
             ConditionResult conditionResult = new ConditionResult() { Condition = valueCondition };
 
@@ -75,7 +75,7 @@ namespace BH.Engine.CIH
                     if (valueCondition.ReferenceValue is Type)
                     {
                         IsOfType typeCondition = new IsOfType() { Type = valueCondition.ReferenceValue as Type };
-                        var TypeCondResult = ApplyCondition(new List<object>() { value }, typeCondition);
+                        var TypeCondResult = VerifyCondition(new List<object>() { value }, typeCondition);
                         conditionResult.PassedObjects.Add(TypeCondResult.PassedObjects);
                         conditionResult.FailedObjects.Add(TypeCondResult.FailedObjects);
                         conditionResult.FailInfo.Add(TypeCondResult.FailInfo.FirstOrDefault());

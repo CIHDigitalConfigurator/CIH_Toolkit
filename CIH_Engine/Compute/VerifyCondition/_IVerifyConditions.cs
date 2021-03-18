@@ -17,19 +17,19 @@ namespace BH.Engine.CIH
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static ConditionResult ApplyConditions(List<object> objects, List<ICondition> conditions, BooleanOperator booleanOperator = BooleanOperator.AND)
+        public static ConditionResult VerifyConditions(List<object> objects, List<ICondition> conditions, BooleanOperator booleanOperator = BooleanOperator.AND)
         {
             if (conditions.Count == 1)
-                return IApplyCondition(objects, conditions[0]);
+                return IVerifyCondition(objects, conditions[0]);
 
-            return IApplyCondition(objects, new LogicalCondition() { Conditions = conditions, BooleanOperator = booleanOperator });
+            return IVerifyCondition(objects, new LogicalCondition() { Conditions = conditions, BooleanOperator = booleanOperator });
         }
 
         /***************************************************/
         /**** Private Methods                           ****/
         /***************************************************/
 
-        private static ConditionResult IApplyCondition(List<object> objects, ICondition condition)
+        private static ConditionResult IVerifyCondition(List<object> objects, ICondition condition)
         {
             if (IsAnyConditionNull(condition))
                 return null;
@@ -37,13 +37,13 @@ namespace BH.Engine.CIH
             if (objects == null || objects.Count == 0)
                 return new ConditionResult() { Condition = condition };
 
-            return ApplyCondition(objects, condition as dynamic);
+            return VerifyCondition(objects, condition as dynamic);
         }
 
         /***************************************************/
 
         //Fallback
-        private static ConditionResult ApplyCondition(List<object> objects, ICondition condition)
+        private static ConditionResult VerifyCondition(List<object> objects, ICondition condition)
         {
             BH.Engine.Reflection.Compute.RecordError($"Could not apply {condition.GetType().Name}. No method found.");
             return null;

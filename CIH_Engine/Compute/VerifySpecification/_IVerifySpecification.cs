@@ -17,23 +17,23 @@ namespace BH.Engine.CIH
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static SpecificationResult IApplySpecification(List<object> objects, ISpecification specification)
+        public static SpecificationResult IVerifySpecification(List<object> objects, ISpecification specification)
         {
-            return ApplySpecification(objects, specification as dynamic);
+            return VerifySpecification(objects, specification as dynamic);
         }
 
         /***************************************************/
         /**** Private Methods                           ****/
         /***************************************************/
 
-        private static SpecificationResult ApplySpecification(List<object> objects, Specification specification)
+        private static SpecificationResult VerifySpecification(List<object> objects, Specification specification)
         {
 
             // First apply filter to get relevant objects
-            ConditionResult filterResult = ApplyConditions(objects, specification.FilterConditions);
+            ConditionResult filterResult = VerifyConditions(objects, specification.FilterConditions);
 
             // Then apply the check to the filteredObject
-            ConditionResult checkResult = ApplyConditions(filterResult.PassedObjects, specification.CheckConditions);
+            ConditionResult checkResult = VerifyConditions(filterResult.PassedObjects, specification.CheckConditions);
 
             return PopulateSpecificationResult(specification, filterResult, checkResult);
         }
@@ -41,7 +41,7 @@ namespace BH.Engine.CIH
         /***************************************************/
 
         // Fallback
-        private static SpecificationResult ApplySpecification(List<object> objects, ISpecification specification)
+        private static SpecificationResult VerifySpecification(List<object> objects, ISpecification specification)
         {
             BH.Engine.Reflection.Compute.RecordError($"No method found to apply specification of type {specification.GetType()}.");
             return new SpecificationResult();

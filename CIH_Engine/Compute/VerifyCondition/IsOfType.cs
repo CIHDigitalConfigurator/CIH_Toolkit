@@ -12,7 +12,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult ApplyCondition(List<object> objects, IsOfType typeCondition)
+        private static ConditionResult VerifyCondition(List<object> objects, IsOfType typeCondition)
         {
             ConditionResult result = new ConditionResult() { Condition = typeCondition };
             List<string> info = new List<string>();

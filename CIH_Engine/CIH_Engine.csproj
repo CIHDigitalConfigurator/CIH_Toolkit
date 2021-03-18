@@ -67,25 +67,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compute\ApplyCondition\ApplyIsInZone.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplyBoundingBoxCondition.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplyFragmentCondition.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplySetCondition.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplySpatialCondition.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplyComparisonCondition.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplyValueNullCondition.cs" />
-    <Compile Include="Compute\ApplySpecification\ApplyLogicalSpecification.cs" />
-    <Compile Include="Compute\ApplySpecification\ApplyZoneSpecification.cs" />
-    <Compile Include="Compute\ApplySpecification\ApplySpatialSpecification.cs" />
-    <Compile Include="Compute\ApplySpecification\ApplySpecifications.cs" />
+    <Compile Include="Compute\VerifyCondition\IsInZone.cs" />
+    <Compile Include="Compute\VerifyCondition\IsInBoundingBox.cs" />
+    <Compile Include="Compute\VerifyCondition\FragmentCondition.cs" />
+    <Compile Include="Compute\VerifyCondition\IsInSet.cs" />
+    <Compile Include="Compute\VerifyCondition\ISpatialCondition.cs" />
+    <Compile Include="Compute\VerifyCondition\IComparisonCondition.cs" />
+    <Compile Include="Compute\VerifyCondition\IsNull.cs" />
+    <Compile Include="Compute\VerifySpecification\VerifyLogicalSpecification.cs" />
+    <Compile Include="Compute\VerifySpecification\ZoneSpecification.cs" />
+    <Compile Include="Compute\VerifySpecification\SpatialSpecification.cs" />
+    <Compile Include="Compute\VerifySpecification\_VerifySpecifications.cs" />
     <Compile Include="Compute\ApplyToZone.cs" />
     <Compile Include="Compute\Utilities\PopulateSpecificationResult.cs" />
     <Compile Include="Compute\Utilities\IsAnyConditionNull.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplyValueCondition.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplyDomainCondition.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplyLogicalCondition.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplyIdCondition.cs" />
-    <Compile Include="Compute\ApplyCondition\ApplyTypeCondition.cs" />
+    <Compile Include="Compute\VerifyCondition\ValueCondition.cs" />
+    <Compile Include="Compute\VerifyCondition\IsInDomain.cs" />
+    <Compile Include="Compute\VerifyCondition\LogicalCondition.cs" />
+    <Compile Include="Compute\VerifyCondition\HasId.cs" />
+    <Compile Include="Compute\VerifyCondition\IsOfType.cs" />
     <Compile Include="Convert\ToZoneReferenceElement.cs" />
     <Compile Include="Create\Zone.cs" />
     <Compile Include="Create\DomainCondition.cs" />
@@ -103,8 +103,8 @@
     <Compile Include="Query\ValueFromSource.cs" />
     <Compile Include="Query\ToString.cs" />
     <Compile Include="Modify\SetClosedVolume.cs" />
-    <Compile Include="Compute\ApplyCondition\IApplyConditions.cs" />
-    <Compile Include="Compute\ApplySpecification\IApplySpecification.cs" />
+    <Compile Include="Compute\VerifyCondition\_IVerifyConditions.cs" />
+    <Compile Include="Compute\VerifySpecification\_IVerifySpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
