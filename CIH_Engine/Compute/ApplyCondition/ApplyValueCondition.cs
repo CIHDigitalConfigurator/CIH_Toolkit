@@ -15,116 +15,80 @@ namespace BH.Engine.CIH
     {
         private static ConditionResult ApplyCondition(List<object> objects, ValueCondition valueCondition)
         {
-            ConditionResult result = new ConditionResult() { Condition = valueCondition };
+            ConditionResult conditionResult = new ConditionResult() { Condition = valueCondition };
 
             var refValue = valueCondition.ReferenceValue;
             if (refValue == null)
                 BH.Engine.Reflection.Compute.RecordNote($"A {nameof(ValueCondition)}'s {nameof(valueCondition.ReferenceValue)} was null. Make sure this is intended.\nTo check for null/not null, consider using a {nameof(IsNull)} instead.");
 
-
             foreach (var obj in objects)
             {
                 bool passed = true;
 
+                // Value to be compared to the referenceValue.
                 object value = obj.ValueFromSource(valueCondition.PropertyName);
 
+                // If no propertyName was assigned, assume we want to compare the entire object.
+                if (string.IsNullOrWhiteSpace(valueCondition.PropertyName))
+                    value = obj;
+
+                // Basic cases (check for nullity)
                 if (valueCondition.ReferenceValue == null && value == null)
-                    passed = true;
-                else if (valueCondition.ReferenceValue == null && value != null)
-                    passed = false;
-                else if (valueCondition.ReferenceValue != null && value == null)
-                    if (valueCondition.Comparison == ValueComparisons.EqualTo && valueCondition.ReferenceValue is Type && valueCondition.PropertyName == null)
-                    {
-                        TypeCondition typeCondition = new TypeCondition() { Type = valueCondition.ReferenceValue as Type };
-                        var TypeCondResult = ApplyCondition(new List<object>() { obj }, typeCondition);
-                        result.PassedObjects.Add(TypeCondResult.PassedObjects);
-                        result.FailedObjects.Add(TypeCondResult.FailedObjects);
-                        result.FailInfo.Add(TypeCondResult.FailInfo.FirstOrDefault());
-                        result.Pattern.Add(TypeCondResult.Pattern.FirstOrDefault());
-                        result.Condition = valueCondition;
-                    }
-                    else
-                        passed = false;
-                else if (valueCondition.ReferenceValue != null && value != null)
                 {
-                    double numericalValue;
-
-                    if (double.TryParse(value?.ToString(), out numericalValue))
-                    {
-                        double referenceNumValue;
-                        double.TryParse(valueCondition.ReferenceValue?.ToString(), out referenceNumValue);
-
-                        double numTolerance;
-                        if (!double.TryParse(valueCondition.Tolerance?.ToString(), out numTolerance))
-                            numTolerance = 1e-03;
-
-                        switch (valueCondition.Comparison)
-                        {
-                            case (ValueComparisons.EqualTo):
-                                passed = referenceNumValue - numTolerance <= numericalValue && numericalValue <= referenceNumValue + numTolerance;
-                                break;
-                            case (ValueComparisons.LessThan):
-                                passed = numericalValue < referenceNumValue + numTolerance;
-                                break;
-                            case (ValueComparisons.LessThanOrEqualTo):
-                                passed = numericalValue <= referenceNumValue + numTolerance;
-                                break;
-                            case (ValueComparisons.GreaterThanOrEqualTo):
-                                passed = numericalValue >= referenceNumValue - numTolerance;
-                                break;
-                            case (ValueComparisons.GreaterThan):
-                                passed = numericalValue > referenceNumValue - numTolerance;
-                                break;
-                            default:
-                                passed = false;
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        // Consider some other way to compare objects
-                        if (valueCondition.Comparison == ValueComparisons.EqualTo)
-                        {
-
-                            var cc = valueCondition.Tolerance as ComparisonConfig;
-                            if (cc != null)
-                            {
-                                //Compare by hash
-                                HashComparer<object> hc = new HashComparer<object>(cc);
-                                passed = hc.Equals(value, refValue);
-                            }
-                            else
-                            {
-                                // Try checking name compatibility. Useful for materials.
-                                string valueString = BH.Engine.CIH.Query.ValueFromSource(value, "Name") as string;
-                                string referenceValue = BH.Engine.CIH.Query.ValueFromSource(valueCondition.ReferenceValue, "Name") as string;
-                                if (string.IsNullOrWhiteSpace(referenceValue))
-                                    referenceValue = valueCondition.ReferenceValue as string;
-
-                                if (valueString == referenceValue)
-                                {
-                                    passed = true;
-                                }
-                                else if (value.ToString().Contains("BH.oM") && (valueCondition.ReferenceValue is Type))
-                                {
-                                    passed = value.ToString() == valueCondition.ReferenceValue.ToString();
-                                }
-                                else if (value is string && refValue is string)
-                                    passed = value.ToString() == refValue.ToString(); // this workaround is required. Not even Convert.ChangeType and dynamic type worked.
-                                else
-                                {
-                                    passed = value == refValue;
-                                }
-
-                            }
-                        }
-                    }
+                    passed = true;
+                    PopulateConditionResults(obj, value, valueCondition, conditionResult, passed);
+                    return conditionResult;
+                }
+                if (valueCondition.ReferenceValue == null && value != null)
+                {
+                    passed = false;
+                    PopulateConditionResults(obj, value, valueCondition, conditionResult, passed);
+                    return conditionResult;
+                }
+                else if (valueCondition.ReferenceValue != null && value == null)
+                {
+                    passed = false;
+                    PopulateConditionResults(obj, value, valueCondition, conditionResult, passed);
+                    return conditionResult;
                 }
 
-                PopulateConditionResults(obj, value, valueCondition, result, passed);
+                // Try a numerical comparison.
+                double numericalValue;
+                if (double.TryParse(value?.ToString(), out numericalValue))
+                {
+                    double referenceNumValue;
+                    double.TryParse(valueCondition.ReferenceValue?.ToString(), out referenceNumValue);
+
+                    double numTolerance;
+                    if (!double.TryParse(valueCondition.Tolerance?.ToString(), out numTolerance))
+                        numTolerance = 1e-03;
+
+                    passed = NumericalComparison(numericalValue, referenceNumValue, numTolerance, valueCondition.Comparison);
+                    PopulateConditionResults(obj, value, valueCondition, conditionResult, passed);
+                    return conditionResult;
+                }
+
+                // Consider some other way to compare objects.
+                if (valueCondition.Comparison == ValueComparisons.EqualTo)
+                {
+                    // If the referenceValue is a Type, convert this ValueCondition to a IsOfType condition.
+                    if (valueCondition.ReferenceValue is Type)
+                    {
+                        IsOfType typeCondition = new IsOfType() { Type = valueCondition.ReferenceValue as Type };
+                        var TypeCondResult = ApplyCondition(new List<object>() { value }, typeCondition);
+                        conditionResult.PassedObjects.Add(TypeCondResult.PassedObjects);
+                        conditionResult.FailedObjects.Add(TypeCondResult.FailedObjects);
+                        conditionResult.FailInfo.Add(TypeCondResult.FailInfo.FirstOrDefault());
+                        conditionResult.Pattern.Add(TypeCondResult.Pattern.FirstOrDefault());
+                        conditionResult.Condition = valueCondition;
+                        return conditionResult;
+                    }
+
+                    passed = CompareEquality(value, valueCondition.ReferenceValue, valueCondition.Tolerance);
+                }
             }
 
-            return result;
+            return conditionResult;
         }
 
         private static void PopulateConditionResults(object obj, object value, ValueCondition valueCondition, ConditionResult result, bool status)
@@ -148,6 +112,62 @@ namespace BH.Engine.CIH
             conditionText = conditionText.Replace(valueCondition.PropertyName + " ", "");
 
             result.FailInfo.Add($"{valueCondition.PropertyName} was {valueString ?? "empty"}, which does not respect «{conditionText}».");
+        }
+
+        private static bool CompareEquality(object value, object refValue, object tolerance)
+        {
+            var cc = tolerance as ComparisonConfig;
+            if (cc != null)
+            {
+                //Compare by hash
+                HashComparer<object> hc = new HashComparer<object>(cc);
+                return hc.Equals(value, refValue);
+            }
+
+            // Try checking name compatibility. Useful for materials.
+            string valueString = BH.Engine.CIH.Query.ValueFromSource(value, "Name") as string;
+            string referenceValue = BH.Engine.CIH.Query.ValueFromSource(refValue, "Name") as string;
+            if (string.IsNullOrWhiteSpace(referenceValue))
+                referenceValue = refValue as string;
+
+            if (valueString == referenceValue)
+                return true;
+
+            if (value.ToString().Contains("BH.oM") && (refValue is Type))
+                return value.ToString() == refValue.ToString();
+
+            if (value is string && refValue is string)
+                return value.ToString() == refValue.ToString(); // this workaround is required. Not even Convert.ChangeType and dynamic type worked.
+
+            return value == refValue;
+        }
+
+        private static bool NumericalComparison(double numericalValue, double referenceNumValue, double numTolerance, ValueComparisons comparison)
+        {
+            bool passed;
+            switch (comparison)
+            {
+                case (ValueComparisons.EqualTo):
+                    passed = referenceNumValue - numTolerance <= numericalValue && numericalValue <= referenceNumValue + numTolerance;
+                    break;
+                case (ValueComparisons.LessThan):
+                    passed = numericalValue < referenceNumValue + numTolerance;
+                    break;
+                case (ValueComparisons.LessThanOrEqualTo):
+                    passed = numericalValue <= referenceNumValue + numTolerance;
+                    break;
+                case (ValueComparisons.GreaterThanOrEqualTo):
+                    passed = numericalValue >= referenceNumValue - numTolerance;
+                    break;
+                case (ValueComparisons.GreaterThan):
+                    passed = numericalValue > referenceNumValue - numTolerance;
+                    break;
+                default:
+                    passed = false;
+                    break;
+            }
+
+            return passed;
         }
     }
 }
