@@ -15,6 +15,8 @@ namespace BH.Engine.CIH
 {
     public static partial class Modify
     {
+        [Description("For each given specification, update any of its 'IsInZone' Conditions," +
+             "with the `ClosedVolumes` computed from the input ZoneReferenceElement and ZoneDimensions (matched by ZoneName).")]
         public static void ApplyToZone(List<Specification> specifications, List<IObject> zoneReferenceElements, List<ZoneDimensions> zoneDimensions)
         {
             // Create all the zones, matching the zoneReferenceElements and zoneDimensions with the same ZoneName.
@@ -36,8 +38,8 @@ namespace BH.Engine.CIH
             }
         }
 
-        [Description("For each given specification, get any Condition that is a 'IsInZone' condition; " +
-            "and update their `ClosedVolumes` property by adding the closed volumes of the .")]
+        [Description("For each given specification, update any of its 'IsInZone' Conditions," +
+            "with the `ClosedVolumes` property extracted from the input Zones (matched by ZoneName).")]
         public static void ApplyToZone(List<Specification> specifications, List<Zone> zones)
         {
             specifications.ForEach(spec => ApplyToZone(spec, zones));
@@ -51,7 +53,7 @@ namespace BH.Engine.CIH
             SetClosedVolume(specification.CheckConditions, zonesByName);
         }
 
-        [Description("Modify the IsInZone condition to update its `ClosedVolumes` property: add in all the input zones' ClosedVolumes with the same ZoneName.")]
+        [Description("Update the given IsInZone condition, by adding the input Zones' ClosedVolumes (matched by ZoneName).")]
         private static void SetClosedVolume(List<ICondition> conditions, Dictionary<string, List<Zone>> zonesByName)
         {
             for (int i = 0; i < conditions.Count(); i++)
