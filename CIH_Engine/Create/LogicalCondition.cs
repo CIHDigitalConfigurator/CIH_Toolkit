@@ -42,19 +42,12 @@ namespace BH.Engine.CIH
 {
     public static partial class Create
     {
-        public static IsInDomain DomainCondition(string propertyName, double min, double max, double tolerance = 1e-03, string clause = "", string name = "", Source source = null, string comment = "")
+        public static LogicalCondition LogicalCondition(ICondition condition1, ICondition condition2, BooleanOperator booleanOperator = BooleanOperator.AND)
         {
-            Domain dom = BH.Engine.Data.Create.Domain(min, max);
-
-            return new IsInDomain()
+            return new LogicalCondition()
             {
-                PropertyName = propertyName,
-                Domain = dom,
-                Clause = clause,
-                Name = name,
-                Source = source,
-                Tolerance = tolerance,
-                Comment = comment
+                Conditions = new List<ICondition>() { condition1, condition2 },
+                BooleanOperator = booleanOperator
             };
         }
 

@@ -87,8 +87,9 @@
     <Compile Include="Compute\VerifyCondition\HasId.cs" />
     <Compile Include="Compute\VerifyCondition\IsOfType.cs" />
     <Compile Include="Convert\ToZoneReferenceElement.cs" />
-    <Compile Include="Create\Zone.cs" />
-    <Compile Include="Create\DomainCondition.cs" />
+    <Compile Include="Create\LogicalCondition.cs" />
+    <Compile Include="Create\Zones.cs" />
+    <Compile Include="Create\IsInDomain.cs" />
     <Compile Include="Create\SpatialSpecification.cs" />
     <Compile Include="Modify\ApplyToZone.cs" />
     <Compile Include="Query\Points.cs" />
