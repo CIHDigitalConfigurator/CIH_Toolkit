@@ -95,7 +95,6 @@
     <Compile Include="ZoneDimensions.cs" />
     <Compile Include="Zone.cs" />
     <Compile Include="ZoneReferenceElement.cs" />
-    <Compile Include="ZoneReferenceLine.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
