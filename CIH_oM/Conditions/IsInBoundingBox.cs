@@ -27,7 +27,7 @@ using System.Linq;
 using BH.oM.Dimensional;
 using System.ComponentModel;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
     [Description("Checks if an object is in a BoundingBox.")]
     public class IsInBoundingBox : BaseCondition, ISpatialCondition

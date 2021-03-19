@@ -22,13 +22,14 @@
 
 using BH.oM.Base;
 using BH.oM.Data.Collections;
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using BH.oM.Data;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
     [Description("Condition that verifies if an Property of an object is of a certain Value (e.g. smaller, equal, or greater than).")]
     public class ValueCondition : BaseCondition, IPropertyCondition, IComparisonCondition

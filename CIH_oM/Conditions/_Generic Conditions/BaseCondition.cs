@@ -21,13 +21,13 @@
  */
 
 using BH.oM.Base;
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
     [Description("Base abstract class in common to all Conditions.")]
     public abstract class BaseCondition : ICondition

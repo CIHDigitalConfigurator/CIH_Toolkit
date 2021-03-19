@@ -28,7 +28,7 @@ using BH.oM.Dimensional;
 using System.ComponentModel;
 using BH.oM.CIH;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
     [Description("Checks if a object is in a Zone.")]
     public class IsInZone : BaseCondition, ISpatialCondition

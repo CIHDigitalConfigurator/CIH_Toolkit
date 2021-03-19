@@ -2,7 +2,7 @@
 using BH.oM.Base;
 using BH.oM.Data;
 using BH.oM.Data.Collections;
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using BH.oM.Data.Specifications;
 using BH.oM.Dimensional;
 using BH.oM.Geometry;

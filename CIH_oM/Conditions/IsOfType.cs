@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
     [Description("Condition that verifies if an object is of the given System.Type.")]
     public class IsOfType : BaseCondition

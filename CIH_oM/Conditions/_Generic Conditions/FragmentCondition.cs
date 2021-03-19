@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
     [Description("Apply a condition to a BHoMObject's Fragment.")]
     public class FragmentCondition : BaseCondition

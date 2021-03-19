@@ -1,4 +1,4 @@
-﻿using BH.oM.Data.Conditions;
+﻿using BH.oM.CIH.Conditions;
 using BH.Engine.Base;
 using BH.oM.Base;
 using System;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BH.oM.Data;
+using BH.oM.CIH;
 using BH.Engine.Diffing;
 
 namespace BH.Engine.CIH

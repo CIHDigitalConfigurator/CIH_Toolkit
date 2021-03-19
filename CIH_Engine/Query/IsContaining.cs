@@ -1,4 +1,4 @@
-﻿using BH.oM.Data.Conditions;
+﻿using BH.oM.CIH.Conditions;
 using BH.Engine.Base;
 using BH.Engine.Reflection;
 using BH.oM.Base;
@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Reflection;
 using BH.oM.Geometry;
 using BH.Engine.Geometry;
+using BH.oM.CIH;
 
 namespace BH.Engine.CIH
 {

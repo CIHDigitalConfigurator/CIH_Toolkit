@@ -85,7 +85,7 @@
     <Compile Include="Conditions\IsInSet.cs" />
     <Compile Include="Conditions\_Generic Conditions\ValueCondition.cs" />
     <Compile Include="Conditions\IsOfType.cs" />
-    <Compile Include="Enums\PropertyNullConditions.cs" />
+    <Compile Include="Enums\ValueNullConditions.cs" />
     <Compile Include="Enums\BooleanOperator.cs" />
     <Compile Include="Enums\ValueComparisons.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

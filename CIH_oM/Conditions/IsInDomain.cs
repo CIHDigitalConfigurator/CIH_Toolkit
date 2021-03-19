@@ -22,13 +22,13 @@
 
 using BH.oM.Base;
 using BH.oM.Data.Collections;
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
     [Description("Identifies a Condition that verifies if a Property of the object is within a certain domain (range).")]
     public class IsInDomain : BaseCondition, IPropertyCondition

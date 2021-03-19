@@ -24,9 +24,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.Data
+namespace BH.oM.CIH
 {
-    [Description("Describes what kind of rule should be applied to evaluate whether a BoundingBox actually contains some BHoMObject." +
+    [Description("Describes what kind of rule should be applied to evaluate whether a ClosedVolume actually contains some BHoMObject." +
         "\n Geometry = checks the containment of the 'essential' Geometry of the object. E.g. for a Beam, this is the Beam's centreline." +
         "\n Geometry3D = checks the containment of the 'volumetric' Geometry of the object. E.g. for a Beam, this is the Beam's extruded view of its profile section." +
         "\n BoundingBoxCentre = Centre defined as the centre of the object's BoundingBox." +

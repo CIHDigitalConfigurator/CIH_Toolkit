@@ -1,4 +1,4 @@
-﻿using BH.oM.Data.Conditions;
+﻿using BH.oM.CIH.Conditions;
 using BH.Engine.Base;
 using BH.Engine.Reflection;
 using BH.oM.Base;

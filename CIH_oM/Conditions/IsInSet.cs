@@ -22,14 +22,14 @@
 
 using BH.oM.Base;
 using BH.oM.Data.Collections;
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
     [Description("Condition that verifies if a Property of the object is included in the given set of values.")]
     public class IsInSet : BaseCondition, IPropertyCondition 
