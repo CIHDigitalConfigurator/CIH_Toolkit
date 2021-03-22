@@ -74,7 +74,7 @@
     <Compile Include="Compute\VerifyCondition\ISpatialCondition.cs" />
     <Compile Include="Compute\VerifyCondition\IComparisonCondition.cs" />
     <Compile Include="Compute\VerifyCondition\IsNull.cs" />
-    <Compile Include="Compute\VerifyCondition\IsEqualTo.cs" />
+    <Compile Include="Compute\VerifyCondition\ValueConditions.cs" />
     <Compile Include="Compute\VerifySpecification\VerifyLogicalSpecification.cs" />
     <Compile Include="Compute\VerifySpecification\ZoneSpecification.cs" />
     <Compile Include="Compute\VerifySpecification\SpatialSpecification.cs" />
