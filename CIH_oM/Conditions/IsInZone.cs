@@ -40,7 +40,7 @@ namespace BH.oM.CIH.Conditions
         public string ZoneName { get; set; }
 
         [Description("Closed volumes associated with the ZoneName and its Reference Elements.")]
-        public List<IGeometry> ClosedVolumes { get; set; }
+        public List<IGeometry> ClosedVolumes { get; set; } = new List<IGeometry>();
 
         [Description("Describes what kind of rule should be applied to evaluate whether the Zone actually contains the object." +
             "By default, it checks the inclusion of the BHoM's `Geometry`.")]
