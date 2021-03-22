@@ -67,6 +67,11 @@ namespace BH.Engine.CIH
 
                 BoundingBox bb = BH.Engine.Geometry.Query.IBounds(geom);
 
+                //BoundingBox containerBB = container as BoundingBox;
+
+                ////containerBB.Max += new Vector() { X = 1, Y = 1, Z = 1 };
+                ////containerBB.Min += new Vector() { X = -1, Y = -1, Z = -1 };
+
                 if (container.IIsContaining(bb))
                     passed = true;
             }
@@ -88,6 +93,6 @@ namespace BH.Engine.CIH
             BH.Engine.Reflection.Compute.RecordError($"No valid IsContaining method found for container object of type {container.GetType().Name}.");
             return false;
         }
-        
+
     }
 }
