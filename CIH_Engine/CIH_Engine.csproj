@@ -87,6 +87,7 @@
     <Compile Include="Compute\VerifyCondition\HasId.cs" />
     <Compile Include="Compute\VerifyCondition\IsOfType.cs" />
     <Compile Include="Convert\ToZoneReferenceElement.cs" />
+    <Compile Include="Create\Specification.cs" />
     <Compile Include="Create\LogicalCondition.cs" />
     <Compile Include="Create\Zones.cs" />
     <Compile Include="Create\IsInDomain.cs" />
