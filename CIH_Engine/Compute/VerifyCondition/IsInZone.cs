@@ -27,13 +27,21 @@ namespace BH.Engine.CIH
                 IObject iObj = obj as IObject;
                 if (iObj != null)
                 {
-                    //passed = BH.Engine.CIH.Query.IsContaining(bbc.BoundingBox, iObj);
+                    foreach (var cv in isInZone.ClosedVolumes)
+                    {
+                        if (BH.Engine.CIH.Query.IsContaining(cv, iObj))
+                        {
+                            passed = true;
+                            break;
+                        }
+                    }
+
                     if (passed)
                         result.PassedObjects.Add(obj);
                     else
                     {
                         result.FailedObjects.Add(obj);
-                        failInfo.Add($"Object not in the specified Bounding Box.");
+                        failInfo.Add($"Condition not respected: {isInZone.ToString()}");
                     }
                 }
                 else
