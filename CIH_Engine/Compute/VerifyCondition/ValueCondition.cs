@@ -49,7 +49,12 @@ namespace BH.Engine.CIH
                 }
                 else if (valueCondition.ReferenceValue != null && value == null)
                 {
-                    passed = false;
+                    if (valueCondition.PropertyName == "Type" && valueCondition.ReferenceValue is Type)
+                        passed = obj.GetType() == (Type)valueCondition.ReferenceValue;
+                    else
+                        passed = false;
+
+
                     PopulateConditionResults(obj, value, valueCondition, conditionResult, passed);
                     continue;
 
