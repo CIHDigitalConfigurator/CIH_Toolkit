@@ -68,6 +68,8 @@ namespace BH.Engine.CIH
                     continue;
 
                 // Add the closed volumes of the pertainingZones to the current Condition.
+                if (isInZoneCondition.ClosedVolumes == null)
+                    isInZoneCondition.ClosedVolumes = new List<oM.Geometry.IGeometry>();
                 isInZoneCondition.ClosedVolumes.AddRange(pertainingZones.Select(z => z.ClosedVolume));
 
                 // Update the input list.
