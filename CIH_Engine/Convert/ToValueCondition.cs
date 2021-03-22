@@ -81,7 +81,7 @@ namespace BH.Engine.CIH
                 PropertyName = iValueCondition.PropertyName
             };
 
-            return valueCond;
+            return valueCondition;
         }
     }
 }
