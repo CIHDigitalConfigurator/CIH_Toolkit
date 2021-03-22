@@ -13,7 +13,7 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
-        private static ConditionResult VerifyCondition(List<object> objects, IComparisonCondition comparisonCondition)
+        private static ConditionResult VerifyCondition(List<object> objects, IConditionTolerance comparisonCondition)
         {
             ValueCondition vc = comparisonCondition as ValueCondition;
             if (vc != null)

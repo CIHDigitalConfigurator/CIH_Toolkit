@@ -32,7 +32,7 @@ using BH.oM.Data;
 namespace BH.oM.CIH.Conditions
 {
     [Description("Condition that verifies if an Property of an object is of a certain Value (e.g. smaller, equal, or greater than).")]
-    public class ValueCondition : BaseCondition, IPropertyCondition, IComparisonCondition
+    public class ValueCondition : BaseCondition, IValueCondition
     {
         [Description("Source of the value to be extracted from the objects that will be subject to the condition." +
             "\nValid inputs: " +

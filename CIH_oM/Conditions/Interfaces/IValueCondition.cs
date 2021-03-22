@@ -30,16 +30,11 @@ using System.ComponentModel;
 
 namespace BH.oM.CIH.Conditions
 {
-    [Description("Identifies Conditions that involve some numerical comparison.")]
-    public interface IComparisonCondition : ICondition
+    [Description("Identifies Conditions that involve the comparison of the value of an object " +
+        "or the value of one of its properties with a Reference Value.")]
+    public interface IValueCondition : IPropertyCondition, IConditionTolerance
     {
-        [Description("If applicable, tolerance to be considered in the comparison. Valid inputs:" +
-            "\n\t- a numeric tolerance (e.g. 1E-03)" +
-            "\n\t- a DateTime (e.g. ± 1 day)," +
-            "\n\t- a BH.oM.Base.ComparisonConfig object" +
-            "\n\t- a IEqualityComparer" +
-            "\n\t-or anything comparable with the property value.")]
-        object Tolerance { get; set; }
+        object ReferenceValue { get; set; }
     }
 }
 

@@ -57,12 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conditions\Interfaces\IValueCondition.cs" />
     <Compile Include="Conditions\_Generic Conditions\BaseCondition.cs" />
-    <Compile Include="Conditions\ComparisonConditions\IsLargerThanOrEqualTo.cs" />
-    <Compile Include="Conditions\ComparisonConditions\IsLargerThan.cs" />
-    <Compile Include="Conditions\ComparisonConditions\IsEqualTo.cs" />
-    <Compile Include="Conditions\ComparisonConditions\IsSmallerThanOrEqualTo.cs" />
-    <Compile Include="Conditions\ComparisonConditions\IsSmallerThan.cs" />
+    <Compile Include="Conditions\ValueConditions\IsGreaterThanOrEqualTo.cs" />
+    <Compile Include="Conditions\ValueConditions\IsGreaterThan.cs" />
+    <Compile Include="Conditions\ValueConditions\IsEqualTo.cs" />
+    <Compile Include="Conditions\ValueConditions\IsLessThanOrEqualTo.cs" />
+    <Compile Include="Conditions\ValueConditions\IsLessThan.cs" />
     <Compile Include="Conditions\IsInZone.cs" />
     <Compile Include="Conditions\IsNull.cs" />
     <Compile Include="Conditions\ElementXDConditions\Element0DCondition.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="Conditions\Interfaces\ICondition.cs" />
     <Compile Include="Conditions\Interfaces\IPropertyCondition.cs" />
     <Compile Include="Conditions\_Generic Conditions\LogicalCondition.cs" />
-    <Compile Include="Conditions\ComparisonConditions\IComparisonCondition.cs" />
+    <Compile Include="Conditions\Interfaces\IConditionTolerance.cs" />
     <Compile Include="Conditions\IsInDomain.cs" />
     <Compile Include="Conditions\IsInSet.cs" />
     <Compile Include="Conditions\_Generic Conditions\ValueCondition.cs" />

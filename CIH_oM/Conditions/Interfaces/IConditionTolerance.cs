@@ -21,6 +21,7 @@
  */
 
 using BH.oM.Base;
+using BH.oM.Data.Collections;
 using BH.oM.CIH.Conditions;
 using BH.oM.Data.Library;
 using System;
@@ -29,19 +30,17 @@ using System.ComponentModel;
 
 namespace BH.oM.CIH.Conditions
 {
-    public interface ICondition : IObject
+    [Description("Identifies Conditions that involve the verification of the value of an object or one of its properties " +
+        "which may require a Tolerance control.")]
+    public interface IConditionTolerance : ICondition
     {
-        [Description("Unique identifier to reference the Condition within a set.")]
-        string Clause { get; set; }
-
-        [Description("Name given to this Condition.")]
-        string Name { get; set; }
-
-        [Description("Source material for this Condition. E.g. Codes, best practices, guidelines, etc.")]
-        Source Source { get; set; }
-
-        [Description("Any additional notes.")]
-        string Comment { get; set; }
+        [Description("If applicable, tolerance to be considered in the comparison. Valid inputs:" +
+            "\n\t- a numeric tolerance (e.g. 1E-03)" +
+            "\n\t- a DateTime (e.g. ± 1 day)," +
+            "\n\t- a BH.oM.Base.ComparisonConfig object" +
+            "\n\t- a IEqualityComparer" +
+            "\n\t-or anything comparable with the property value.")]
+        object Tolerance { get; set; }
     }
 }
 
