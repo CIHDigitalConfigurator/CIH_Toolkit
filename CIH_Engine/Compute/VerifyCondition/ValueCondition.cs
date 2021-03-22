@@ -38,19 +38,21 @@ namespace BH.Engine.CIH
                 {
                     passed = true;
                     PopulateConditionResults(obj, value, valueCondition, conditionResult, passed);
-                    return conditionResult;
+                    continue;
                 }
                 if (valueCondition.ReferenceValue == null && value != null)
                 {
                     passed = false;
                     PopulateConditionResults(obj, value, valueCondition, conditionResult, passed);
-                    return conditionResult;
+                    continue;
+
                 }
                 else if (valueCondition.ReferenceValue != null && value == null)
                 {
                     passed = false;
                     PopulateConditionResults(obj, value, valueCondition, conditionResult, passed);
-                    return conditionResult;
+                    continue;
+
                 }
 
                 // Try a numerical comparison.
@@ -66,7 +68,7 @@ namespace BH.Engine.CIH
 
                     passed = NumericalComparison(numericalValue, referenceNumValue, numTolerance, valueCondition.Comparison);
                     PopulateConditionResults(obj, value, valueCondition, conditionResult, passed);
-                    return conditionResult;
+                    continue;
                 }
 
                 // Consider some other way to compare objects.
@@ -82,10 +84,11 @@ namespace BH.Engine.CIH
                         conditionResult.FailInfo.Add(TypeCondResult.FailInfo.FirstOrDefault());
                         conditionResult.Pattern.Add(TypeCondResult.Pattern.FirstOrDefault());
                         conditionResult.Condition = valueCondition;
-                        return conditionResult;
+                        continue;
                     }
 
                     passed = CompareEquality(value, valueCondition.ReferenceValue, valueCondition.Tolerance);
+                    PopulateConditionResults(obj, value, valueCondition, conditionResult, passed);
                 }
             }
 
