@@ -95,6 +95,7 @@
     <Compile Include="Create\IsInDomain.cs" />
     <Compile Include="Create\SpatialSpecification.cs" />
     <Compile Include="Modify\ApplyToZone.cs" />
+    <Compile Include="Query\IsZoneSpec.cs" />
     <Compile Include="Query\AddToList.cs" />
     <Compile Include="Query\Points.cs" />
     <Compile Include="Query\DispatchByType.cs" />
