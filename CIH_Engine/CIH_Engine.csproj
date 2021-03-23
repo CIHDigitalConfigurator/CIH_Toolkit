@@ -79,7 +79,6 @@
     <Compile Include="Compute\VerifySpecification\ZoneSpecification.cs" />
     <Compile Include="Compute\VerifySpecification\SpatialSpecification.cs" />
     <Compile Include="Compute\VerifySpecification\_VerifySpecifications.cs" />
-    <Compile Include="Compute\ApplyToZone.cs" />
     <Compile Include="Compute\Utilities\PopulateSpecificationResult.cs" />
     <Compile Include="Compute\Utilities\IsAnyConditionNull.cs" />
     <Compile Include="Compute\VerifyCondition\ValueCondition.cs" />
@@ -95,7 +94,9 @@
     <Compile Include="Create\IsInDomain.cs" />
     <Compile Include="Create\SpatialSpecification.cs" />
     <Compile Include="Modify\ApplyToZone.cs" />
-    <Compile Include="Query\IsZoneSpec.cs" />
+    <Compile Include="Query\AppliedSpecs\GeometryAppliedSpec.cs" />
+    <Compile Include="Query\AppliedSpecs\AppliedSpecZoneName.cs" />
+    <Compile Include="Query\AppliedSpecs\IsAppliedZoneSpec.cs" />
     <Compile Include="Query\AddToList.cs" />
     <Compile Include="Query\Points.cs" />
     <Compile Include="Query\DispatchByType.cs" />

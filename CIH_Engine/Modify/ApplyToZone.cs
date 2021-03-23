@@ -30,7 +30,7 @@ namespace BH.Engine.CIH
                 Specification spec = specifications[i];
 
                 // If the spec is null or has no `IsInZone` condition in either the FilterConditions or CheckCondition, skip it.
-                if (spec == null || (!spec.FilterConditions.OfType<IsInZone>().Any() && !spec.CheckConditions.OfType<IsInZone>().Any()))
+                if (spec == null || !spec.IsAppliedZoneSpec())
                     continue;
 
                 SetClosedVolume(spec.FilterConditions, zonesByName);

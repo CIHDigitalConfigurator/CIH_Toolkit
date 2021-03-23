@@ -54,11 +54,7 @@ namespace BH.Engine.CIH
                 Clause = clause
             };
 
-            if (spec.IsAppliedZoneSpec() && !spec.IsWellFormedZoneSpec())
-                return null;
-
             return spec;
         }
-
     }
 }
