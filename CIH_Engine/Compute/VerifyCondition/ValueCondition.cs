@@ -120,7 +120,8 @@ namespace BH.Engine.CIH
             string conditionText = valueCondition.ToString();
             conditionText = conditionText.Replace(valueCondition.PropertyName + " ", "");
 
-            result.FailInfo.Add($"{valueCondition.PropertyName} was {valueString ?? "empty"}, which does not respect «{conditionText}».");
+            result.FailInfo.Add($"{(string.IsNullOrWhiteSpace(valueCondition.Clause) ? "" : valueCondition.Clause + " failed: ")}" +
+                $"{valueCondition.PropertyName} must be {conditionText}, but is {valueString ?? "empty"}.");
         }
 
         private static bool CompareEquality(object value, object refValue, object tolerance)

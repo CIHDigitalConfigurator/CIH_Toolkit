@@ -28,15 +28,6 @@ namespace BH.Engine.CIH
 
         private static SpecificationResult VerifySpecification(List<object> objects, Specification specification)
         {
-            if (specification.IsAppliedZoneSpec() && !specification.IsWellFormedZoneSpec())
-            {
-                BH.Engine.Reflection.Compute.RecordWarning("Cannot verify badly formed Zone Specification.");
-
-                return new SpecificationResult() {
-                    NotAssessedObjects = objects,
-                    Specifications =  new List<ISpecification>() { specification } };
-            }
-
             // First apply filter to get relevant objects
             ConditionResult filterResult = VerifyConditions(objects, specification.FilterConditions);
 

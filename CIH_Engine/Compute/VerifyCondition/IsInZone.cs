@@ -41,7 +41,8 @@ namespace BH.Engine.CIH
                     else
                     {
                         result.FailedObjects.Add(obj);
-                        failInfo.Add($"Condition not respected: {isInZone.ToString()}");
+                        failInfo.Add($"{(string.IsNullOrWhiteSpace(isInZone.Clause) ? "" : isInZone.Clause + " failed: ")}" +
+                            $"{isInZone.ToString()}");
                     }
                 }
                 else

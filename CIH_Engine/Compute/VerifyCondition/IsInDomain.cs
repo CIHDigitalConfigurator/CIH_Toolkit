@@ -40,7 +40,8 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    failInfo.Add($"\"{domainCondition.ToString()}\"\nnot respected: value is {value}.");
+                    failInfo.Add($"{(string.IsNullOrWhiteSpace(domainCondition.Clause) ? "" : domainCondition.Clause + " failed: ")}" +
+                        $"value is {value}, which is not in ({domainCondition.Domain.Min},{domainCondition.Domain.Max}).");
                 }
 
                 result.Pattern.Add(passed);
