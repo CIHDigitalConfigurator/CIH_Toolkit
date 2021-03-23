@@ -46,6 +46,9 @@ namespace BH.Engine.CIH
 
             foreach (var f in logicalCondition.Conditions)
             {
+                if (f == null)
+                    continue;
+
                 ConditionResult r = IVerifyCondition(objects, f);
                 if (r != null)
                     results.Add(r);
