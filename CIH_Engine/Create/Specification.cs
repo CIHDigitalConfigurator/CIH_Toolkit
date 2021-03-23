@@ -45,7 +45,7 @@ namespace BH.Engine.CIH
         public static Specification Specification(List<ICondition> filterConditions, List<ICondition> checkConditions,
             string name = "", string description = "", string clause = "")
         {
-            return new Specification()
+            Specification spec = new Specification()
             {
                 FilterConditions = filterConditions.Where(c => c != null).ToList(),
                 CheckConditions = checkConditions.Where(c => c != null).ToList(),
@@ -53,6 +53,11 @@ namespace BH.Engine.CIH
                 Description = description,
                 Clause = clause
             };
+
+            if (spec.IsAppliedZoneSpec() && !spec.IsWellFormedZoneSpec())
+                return null;
+
+            return spec;
         }
 
     }
