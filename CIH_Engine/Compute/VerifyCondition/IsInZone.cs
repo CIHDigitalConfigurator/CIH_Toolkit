@@ -29,7 +29,7 @@ namespace BH.Engine.CIH
                 {
                     foreach (var cv in isInZone.ClosedVolumes)
                     {
-                        if (BH.Engine.CIH.Query.IsContaining(cv, iObj))
+                        if (BH.Engine.CIH.Query.IsContaining(cv, iObj, isInZone.ContainmentRule))
                         {
                             passed = true;
                             break;
