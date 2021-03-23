@@ -27,7 +27,7 @@ namespace BH.Engine.CIH
                 IObject iObj = obj as IObject;
                 if (iObj != null)
                 {
-                    passed = BH.Engine.CIH.Query.IsContaining(bbc.BoundingBox, iObj);
+                    passed = BH.Engine.CIH.Query.IsContaining(bbc.BoundingBox, iObj, bbc.ContainmentRule);
                     if (passed)
                         result.PassedObjects.Add(obj);
                     else
