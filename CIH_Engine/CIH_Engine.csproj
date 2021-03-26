@@ -50,6 +50,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_oM.dll</HintPath>
     </Reference>
+    <Reference Include="Physical_oM">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Physical_oM.dll</HintPath>
+    </Reference>
     <Reference Include="Reflection_Engine">
       <HintPath>C:\ProgramData\BHoM\Assemblies\Reflection_Engine.dll</HintPath>
     </Reference>
@@ -78,6 +81,7 @@
     <Compile Include="Compute\VerifySpecification\VerifyLogicalSpecification.cs" />
     <Compile Include="Compute\VerifySpecification\ZoneSpecification.cs" />
     <Compile Include="Compute\VerifySpecification\SpatialSpecification.cs" />
+    <Compile Include="Compute\ApplyObjectsToSpecification.cs" />
     <Compile Include="Compute\VerifySpecification\_VerifySpecifications.cs" />
     <Compile Include="Compute\Utilities\PopulateSpecificationResult.cs" />
     <Compile Include="Compute\Utilities\IsAnyConditionNull.cs" />
@@ -93,11 +97,13 @@
     <Compile Include="Create\Zones.cs" />
     <Compile Include="Create\IsInDomain.cs" />
     <Compile Include="Create\SpatialSpecification.cs" />
+    <Compile Include="Modify\AddCondition.cs" />
     <Compile Include="Modify\ApplyToZone.cs" />
     <Compile Include="Query\AppliedSpecs\GeometryAppliedSpec.cs" />
     <Compile Include="Query\AppliedSpecs\AppliedSpecZoneName.cs" />
     <Compile Include="Query\AppliedSpecs\IsAppliedZoneSpec.cs" />
     <Compile Include="Query\AddToList.cs" />
+    <Compile Include="Query\Elevation.cs" />
     <Compile Include="Query\Points.cs" />
     <Compile Include="Query\DispatchByType.cs" />
     <Compile Include="Query\IGeometry.cs" />

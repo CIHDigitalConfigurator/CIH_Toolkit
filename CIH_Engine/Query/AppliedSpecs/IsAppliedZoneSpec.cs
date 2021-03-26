@@ -17,9 +17,15 @@ namespace BH.Engine.CIH
     public static partial class Query
     {
         [Description("An applied Zone Spec must have an IsInZone Condition in the FilterConditions.")]
-        public static bool IsAppliedZoneSpec(this Specification spec)
+        public static bool IsZoneSpec(this Specification spec)
         {
             return spec.FilterConditions.Any(c => c is IsInZone);
+        }
+
+        [Description("An applied Zone Spec must have a fully-defined IsInZone Condition in the FilterConditions (i.e. its ClosedVolumes property is populated).")]
+        public static bool IsAppliedZoneSpec(this Specification spec)
+        {
+            return spec.FilterConditions.OfType<IsInZone>().Any(c => c.ClosedVolumes.Any());
         }
     }
 }

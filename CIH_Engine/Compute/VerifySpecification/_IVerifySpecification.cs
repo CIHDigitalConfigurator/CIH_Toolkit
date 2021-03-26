@@ -17,6 +17,7 @@ namespace BH.Engine.CIH
         /**** Public Methods                            ****/
         /***************************************************/
 
+        // Engineer to Order workflow. Verify against specs.
         public static SpecificationResult IVerifySpecification(List<object> objects, ISpecification specification)
         {
             return VerifySpecification(objects, specification as dynamic);

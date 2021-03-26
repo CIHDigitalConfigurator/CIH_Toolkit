@@ -72,6 +72,7 @@
     <Compile Include="Conditions\IsInBoundingBox.cs" />
     <Compile Include="Conditions\_Generic Conditions\FragmentCondition.cs" />
     <Compile Include="Conditions\HasId.cs" />
+    <Compile Include="Enums\ElevationFrom.cs" />
     <Compile Include="Enums\PassRequirement.cs" />
     <Compile Include="Enums\ContainmentRules.cs" />
     <Compile Include="Specifications\SpatialSpecification.cs" />

@@ -16,10 +16,10 @@ namespace BH.Engine.CIH
 {
     public static partial class Query
     {
-        [Description("Returns the ZoneName(s) associated with this Applied Zone Specification.")]
+        [Description("Returns the ZoneName(s) associated with this Zone Specification.")]
         public static List<string> AppliedSpecZoneName(this Specification spec)
         {
-            if (spec.IsAppliedZoneSpec())
+            if (spec.IsZoneSpec())
                 return spec.FilterConditions.OfType<IsInZone>().Select(c => c.ZoneName).ToList();
 
             return null;

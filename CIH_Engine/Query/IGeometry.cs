@@ -54,7 +54,7 @@ namespace BH.Engine.CIH
             if (obj is IGeometry)
                 return obj as IGeometry;
             else if (obj is IBHoMObject)
-                return ((IBHoMObject)obj).IGeometry();
+                return ((IBHoMObject)obj).IGeometry(); // calls the base IGeometry().
             else if (obj is IEnumerable)
             {
                 foreach (object item in (IEnumerable)obj)

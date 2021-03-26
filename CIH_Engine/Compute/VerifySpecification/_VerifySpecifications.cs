@@ -17,6 +17,7 @@ namespace BH.Engine.CIH
         /**** Public Methods                            ****/
         /***************************************************/
 
+        // Engineer to Order workflow. Verify against specs.
         public static SpecificationResult VerifySpecifications(List<object> objects, List<ISpecification> specifications, PassRequirement passRequirement = PassRequirement.AllMustPass)
         {
             SpecificationResult combinedResult = new SpecificationResult();

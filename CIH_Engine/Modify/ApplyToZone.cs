@@ -30,32 +30,45 @@ namespace BH.Engine.CIH
                 Specification spec = specifications[i];
 
                 // If the spec is null or has no `IsInZone` condition in either the FilterConditions or CheckCondition, skip it.
-                if (spec == null || !spec.IsAppliedZoneSpec())
+                if (spec == null || !spec.IsZoneSpec())
                     continue;
 
-                SetClosedVolume(spec.FilterConditions, zonesByName);
-                SetClosedVolume(spec.CheckConditions, zonesByName);
+                bool success = true;
+                success &= SetClosedVolume(spec.FilterConditions, zonesByName);
+                success &= SetClosedVolume(spec.CheckConditions, zonesByName);
+
+                if (!success)
+                    BH.Engine.Reflection.Compute.RecordWarning($"Could not create the Zone volumes for Specification {spec.Clause} of name `{spec.SpecName}`.");
+
             }
         }
 
         [Description("For each given specification, update any of its 'IsInZone' Conditions," +
             "with the `ClosedVolumes` property extracted from the input Zones (matched by ZoneName).")]
-        public static void ApplyToZone(List<Specification> specifications, List<Zone> zones)
+        public static List<bool> ApplyToZone(List<Specification> specifications, List<Zone> zones)
         {
-            specifications.ForEach(spec => ApplyToZone(spec, zones));
+            return specifications.Select(spec => ApplyToZone(spec, zones)).ToList();
         }
 
-        private static void ApplyToZone(Specification specification, List<Zone> zones)
+        private static bool ApplyToZone(Specification specification, List<Zone> zones)
         {
+            bool success = true;
             Dictionary<string, List<Zone>> zonesByName = zones.GroupBy(z => z.ZoneName).ToDictionary(g => g.Key, g => g.ToList());
 
-            SetClosedVolume(specification.FilterConditions, zonesByName);
-            SetClosedVolume(specification.CheckConditions, zonesByName);
+            success &= SetClosedVolume(specification.FilterConditions, zonesByName);
+            success &= SetClosedVolume(specification.CheckConditions, zonesByName);
+
+            if (!success)
+                BH.Engine.Reflection.Compute.RecordWarning($"Could not create the Zone volumes for Specification {specification.Clause} of name `{specification.SpecName}`.");
+
+            return success;
         }
 
         [Description("Update the given IsInZone condition, by adding the input Zones' ClosedVolumes (matched by ZoneName).")]
-        private static void SetClosedVolume(List<ICondition> conditions, Dictionary<string, List<Zone>> zonesByName)
+        private static bool SetClosedVolume(List<ICondition> conditions, Dictionary<string, List<Zone>> zonesByName)
         {
+            bool success = true;
+
             for (int i = 0; i < conditions.Count(); i++)
             {
                 IsInZone isInZoneCondition = conditions[i] as IsInZone;
@@ -65,7 +78,11 @@ namespace BH.Engine.CIH
                 // Select only zones with the same name of the current Condition ("pertainingZones")
                 List<Zone> pertainingZones = new List<Zone>();
                 if (!zonesByName.TryGetValue(isInZoneCondition.ZoneName, out pertainingZones))
+                {
+                    BH.Engine.Reflection.Compute.RecordWarning($"A {nameof(IsInZone)} condition specified a {nameof(IsInZone.ZoneName)} `{isInZoneCondition.ZoneName}` that could not be found among any of the Reference Elements' target zones.");
+                    success = false;
                     continue;
+                }
 
                 // Add the closed volumes of the pertainingZones to the current Condition.
                 if (isInZoneCondition.ClosedVolumes == null)
@@ -76,6 +93,8 @@ namespace BH.Engine.CIH
                 // Update the input list.
                 conditions[i] = isInZoneCondition;
             }
+
+            return success;
         }
     }
 }
