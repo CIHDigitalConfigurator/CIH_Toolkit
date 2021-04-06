@@ -94,9 +94,9 @@
     <Compile Include="Specifications\Specification.cs" />
     <Compile Include="Results\ConditionResult.cs" />
     <Compile Include="Results\SpecificationResult.cs" />
-    <Compile Include="ZoneDimensions.cs" />
-    <Compile Include="Zone.cs" />
-    <Compile Include="ZoneReferenceElement.cs" />
+    <Compile Include="Objects\ZoneDimensions.cs" />
+    <Compile Include="Objects\Zone.cs" />
+    <Compile Include="Objects\ZoneReferenceElement.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -34,8 +34,13 @@ namespace BH.oM.CIH.Conditions
     [Description("Condition that verifies if a Property of the object is included in the given set of values.")]
     public class IsInSet : BaseCondition, IPropertyCondition 
     {
+        [Description("Source of the value to be extracted from the objects that will be subject to the condition.")]
         public string PropertyName { get; set; }
+
+        [Description("Set of values that the value should be compared to.")]
         public List<object> Set { get; set; }
+
+        [Description("Options as per how the comparison is computed.")]
         public ComparisonConfig ComparisonConfig { get; set; }
 
         public override string ToString()

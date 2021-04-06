@@ -30,6 +30,17 @@ using System.Text;
 
 namespace BH.oM.CIH
 {
+    /*
+     * The ZoneDimensions object pairs up to three numbers representing 3D dimensions in space with the name of a Zone.
+     * This is used to define ZoneConditions and Zone Specifications.
+     * In the reference implementation, scripts that reference to this object this include:
+     *  - The specification definition spreadsheet `SA05-StructuralFrameSpecifications` defines several Zone Dimensions for different Zones. 
+     *  - Module 4 '04-SA05_ZoneGeneration-Structure' takes the Reference Elements, 
+     *    the Zone Dimensions and the (partially-defined) Zone Specifications and returns "applied" Zone Specifications, 
+     *    where the ClosedVolume is calculated based on Reference Elements and Zone Dimensions.
+    */
+
+
     [Description("Defines the dimensions of a Zone. These dimensions will be used together with a Reference Element that targets the same ZoneName to compute a Closed Volume for the Zone." +
         "The dimensions (width/height/depth) here defined are currently assuming that the closed volume will be located below the Reference Element." +
         "E.g. a ZoneDimensions for a Beam Zone can specify Width and Height only; Width and Height will be used, together with a 1D reference element (a line tagged with the same ZoneName) to compute a cuboid geometry placed below the reference Line.")]

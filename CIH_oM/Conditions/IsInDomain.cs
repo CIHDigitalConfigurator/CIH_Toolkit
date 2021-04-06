@@ -33,8 +33,13 @@ namespace BH.oM.CIH.Conditions
     [Description("Identifies a Condition that verifies if a Property of the object is within a certain domain (range).")]
     public class IsInDomain : BaseCondition, IPropertyCondition
     {
+        [Description("Source of the value to be extracted from the objects that will be subject to the condition.")]
         public string PropertyName { get; set; }
+
+        [Description("Reference Value that the property value should be compared to.")]
         public virtual Domain Domain { get; set; }
+
+        [Description("If applicable, tolerance to be considered in the comparison.")]
         public virtual double Tolerance { get; set; }
 
         public override string ToString()

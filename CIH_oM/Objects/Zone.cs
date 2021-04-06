@@ -30,6 +30,16 @@ using System.Text;
 
 namespace BH.oM.CIH
 {
+    /*
+     * The Zone object pairs a Closed Volume in space with the name of a Zone.
+     * This is used to define ZoneConditions and Zone Specifications.
+     * In the reference implementation, scripts that reference to this object this include:
+     *  - The specification definition spreadsheet `SA05-StructuralFrameSpecifications` defines several Zone Conditions. 
+     *  - Module 4 '04-SA05_ZoneGeneration-Structure' takes the Reference Elements, 
+     *    the Zone Dimensions and the (partially-defined) Zone Specifications and returns "applied" Zone Specifications, 
+     *    where the ClosedVolume is calculated based on Reference Elements and Zone Dimensions.
+    */
+
     [Description("Defines a Zone, that is a closed volume in space, tagged with some ZoneName.")]
     public class Zone : IObject
     {

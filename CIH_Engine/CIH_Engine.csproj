@@ -81,7 +81,7 @@
     <Compile Include="Compute\VerifySpecification\VerifyLogicalSpecification.cs" />
     <Compile Include="Compute\VerifySpecification\ZoneSpecification.cs" />
     <Compile Include="Compute\VerifySpecification\SpatialSpecification.cs" />
-    <Compile Include="Compute\ApplyObjectsToSpecification.cs" />
+    <Compile Include="Compute\ConfigureAgainstSpecifications.cs" />
     <Compile Include="Compute\VerifySpecification\_VerifySpecifications.cs" />
     <Compile Include="Compute\Utilities\PopulateSpecificationResult.cs" />
     <Compile Include="Compute\Utilities\IsAnyConditionNull.cs" />

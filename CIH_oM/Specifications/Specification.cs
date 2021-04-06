@@ -30,15 +30,15 @@ namespace BH.oM.Data.Specifications
 {
     public class Specification : ISpecification
     {
-        [Description("Unique identifier to reference the Condition within a set.")]
+        [Description("Unique identifier to reference the Specification within a set.")]
         public virtual string Clause { get; set; }
 
         [Description("Specification Name.")]
         public virtual string SpecName { get; set; }
         public virtual string Description { get; set; }
 
-        public virtual List<ICondition> FilterConditions { get; set; } // TODO: switch to single condition instead of list. Multiple conditions can be done in one logical condition.
-        public virtual List<ICondition> CheckConditions { get; set; } // TODO: switch to single condition instead of list. Multiple conditions can be done in one logical condition.
+        public virtual List<ICondition> FilterConditions { get; set; }
+        public virtual List<ICondition> CheckConditions { get; set; } 
 
         public override string ToString()
         {
