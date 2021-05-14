@@ -17,6 +17,9 @@ namespace BH.Engine.CIH
 {
     public static partial class Compute
     {
+        private static HashSet<IFramingElement> previousSet = new HashSet<IFramingElement>();
+        private static List<IFramingElement> previousConfig = new List<IFramingElement>();
+
         /***************************************************/
         /**** Public Methods                            ****/
         /***************************************************/
@@ -24,8 +27,15 @@ namespace BH.Engine.CIH
         // Configure to Order workflow.
         public static List<IFramingElement> ConfigureAgainstSpecifications(HashSet<IFramingElement> objs, List<Specification> specifications, bool sortDirection = true)
         {
+            if (!previousSet.Any())
+                previousSet = objs;
+
+            if (!previousSet.Intersect(objs).Any())
+                return previousConfig;
+
             // Override hack.
-            return ConfigureAgainstSpecifications(objs, specifications);
+            previousConfig = ConfigureAgainstSpecifications(objs, specifications);
+            return previousConfig;
 
             List<IFramingElement> result = new List<IFramingElement>();
 
