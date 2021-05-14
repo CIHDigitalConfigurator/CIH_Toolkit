@@ -21,15 +21,27 @@
  */
 
 using BH.oM.Base;
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
     public interface ICondition : IObject
     {
+        [Description("Unique identifier to reference the Condition within a set.")]
+        string Clause { get; set; }
+
+        [Description("Name given to this Condition.")]
+        string Name { get; set; }
+
+        [Description("Source material for this Condition. E.g. Codes, best practices, guidelines, etc.")]
+        Source Source { get; set; }
+
+        [Description("Any additional notes.")]
+        string Comment { get; set; }
     }
 }
 

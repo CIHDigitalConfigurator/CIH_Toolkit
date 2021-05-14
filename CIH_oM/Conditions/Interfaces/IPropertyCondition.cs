@@ -21,13 +21,15 @@
  */
 
 using BH.oM.Base;
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using BH.oM.Data.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
-namespace BH.oM.Data.Conditions
+namespace BH.oM.CIH.Conditions
 {
+    [Description("Identifies Conditions that target a Property (public property, or queriable via the RunExtensionMethod) of an object.")]
     public interface IPropertyCondition : ICondition
     {
         string PropertyName { get; set; }

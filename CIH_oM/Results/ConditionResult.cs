@@ -21,7 +21,7 @@
  */
 
 using BH.oM.Base;
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

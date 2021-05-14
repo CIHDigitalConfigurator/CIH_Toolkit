@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using BH.Engine.Base;
 using BH.oM.Base;
 using System;
@@ -43,34 +43,34 @@ namespace BH.Engine.CIH
         /***************************************************/
 
         [Description("Extracts the Bounding Box of a IElement using its geometrical component(s) and additional parameters to indicate any missing dimension.")]
-        public static BoundingBox IElementBoundingBox(IObject iObj, params double[] pars)
+        public static BoundingBox IElementBoundingBox(IObject geometricalObj, params double[] pars)
         {
-            if (iObj == null)
+            if (geometricalObj == null)
                 return null;
 
-            IElement element = iObj as IElement;
-            if (iObj == null)
-                element = IGeometry(iObj) as IElement;
+            IElement element = geometricalObj as IElement;
+            if (geometricalObj == null)
+                element = IGeometry(geometricalObj) as IElement;
 
-            if (element is IElement2D || iObj is ISurface)
+            if (element is IElement2D || geometricalObj is ISurface)
                 if (pars[0] != 0 && (pars.Count() == 1 || (pars[1] == 0 && pars[2] == 0)))
-                    return ElementBoundingBox(iObj, pars.FirstOrDefault());
+                    return ElementBoundingBox(geometricalObj, pars.FirstOrDefault());
                 else
-                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {iObj.GetType().Name}. Specified {pars.Count()} dimensions while only 1 is required.");
+                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {geometricalObj.GetType().Name}. Specified {pars.Count()} dimensions while only 1 is required.");
 
             if (element is IElement1D)
                 if (pars[0] != 0 && pars[1] != 0 && (pars.Count() == 2 || pars[0] != 0) )
                     return ElementBoundingBox(element as IElement1D, pars[0], pars[1]);
                 else
-                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {iObj.GetType().Name}. Specified {pars.Count()} dimensions while 2 are required.");
+                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {geometricalObj.GetType().Name}. Specified {pars.Count()} dimensions while 2 are required.");
 
             if (element is IElement0D)
                 if (pars.Count() == 3)
                     return ElementBoundingBox(element as IElement0D, pars[0], pars[1], pars[2]);
                 else
-                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {iObj.GetType().Name}. Specified {pars.Count()} dimensions while 3 are required.");
+                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {geometricalObj.GetType().Name}. Specified {pars.Count()} dimensions while 3 are required.");
 
-            BH.Engine.Reflection.Compute.RecordError($"No matching method found for element {iObj.GetType().Name} and dimensions {string.Join(", ", pars)}");
+            BH.Engine.Reflection.Compute.RecordError($"No matching method found for element {geometricalObj.GetType().Name} and dimensions {string.Join(", ", pars)}");
             return null;
 
         }

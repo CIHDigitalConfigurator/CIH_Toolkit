@@ -27,11 +27,11 @@ namespace BH.oM.Data
 {
     public enum ValueComparisons
     {
-        SmallerThan,
-        SmallerThanOrEqualTo,
+        LessThan,
+        LessThanOrEqualTo,
         EqualTo,
-        LargerThanOrEqualTo,
-        LargerThan
+        GreaterThanOrEqualTo,
+        GreaterThan
     }
 }
 

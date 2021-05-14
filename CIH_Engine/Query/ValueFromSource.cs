@@ -1,4 +1,4 @@
-﻿using BH.oM.Data.Conditions;
+﻿using BH.oM.CIH.Conditions;
 using BH.Engine.Base;
 using BH.Engine.Reflection;
 using BH.oM.Base;
@@ -19,6 +19,9 @@ namespace BH.Engine.CIH
         /**** Private Methods                           ****/
         /***************************************************/
 
+        // Re-written from BH.Engine.Reflection.Query.PropertyValue for additional features.
+        // Imporantly, if this does not find the value in any property or CustomData, then it invokes RunExtensionMethod
+        // with the last segment of the source path (segments = separated by dots).
         public static object ValueFromSource(this object obj, string sourceName, bool errorIfNotFound = false)
         {
             if (obj == null || sourceName == null)

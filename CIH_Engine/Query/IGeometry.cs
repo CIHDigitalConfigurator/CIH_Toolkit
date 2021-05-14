@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Data.Conditions;
+using BH.oM.CIH.Conditions;
 using BH.Engine.Base;
 using BH.oM.Base;
 using System;
@@ -46,14 +46,15 @@ namespace BH.Engine.CIH
 
         // Wrapper method around BH.Engine.Base.IGeometry() to deal with types different from IBHoMObject. 
         // Saves repeated casting/type checking. See BHoM/BHoM_Engine#2316
-        private static IGeometry IGeometry(object obj)
+        [Description("Wrapper method around BH.Engine.Base.IGeometry() to work with IObjects.")]
+        public static IGeometry IGeometry(object obj)
         {
             List<IGeometry> geometries = new List<IGeometry>();
 
             if (obj is IGeometry)
                 return obj as IGeometry;
             else if (obj is IBHoMObject)
-                return ((IBHoMObject)obj).IGeometry();
+                return ((IBHoMObject)obj).IGeometry(); // calls the base IGeometry().
             else if (obj is IEnumerable)
             {
                 foreach (object item in (IEnumerable)obj)
