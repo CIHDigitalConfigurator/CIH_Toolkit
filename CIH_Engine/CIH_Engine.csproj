@@ -32,32 +32,44 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BHoM">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM.dll</HintPath>
     </Reference>
     <Reference Include="BHoM_Engine">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="Data_Engine, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Data_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\BHoM\Assemblies\Data_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="Data_oM, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null" />
-    <Reference Include="Diffing_Engine">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Diffing_Engine.dll</HintPath>
+    <Reference Include="Data_oM">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
     </Reference>
-    <Reference Include="Dimensional_oM, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="Diffing_Engine">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Diffing_Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Dimensional_oM">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
+    </Reference>
     <Reference Include="Geometry_Engine">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="Geometry_oM, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Geometry_oM">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_oM.dll</HintPath>
     </Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="Physical_oM">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\BHoM\Assemblies\Physical_oM.dll</HintPath>
     </Reference>
     <Reference Include="Reflection_Engine">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\BHoM\Assemblies\Reflection_Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -130,7 +142,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
-xcopy "$(TargetDir)$(TargetFileName)"  "C:\ProgramData\BHoM\Assemblies" /Y
-</PostBuildEvent>
+			xcopy "$(TargetDir)$(TargetFileName)"  "C:\ProgramData\BHoM\Assemblies" /Y
+		</PostBuildEvent>
   </PropertyGroup>
 </Project>
