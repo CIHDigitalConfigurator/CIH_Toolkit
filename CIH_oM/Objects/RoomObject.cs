@@ -49,7 +49,7 @@ namespace BH.oM.CIH
         ///The following properties below are used for Zone Reference Element generation in Module 3 
         ///</remarks> 
         public string RoomName { get; set; }
-        public List<(float, float)> Outline { get; set; }
+        //public List<(float, float)> Outline { get; set; }
         public List<bool> EdgesExternal { get; set; }
         public float Height { get; set; }
         public int Level { get; set; }

@@ -148,7 +148,7 @@ namespace BH.Engine.CIH
 
         public static List<Point> Points(object g)
         {
-            BH.Engine.Reflection.Compute.RecordWarning($"No `Points()` function implementation found for object of type {g.GetType().Name}.");
+            BH.Engine.Base.Compute.RecordWarning($"No `Points()` function implementation found for object of type {g.GetType().Name}.");
             return new List<Point>();
         }
     }

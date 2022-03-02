@@ -46,7 +46,7 @@ namespace BH.Engine.CIH
 
                 if (geom3D == null)
                 {
-                    BH.Engine.Reflection.Compute.RecordWarning($"Could not retrieve the Geometry3D for an object of type `{kv.Key.GetType().Name}`. The object will not be assessed.");
+                    BH.Engine.Base.Compute.RecordWarning($"Could not retrieve the Geometry3D for an object of type `{kv.Key.GetType().Name}`. The object will not be assessed.");
                     filterResultAggregated.FailedObjects.Add(kv.Key);
                     filterResultAggregated.PassedObjects.Remove(kv.Key);
                     continue;
@@ -94,7 +94,7 @@ namespace BH.Engine.CIH
 
                 if (geom == null)
                 {
-                    BH.Engine.Reflection.Compute.RecordWarning($"Could not Query the Geometry out of a given {bhomObj.GetType().Name}.");
+                    BH.Engine.Base.Compute.RecordWarning($"Could not Query the Geometry out of a given {bhomObj.GetType().Name}.");
                     continue;
                 }
 

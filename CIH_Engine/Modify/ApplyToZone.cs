@@ -38,7 +38,7 @@ namespace BH.Engine.CIH
                 success &= SetClosedVolume(spec.CheckConditions, zonesByName);
 
                 if (!success)
-                    BH.Engine.Reflection.Compute.RecordWarning($"Could not create the Zone volumes for Specification {spec.Clause} of name `{spec.SpecName}`.");
+                    BH.Engine.Base.Compute.RecordWarning($"Could not create the Zone volumes for Specification {spec.Clause} of name `{spec.SpecName}`.");
 
             }
         }
@@ -59,7 +59,7 @@ namespace BH.Engine.CIH
             success &= SetClosedVolume(specification.CheckConditions, zonesByName);
 
             if (!success)
-                BH.Engine.Reflection.Compute.RecordWarning($"Could not create the Zone volumes for Specification {specification.Clause} of name `{specification.SpecName}`.");
+                BH.Engine.Base.Compute.RecordWarning($"Could not create the Zone volumes for Specification {specification.Clause} of name `{specification.SpecName}`.");
 
             return success;
         }
@@ -79,7 +79,7 @@ namespace BH.Engine.CIH
                 List<Zone> pertainingZones = new List<Zone>();
                 if (!zonesByName.TryGetValue(isInZoneCondition.ZoneName, out pertainingZones))
                 {
-                    BH.Engine.Reflection.Compute.RecordWarning($"A {nameof(IsInZone)} condition specified a {nameof(IsInZone.ZoneName)} `{isInZoneCondition.ZoneName}` that could not be found among any of the Reference Elements' target zones.");
+                    BH.Engine.Base.Compute.RecordWarning($"A {nameof(IsInZone)} condition specified a {nameof(IsInZone.ZoneName)} `{isInZoneCondition.ZoneName}` that could not be found among any of the Reference Elements' target zones.");
                     success = false;
                     continue;
                 }

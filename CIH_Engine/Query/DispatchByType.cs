@@ -7,9 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BH.oM.Data;
-using BH.oM.Reflection;
-using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
+using BH.oM.Base.Attributes;
 
 namespace BH.Engine.CIH
 {
@@ -22,11 +21,11 @@ namespace BH.Engine.CIH
         [MultiOutputAttribute(1, "NotOfType", "Objects that are not of the input Type.")]
         public static Output<List<object>, List<object>> OfType(List<object> objs, object Type)
         {
-            Type type = Type is string ? BH.Engine.Reflection.Create.Type(Type.ToString()) : Type as Type;
+            Type type = Type is string ? BH.Engine.Base.Create.Type(Type.ToString()) : Type as Type;
 
             if (type == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("Invalid type provided.");
+                BH.Engine.Base.Compute.RecordError("Invalid type provided.");
                 return null;
             }
 

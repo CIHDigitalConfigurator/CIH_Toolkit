@@ -45,7 +45,7 @@ namespace BH.Engine.CIH
         //Fallback
         private static ConditionResult VerifyCondition(List<object> objects, ICondition condition)
         {
-            BH.Engine.Reflection.Compute.RecordError($"Could not apply {condition.GetType().Name}. No method found.");
+            BH.Engine.Base.Compute.RecordError($"Could not apply {condition.GetType().Name}. No method found.");
             return null;
         }
     }

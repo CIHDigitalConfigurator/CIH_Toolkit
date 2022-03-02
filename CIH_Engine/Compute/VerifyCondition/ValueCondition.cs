@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using BH.oM.Data;
 using BH.oM.CIH;
 using BH.Engine.Diffing;
+using BH.Engine.Base.Objects;
 
 namespace BH.Engine.CIH
 {
@@ -20,7 +21,7 @@ namespace BH.Engine.CIH
 
             var refValue = valueCondition.ReferenceValue;
             if (refValue == null)
-                BH.Engine.Reflection.Compute.RecordNote($"A {nameof(ValueCondition)}'s {nameof(valueCondition.ReferenceValue)} was null. Make sure this is intended.\nTo check for null/not null, consider using a {nameof(IsNull)} instead.");
+                BH.Engine.Base.Compute.RecordNote($"A {nameof(ValueCondition)}'s {nameof(valueCondition.ReferenceValue)} was null. Make sure this is intended.\nTo check for null/not null, consider using a {nameof(IsNull)} instead.");
 
             foreach (var obj in objects)
             {
@@ -115,7 +116,7 @@ namespace BH.Engine.CIH
             string valueString = value == null ? "null" : value.ToString();
 
             if (valueString.Contains("BH.oM") && !(valueCondition.ReferenceValue is Type))
-                valueString = BH.Engine.Reflection.Query.PropertyValue(value, "Name") as string;
+                valueString = BH.Engine.Base.Query.PropertyValue(value, "Name") as string;
 
             string conditionText = valueCondition.ToString();
             conditionText = conditionText.Replace(valueCondition.PropertyName + " ", "");

@@ -91,7 +91,7 @@ namespace BH.Engine.CIH
 
             if (appliedZoneSpecs.Count == 0)
             {
-                BH.Engine.Reflection.Compute.RecordError($"No Applied Zone Specification found. The input Zone specifications do not have any {nameof(IsInZone)} condition, or do not have their {nameof(IsInZone.ClosedVolumes)} populated.");
+                BH.Engine.Base.Compute.RecordError($"No Applied Zone Specification found. The input Zone specifications do not have any {nameof(IsInZone)} condition, or do not have their {nameof(IsInZone.ClosedVolumes)} populated.");
                 return new List<IFramingElement>();
             }
 
@@ -148,7 +148,7 @@ namespace BH.Engine.CIH
 
             if (res.Count() == 0)
             {
-                BH.Engine.Reflection.Compute.RecordWarning("No compatible object found.");
+                BH.Engine.Base.Compute.RecordWarning("No compatible object found.");
                 return new List<IFramingElement>();
             }
 
@@ -167,7 +167,7 @@ namespace BH.Engine.CIH
 
             if (appliedZoneSpecs.Count == 0)
             {
-                BH.Engine.Reflection.Compute.RecordError($"No Applied Zone Specification found. The input Zone specifications do not have any {nameof(IsInZone)} condition, or do not have their {nameof(IsInZone.ClosedVolumes)} populated.");
+                BH.Engine.Base.Compute.RecordError($"No Applied Zone Specification found. The input Zone specifications do not have any {nameof(IsInZone)} condition, or do not have their {nameof(IsInZone.ClosedVolumes)} populated.");
                 return new List<IFramingElement>();
             }
 

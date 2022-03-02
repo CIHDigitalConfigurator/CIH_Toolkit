@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BH.oM.Data;
-using BH.oM.Reflection;
-using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
 using BH.oM.Physical.Elements;
 using BH.oM.Physical;
@@ -35,7 +33,7 @@ namespace BH.Engine.CIH
             if (elevationFrom == ElevationFrom.HighestPoint)
                 return BH.Engine.CIH.Query.Points(obj.Location).OrderBy(p => p.Z).Last().Z;
 
-            BH.Engine.Reflection.Compute.RecordError($"Could not compute the elevation of a {obj.GetType().Name}.");
+            BH.Engine.Base.Compute.RecordError($"Could not compute the elevation of a {obj.GetType().Name}.");
             return 0;
         }
     }

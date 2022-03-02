@@ -33,7 +33,7 @@ using BH.oM.Geometry;
 using BH.oM.Dimensional;
 using BH.Engine.Geometry;
 using BH.oM.Data.Specifications;
-using BH.oM.Reflection.Attributes;
+
 using System.ComponentModel;
 using BH.oM.Data.Collections;
 using BH.oM.Data.Library;

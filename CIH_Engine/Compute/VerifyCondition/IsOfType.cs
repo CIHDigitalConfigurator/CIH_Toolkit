@@ -17,12 +17,12 @@ namespace BH.Engine.CIH
             ConditionResult result = new ConditionResult() { Condition = typeCondition };
             List<string> info = new List<string>();
 
-            Type type = typeCondition.Type is string ? BH.Engine.Reflection.Create.Type(typeCondition.Type.ToString()) : typeCondition.Type as Type;
+            Type type = typeCondition.Type is string ? BH.Engine.Base.Create.Type(typeCondition.Type.ToString()) : typeCondition.Type as Type;
 
             if (type == null)
             {
                 string error = $"Invalid {nameof(IsOfType.Type)} input in the given {nameof(IsOfType)}.";
-                BH.Engine.Reflection.Compute.RecordError(error);
+                BH.Engine.Base.Compute.RecordError(error);
                 result.FailedObjects = objects;
                 result.FailInfo = Enumerable.Repeat(error, objects.Count).ToList();
                 return result;

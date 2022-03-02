@@ -71,7 +71,7 @@ namespace BH.Engine.CIH
                 {
                     string[] props = sourceName.Split('.');
 
-                    Type fragmentType = BH.Engine.Reflection.Create.Type(sourceName, true);
+                    Type fragmentType = BH.Engine.Base.Create.Type(sourceName, true);
 
                     if (fragmentType != null)
                     {
@@ -84,12 +84,12 @@ namespace BH.Engine.CIH
                 else
                 {
                     // Try extracting the property using an Extension method.
-                    MethodInfo method = BH.Engine.Reflection.Query.ExtensionMethodToCall(obj, sourceName);
+                    MethodInfo method = BH.Engine.Base.Query.ExtensionMethodToCall(obj, sourceName);
                     if (method != null)
-                        value = BH.Engine.Reflection.Compute.RunExtensionMethod(obj, method);
+                        value = BH.Engine.Base.Compute.RunExtensionMethod(obj, method);
                     else
                         if (errorIfNotFound)
-                            BH.Engine.Reflection.Compute.RecordError($"No property, customData or ExtensionMethod found with name `{sourceName}` for this {obj.GetType().Name}.");
+                            BH.Engine.Base.Compute.RecordError($"No property, customData or ExtensionMethod found with name `{sourceName}` for this {obj.GetType().Name}.");
                 }
             }
 

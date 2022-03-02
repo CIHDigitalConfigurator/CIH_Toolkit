@@ -16,7 +16,7 @@ namespace BH.Engine.CIH
         {
             if (condition == null)
             {
-                BH.Engine.Reflection.Compute.RecordError($"The condition is null. Please specify a valid condition.");
+                BH.Engine.Base.Compute.RecordError($"The condition is null. Please specify a valid condition.");
                 return true;
             }
 
@@ -27,7 +27,7 @@ namespace BH.Engine.CIH
             {
                 if (subCond.GetValue(condition) == null)
                 {
-                    BH.Engine.Reflection.Compute.RecordError($"The condition `{condition.GetType().Name}.{subCond.Name}` is null. Please specify a valid condition.");
+                    BH.Engine.Base.Compute.RecordError($"The condition `{condition.GetType().Name}.{subCond.Name}` is null. Please specify a valid condition.");
                     isAnyNull = true;
                 }
 

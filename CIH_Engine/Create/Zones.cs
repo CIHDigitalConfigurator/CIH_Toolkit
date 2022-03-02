@@ -33,7 +33,7 @@ using BH.oM.Geometry;
 using BH.oM.Dimensional;
 using BH.Engine.Geometry;
 using BH.oM.Data.Specifications;
-using BH.oM.Reflection.Attributes;
+
 using System.ComponentModel;
 using BH.oM.Data.Collections;
 using BH.oM.Data.Library;
@@ -63,14 +63,14 @@ namespace BH.Engine.CIH
             {
                 if(zone_zoneDims[zoneName].Count() > 1)
                 {
-                    BH.Engine.Reflection.Compute.RecordWarning($"Cannot create {zoneName}: more than 1 `{nameof(ZoneDimensions)}` objects specified for it.");
+                    BH.Engine.Base.Compute.RecordWarning($"Cannot create {zoneName}: more than 1 `{nameof(ZoneDimensions)}` objects specified for it.");
                     continue;
                 }
 
                 ZoneDimensions zoneDims = zone_zoneDims[zoneName].FirstOrDefault();
                 if (zoneDims == null)
                 {
-                    BH.Engine.Reflection.Compute.RecordWarning($"Cannot create {zoneName}: no valid `{nameof(ZoneDimensions)}` objects found for it.");
+                    BH.Engine.Base.Compute.RecordWarning($"Cannot create {zoneName}: no valid `{nameof(ZoneDimensions)}` objects found for it.");
                     continue;
                 }
 
