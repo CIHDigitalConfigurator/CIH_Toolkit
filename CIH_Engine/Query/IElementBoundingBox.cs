@@ -56,21 +56,21 @@ namespace BH.Engine.CIH
                 if (pars[0] != 0 && (pars.Count() == 1 || (pars[1] == 0 && pars[2] == 0)))
                     return ElementBoundingBox(geometricalObj, pars.FirstOrDefault());
                 else
-                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {geometricalObj.GetType().Name}. Specified {pars.Count()} dimensions while only 1 is required.");
+                    BH.Engine.Base.Compute.RecordError($"Incorrect number of dimensions specified for this {geometricalObj.GetType().Name}. Specified {pars.Count()} dimensions while only 1 is required.");
 
             if (element is IElement1D)
                 if (pars[0] != 0 && pars[1] != 0 && (pars.Count() == 2 || pars[0] != 0) )
                     return ElementBoundingBox(element as IElement1D, pars[0], pars[1]);
                 else
-                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {geometricalObj.GetType().Name}. Specified {pars.Count()} dimensions while 2 are required.");
+                    BH.Engine.Base.Compute.RecordError($"Incorrect number of dimensions specified for this {geometricalObj.GetType().Name}. Specified {pars.Count()} dimensions while 2 are required.");
 
             if (element is IElement0D)
                 if (pars.Count() == 3)
                     return ElementBoundingBox(element as IElement0D, pars[0], pars[1], pars[2]);
                 else
-                    BH.Engine.Reflection.Compute.RecordError($"Incorrect number of dimensions specified for this {geometricalObj.GetType().Name}. Specified {pars.Count()} dimensions while 3 are required.");
+                    BH.Engine.Base.Compute.RecordError($"Incorrect number of dimensions specified for this {geometricalObj.GetType().Name}. Specified {pars.Count()} dimensions while 3 are required.");
 
-            BH.Engine.Reflection.Compute.RecordError($"No matching method found for element {geometricalObj.GetType().Name} and dimensions {string.Join(", ", pars)}");
+            BH.Engine.Base.Compute.RecordError($"No matching method found for element {geometricalObj.GetType().Name} and dimensions {string.Join(", ", pars)}");
             return null;
 
         }
@@ -110,7 +110,7 @@ namespace BH.Engine.CIH
                 return ElementBoundingBox(line, localYDimension, localZDimension);
             }
 
-            BH.Engine.Reflection.Compute.RecordError($"This method currently supports only Elements that are of type {nameof(Line)}.");
+            BH.Engine.Base.Compute.RecordError($"This method currently supports only Elements that are of type {nameof(Line)}.");
             return null;
         }
 
@@ -128,7 +128,7 @@ namespace BH.Engine.CIH
 
             if (!isHorizontal && !isVertical)
             {
-                BH.Engine.Reflection.Compute.RecordError("Line must be either horizontal or vertical.");
+                BH.Engine.Base.Compute.RecordError("Line must be either horizontal or vertical.");
                 return null;
             }
 
@@ -173,7 +173,7 @@ namespace BH.Engine.CIH
 
             if (bb == null)
             {
-                BH.Engine.Reflection.Compute.RecordError($"Error computing the BoundingBox of the Reference Line.");
+                BH.Engine.Base.Compute.RecordError($"Error computing the BoundingBox of the Reference Line.");
                 return null;
             }
 

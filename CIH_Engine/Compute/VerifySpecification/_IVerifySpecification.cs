@@ -44,7 +44,7 @@ namespace BH.Engine.CIH
         // Fallback
         private static SpecificationResult VerifySpecification(List<object> objects, ISpecification specification)
         {
-            BH.Engine.Reflection.Compute.RecordError($"No method found to apply specification of type {specification.GetType()}.");
+            BH.Engine.Base.Compute.RecordError($"No method found to apply specification of type {specification.GetType()}.");
             return new SpecificationResult();
         }
     }

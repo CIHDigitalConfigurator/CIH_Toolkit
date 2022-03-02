@@ -25,12 +25,12 @@ namespace BH.Engine.CIH
 
             if (logicalCondition.BooleanOperator == BooleanOperator.NOT)
             {
-                BH.Engine.Reflection.Compute.RecordError($"Boolean operator `{BooleanOperator.NOT}` is not applicable when combining filters.");
+                BH.Engine.Base.Compute.RecordError($"Boolean operator `{BooleanOperator.NOT}` is not applicable when combining filters.");
                 return null;
             }
 
             //if (logicalCondition.Conditions.Count > 1)
-            //    BH.Engine.Reflection.Compute.RecordNote($"A total of {logicalCondition.Conditions.Count} filters were specified. The filters will be applied in sequential order: the result of the first filtering will be filtered by the second filter, and so on.");
+            //    BH.Engine.Base.Compute.RecordNote($"A total of {logicalCondition.Conditions.Count} filters were specified. The filters will be applied in sequential order: the result of the first filtering will be filtered by the second filter, and so on.");
 
             List<bool> passes = new List<bool>();
             Enumerable.Repeat(true, objects.Count);
@@ -75,7 +75,7 @@ namespace BH.Engine.CIH
 
             if (bools.Count != objects.Count)
             {
-                BH.Engine.Reflection.Compute.RecordError("Error in combining filters.");
+                BH.Engine.Base.Compute.RecordError("Error in combining filters.");
                 return new ConditionResult();
             }
 

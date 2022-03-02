@@ -34,8 +34,7 @@ using BH.oM.Dimensional;
 using BH.Engine.Geometry;
 using System.ComponentModel;
 using BH.oM.Data.Specifications;
-using BH.oM.Reflection.Attributes;
-using BH.oM.Reflection;
+using BH.oM.Base.Attributes;
 
 namespace BH.Engine.CIH
 {
@@ -54,7 +53,7 @@ namespace BH.Engine.CIH
 
             if (bb == null)
             {
-                BH.Engine.Reflection.Compute.RecordError($"Cannot evaluate the bounding box of the object of type {iObj.GetType()}");
+                BH.Engine.Base.Compute.RecordError($"Cannot evaluate the bounding box of the object of type {iObj.GetType()}");
                 return false;
             }
             double maxVert = Math.Abs(bb.Max.Z - bb.Min.Z);

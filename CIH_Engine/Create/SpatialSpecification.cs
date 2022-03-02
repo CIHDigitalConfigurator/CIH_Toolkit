@@ -33,8 +33,8 @@ using BH.oM.Geometry;
 using BH.oM.Dimensional;
 using BH.Engine.Geometry;
 using BH.oM.Data.Specifications;
-using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
+using BH.oM.Base.Attributes;
 
 namespace BH.Engine.CIH
 {
@@ -50,7 +50,7 @@ namespace BH.Engine.CIH
 
             foreach (var loc in referenceElements)
             {
-                string zoneName = Reflection.Query.PropertyValue(loc, "ZoneName") as string;
+                string zoneName = Base.Query.PropertyValue(loc, "ZoneName") as string;
 
                 if (zoneName == zoneSpecification.ZoneName)
                     result.Locations.Add(loc);
@@ -89,7 +89,7 @@ namespace BH.Engine.CIH
             }
 
             if (missingProp)
-                BH.Engine.Reflection.Compute.RecordError($"Some {nameof(referenceElements)} object did not have the required `{prop}` property in its CustomData.");
+                BH.Engine.Base.Compute.RecordError($"Some {nameof(referenceElements)} object did not have the required `{prop}` property in its CustomData.");
 
             Dictionary<string, ZoneSpecification> zoneDic = zoneSpecifications.GroupBy(z => z.ZoneName).ToDictionary(g => g.Key, g => g.FirstOrDefault());
             HashSet<string> zoneSpecsNotFound = new HashSet<string>();
@@ -112,7 +112,7 @@ namespace BH.Engine.CIH
             {
                 foreach (var notFoundZoneName in zoneSpecsNotFound)
                 {
-                    BH.Engine.Reflection.Compute.RecordWarning($"No Zone specification was found for the Zone named `{notFoundZoneName}` that was required by some of the objects provided.");
+                    BH.Engine.Base.Compute.RecordWarning($"No Zone specification was found for the Zone named `{notFoundZoneName}` that was required by some of the objects provided.");
                 }
             }
 

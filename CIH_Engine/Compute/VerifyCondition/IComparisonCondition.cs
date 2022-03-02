@@ -19,7 +19,7 @@ namespace BH.Engine.CIH
             if (vc != null)
                 return VerifyCondition(objects, vc);
 
-            BH.Engine.Reflection.Compute.RecordError($"Failed to verify Condition of type {comparisonCondition.GetType().Name}");
+            BH.Engine.Base.Compute.RecordError($"Failed to verify Condition of type {comparisonCondition.GetType().Name}");
             return new ConditionResult();
         }
     }

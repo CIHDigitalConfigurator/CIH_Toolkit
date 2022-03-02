@@ -90,7 +90,7 @@ namespace BH.Engine.CIH
                 return BH.Engine.Geometry.Query.IsContaining(bb, geom, acceptOnEdge, tolerance);
 
 
-            BH.Engine.Reflection.Compute.RecordError($"No valid IsContaining method found for container object of type {container.GetType().Name}.");
+            BH.Engine.Base.Compute.RecordError($"No valid IsContaining method found for container object of type {container.GetType().Name}.");
             return false;
         }
 

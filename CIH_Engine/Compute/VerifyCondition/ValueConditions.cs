@@ -45,7 +45,7 @@ namespace BH.Engine.CIH
 
             var refValue = cond.ReferenceValue;
             if (refValue == null)
-                BH.Engine.Reflection.Compute.RecordNote($"A {cond.GetType().Name}'s {nameof(cond.ReferenceValue)} was null. Make sure this is intended.\nTo check for null/not null, consider using a {nameof(IsNull)} instead.");
+                BH.Engine.Base.Compute.RecordNote($"A {cond.GetType().Name}'s {nameof(cond.ReferenceValue)} was null. Make sure this is intended.\nTo check for null/not null, consider using a {nameof(IsNull)} instead.");
 
 
             ValueCondition valueCondition = cond.ToValueCondition();
