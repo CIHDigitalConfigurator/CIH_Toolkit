@@ -35,7 +35,6 @@ namespace BH.Engine.CIH
             // Then apply the check to the filteredObject
             ConditionResult checkResult = VerifyConditions(filterResult.PassedObjects, specification.CheckConditions);
 
-
             return PopulateSpecificationResult(specification, filterResult, checkResult);
         }
 

@@ -41,7 +41,7 @@ namespace BH.Engine.CIH
                     else
                     {
                         result.FailedObjects.Add(obj);
-                        failInfo.Add($"{(string.IsNullOrWhiteSpace(isInZone.Clause) ? "" : isInZone.Clause + " failed: ")}" +
+                        failInfo.Add($"{(string.IsNullOrWhiteSpace(isInZone.Clause) ? $"{nameof(IsInZone)}" : isInZone.Clause + " failed: ")}" +
                             $"{isInZone.ToString()}");
                     }
                 }

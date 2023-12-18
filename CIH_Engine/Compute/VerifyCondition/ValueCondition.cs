@@ -121,7 +121,7 @@ namespace BH.Engine.CIH
             string conditionText = valueCondition.ToString();
             conditionText = conditionText.Replace(valueCondition.PropertyName + " ", "");
 
-            result.FailInfo.Add($"{(string.IsNullOrWhiteSpace(valueCondition.Clause) ? "" : valueCondition.Clause + " failed: ")}" +
+            result.FailInfo.Add($"{(string.IsNullOrWhiteSpace(valueCondition.Clause) ? $"{nameof(ValueCondition)}" : valueCondition.Clause + " failed: ")}" +
                 $"{valueCondition.PropertyName} must be {conditionText}, but is {valueString ?? "empty"}.");
         }
 

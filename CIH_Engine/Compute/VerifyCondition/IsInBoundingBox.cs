@@ -33,7 +33,7 @@ namespace BH.Engine.CIH
                     else
                     {
                         result.FailedObjects.Add(obj);
-                        failInfo.Add($"{(string.IsNullOrWhiteSpace(bbc.Clause) ? "" : bbc.Clause + " failed: ")}" +
+                        failInfo.Add($"{(string.IsNullOrWhiteSpace(bbc.Clause) ? $"{nameof(IsInBoundingBox)}" : bbc.Clause + " failed: ")}" +
                             $"Object not in the specified Bounding Box.");
                     }
                 }

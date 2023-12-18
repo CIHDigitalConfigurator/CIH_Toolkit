@@ -35,7 +35,7 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    info.Add($"{(string.IsNullOrWhiteSpace(setCondition.Clause) ? "" : setCondition.Clause + " failed: ")}" +
+                    info.Add($"{(string.IsNullOrWhiteSpace(setCondition.Clause) ? $"{nameof(IsInSet)}" : setCondition.Clause + " failed: ")}" +
                         $": value of {setCondition.PropertyName} is {value}, which is not among: {string.Join(" | ", setCondition.Set.Select(v => v.ToString()))}.");
                 }
 
