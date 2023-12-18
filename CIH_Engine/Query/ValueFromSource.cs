@@ -45,9 +45,9 @@ namespace BH.Engine.CIH
                 return prop.GetValue(obj);
             else
                 if (obj is IBHoMObject)
-                    return GetValue(obj as IBHoMObject, sourceName, errorIfNotFound);
-                else 
-                    return GetValue(obj as dynamic, sourceName);
+                return GetValue(obj as IBHoMObject, sourceName, errorIfNotFound);
+            else
+                return GetValue(obj as dynamic, sourceName);
         }
 
         private static object GetValue(this IBHoMObject obj, string sourceName, bool errorIfNotFound = false)
@@ -84,10 +84,7 @@ namespace BH.Engine.CIH
                 else
                 {
                     // Try extracting the property using an Extension method.
-                    MethodInfo method = BH.Engine.Base.Query.ExtensionMethodToCall(obj, sourceName);
-                    if (method != null)
-                        value = BH.Engine.Base.Compute.RunExtensionMethod(obj, method);
-                    else
+                    if (!BH.Engine.Base.Compute.TryRunExtensionMethod(obj, sourceName, out value))
                         if (errorIfNotFound)
                             BH.Engine.Base.Compute.RecordError($"No property, customData or ExtensionMethod found with name `{sourceName}` for this {obj.GetType().Name}.");
                 }
