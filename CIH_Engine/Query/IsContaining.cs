@@ -47,10 +47,18 @@ namespace BH.Engine.CIH
             else if (containmentRule == ContainmentRules.Geometry3D)
             {
                 geom = BH.Engine.Base.Query.IGeometry3D(iObj);
-                BoundingBox bb = BH.Engine.Geometry.Query.IBounds(geom);
+                if (geom == null)
+                {
+                    BH.Engine.Base.Compute.RecordError($"Could not get Geometry3D for {iObj.GetType().FullName}.");
+                    passed = false;
+                }
+                else
+                {
+                    BoundingBox bb = BH.Engine.Geometry.Query.IBounds(geom);
 
-                if (container.IIsContaining(bb))
-                    passed = true;
+                    if (container.IIsContaining(bb))
+                        passed = true;
+                }
             }
             else if (containmentRule == ContainmentRules.BoundingBoxCentre)
             {
