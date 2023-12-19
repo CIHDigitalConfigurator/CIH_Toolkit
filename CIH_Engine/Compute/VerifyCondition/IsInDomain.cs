@@ -40,7 +40,7 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    failInfo.Add($"{(string.IsNullOrWhiteSpace(domainCondition.Clause) ? $"{nameof(IsInDomain)}" : domainCondition.Clause + " failed: ")}" +
+                    failInfo.Add($"{(string.IsNullOrWhiteSpace(domainCondition.Clause) ? $"{nameof(IsInDomain)}" : domainCondition.Clause) + " failed: "}" +
                         $"value of {domainCondition.PropertyName} is {value}, which is not in ({domainCondition.Domain.Min}, {domainCondition.Domain.Max}).");
                 }
 

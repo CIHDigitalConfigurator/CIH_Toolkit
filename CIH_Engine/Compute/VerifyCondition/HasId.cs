@@ -27,7 +27,7 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    result.FailInfo.Add($"{(string.IsNullOrWhiteSpace(idCondition.Clause) ? $"{nameof(HasId)}" : idCondition.Clause + " failed: ")}" +
+                    result.FailInfo.Add($"{(string.IsNullOrWhiteSpace(idCondition.Clause) ? $"{nameof(HasId)}" : idCondition.Clause) + " failed: "}" +
                         $"object does not have the requested id.");
                     result.Pattern.Add(false);
                 }

@@ -38,7 +38,7 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    info.Add($"{(string.IsNullOrWhiteSpace(typeCondition.Clause) ? $"{nameof(IsOfType)}" : typeCondition.Clause + " failed: ")}" +
+                    info.Add($"{(string.IsNullOrWhiteSpace(typeCondition.Clause) ? $"{nameof(IsOfType)}" : typeCondition.Clause) + " failed: "}" +
                         $"Type was `{obj.GetType().Name}` instead of `{type.Name}`.");
                     result.Pattern.Add(false);
                 }

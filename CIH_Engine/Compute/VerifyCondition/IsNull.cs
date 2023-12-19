@@ -35,7 +35,7 @@ namespace BH.Engine.CIH
                 else
                 {
                     result.FailedObjects.Add(obj);
-                    info.Add($"{(string.IsNullOrWhiteSpace(valueNullCondition.Clause) ? $"{nameof(IsNull)}" : valueNullCondition.Clause + " failed: ")}" +
+                    info.Add($"{(string.IsNullOrWhiteSpace(valueNullCondition.Clause) ? $"{nameof(IsNull)}" : valueNullCondition.Clause) + " failed: "}" +
                         $"{valueNullCondition.PropertyName} was {value ?? "empty"}, which does not respect '{valueNullCondition.ToString()}'.");
                 }
 
